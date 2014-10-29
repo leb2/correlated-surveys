@@ -1,0 +1,3 @@
+[submodule "nurvey/static/nurvey/bootstrap"]
+	path = nurvey/static/nurvey/bootstrap
+	url = https://github.com/angular-ui/bootstrap.git
