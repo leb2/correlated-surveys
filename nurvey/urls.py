@@ -4,5 +4,6 @@ from nurvey import views
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.landing, name='landing')
+    url(r'^$', views.landing, name='landing'),
+    url(r'^create/', include('create.urls', namespace='create'))
 )

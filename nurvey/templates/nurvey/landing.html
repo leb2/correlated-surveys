@@ -1,13 +1,26 @@
-{% extends 'nurvey/navigation.html' %}
+{% extends 'nurvey/base.html' %}
+{% load staticfiles %}
+
+{% block js %}
+	<script src="{% static 'nurvey/angular-apps/app.js' %}"></script>
+	<script src="{% static 'nurvey/angular-apps/navigation.js' %}"></script>
+{% endblock js %}
 
 
-{% block content %}
+{% block body %}
 
-	<div ng-controller='TestController as test'>
-		<input type='text' />
+{% include "nurvey/django-templates/navbar.html" %}
 
+{% verbatim %}
+
+	<div class='container'>
+		<div>
+			<input type='text'/>
+			{{ 1 + 1 }}
+		</div>
 	</div>
 
+{% endverbatim %}
 {% endblock %}
 
 
