@@ -1,0 +1,34 @@
+{% extends 'nurvey/base.html' %}
+{% load staticfiles %}
+
+{% block js %}
+<script type='text/javascript' src='{% static "create/ng-apps/create.js" %}'></script>	
+{% endblock js %}
+
+{% block ng-app %}CreateApp{% endblock ng-app %}
+
+
+{% block body %}
+{% include "nurvey/django-templates/navbar.html" %}
+{% verbatim %}
+
+<div class='container' ng-controller='surveyController as survey'>
+	<div ng-repeat='question in survey.questions'>
+		<div class='row'>
+			<question-create question='question' questions='survey.questions'>
+			</question-create>
+		</div>
+		<hr/>
+	</div>
+	<div class='row' style='margin-top: 50px'>
+		<div class='col-md-12 text-center'>
+			<button type='button' class='btn btn-primary' ng-click='survey.addQuestion()'>
+				ADD QUESTION <span class='glyphicon glyphicon-plus'></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+{% endverbatim %}
+{% endblock body %}

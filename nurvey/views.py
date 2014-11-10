@@ -4,4 +4,4 @@ import json
 
 
 def landing(request):
-    return render(request, 'nurvey/landing.html')
+    return render(request, 'nurvey/index.html')

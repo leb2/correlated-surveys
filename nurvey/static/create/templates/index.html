@@ -1,0 +1,37 @@
+
+<div class='container'>
+
+	<!-- SURVEY TITLE -->
+	<div class='text-center row' style='padding: 35px'>
+		<div class='input-group'>
+			<span class='input-group-addon'>Survey Title</span>
+			<input type='text' class='form-control' placeholder='Untitled Survey' ng-model='survey.survey.title'>
+		</div>
+	</div>
+
+
+	<!-- QUESTION + DEMO -->
+	<div ng-repeat='question in survey.questions'>
+		<div class='row'>
+			<question-create question='question' questions='survey.questions'>
+			</question-create>
+		</div>
+		<hr/>
+	</div>
+
+	<!-- BUTTONS -->
+	<div class='row' style='margin-top: 50px'>
+		<div class='col-md-12 text-center'>
+			<div class="btn-group">
+			<button type='button' class='btn btn-primary' ng-click='survey.addQuestion()'>
+				ADD QUESTION <span class='glyphicon glyphicon-plus'></span>
+			</button>
+			<button type='button' class='btn btn-success' ng-click='survey.submit()'>
+				SUBMIT
+			</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+

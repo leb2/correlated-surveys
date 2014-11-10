@@ -1,0 +1,86 @@
+<div>
+
+	<div class='col-md-5'>
+
+
+		<div class='panel panel-default'>
+
+			<div class='panel-heading'>
+				<label>Title</label>
+				<div class='input-group'>
+					<input id='title' type='text' class='form-control' ng-model='question.title'></input>
+					<div class='input-group-btn'>
+						<button type='button' class='btn btn-danger' ng-click='questionController.remove()' ng-disabled='questions.length <= 1'>
+							<span class='glyphicon glyphicon-remove'></span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class='panel-body'>
+				<div class='row'>
+					<div class='col-md-12'>
+						<label for='description'>Description</label>
+						<textarea id='description' class='form-control' rows='2' ng-model='question.description'></textarea>
+					</div>
+				</div> <!-- /row -->
+				<div class='row'>
+					<div class='col-md-12' ng-cloak>
+						<div class='text-center'>
+
+							<div class="btn-group" style="margin-top: 20px">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									{{ selectedTitle }} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li ng-repeat='questionType in questionTypes' style="cursor: pointer">
+										<a ng-click='select(questionType)'>{{ questionType.title }}</a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+						<div class='content'>
+							<!-- Add all of the question creation parameter directives here -->
+							<choice-create questiontype='findQuestionType("choice")' ng-show='findQuestionType("choice").selected'></choice-create>
+							<yes-no-create questiontype='findQuesitonType("yesNo")' ng-show='findQuestionType("yesNo").selected'></yes-no-create>
+						</div>
+					</div>
+				</div>
+			</div> <!-- /panel-body -->
+
+		</div> <!-- /panel -->
+
+
+	</div> <!-- col-md-5 -->
+
+
+	<!-- DEMO -->
+	<div class='col-md-7'>
+
+
+		<div class='panel panel-default'>
+
+			<div class='panel-heading text-center'>
+				<strong>{{ question.title }}</strong>
+				<strong ng-show='!question.title'>DEMOs</strong>
+			</div>
+			<div class='panel-body' ng-cloak>
+				<label ng-show='question.description.length > 0'>Description</label>
+				<div class='well well-sm' ng-bind='question.description' ng-show='question.description.length > 0'></div>
+
+				<div ng-repeat="questionType in questionTypes">
+					<div ng-show='questionType.selected'>
+						{{ questionType.title }}
+					</div>
+					<demo questiontype='questionType.name' ng-show='questionType.selected'>
+					</demo>
+				</div>
+
+			</div>
+
+		</div> <!-- /panel -->
+
+
+	</div> <!-- col-md-7 -->
+</div> <!-- /row --> 
