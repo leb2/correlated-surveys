@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block js %}
-	<script src="{% static 'create/ng-apps/create.js'%}"></script>
+	<script src="{% static 'create/js/create.js'%}"></script>
 	<script src="{% static 'nurvey/js/app.js' %}"></script>
 {% endblock js %}
 
@@ -28,6 +28,7 @@
 
 				<!-- New username system with pure ajax -->
 				<!-- Server api needs to return empty string when user is not signed in -->
+				<!-- Not yet implemented -->
 				<li ng-switch='navbar.username'>
 					<a ng-switch-when='true' href='#/acount'></a>
 					<a ng-switch-default data-toggle='modal' data-target='#login-modal'>LOGIN</a>
