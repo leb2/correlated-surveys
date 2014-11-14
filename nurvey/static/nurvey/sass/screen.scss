@@ -1,0 +1,91 @@
+@import "compass/css3/box-shadow";
+
+
+
+/* -------------------------------- MODAL -------------------------------- */
+
+.login-modal {
+	margin-top: 150px;
+}
+
+.modal-backdrop {
+	z-index: -10;
+}
+
+.modal-body {
+	
+	.row {
+		margin-top: 45px;
+
+		label {
+			width: 100%;
+		}
+	}
+}
+
+
+
+
+
+/* -------------------------------- CREATE -------------------------------- */
+
+
+#content {
+	margin-bottom: 250px;
+}
+
+.create {
+	.panel-heading {
+		.input-group {
+			input {
+				color: black;
+			}
+			input:focus {
+				box-shadow: 0px -2px 0px #88EEFF inset;
+			}
+			.btn {
+				border-radius: 15px;
+				padding: 0px 5px 0px 5px;
+				margin-left: 15px;
+			}
+			.btn:disabled {
+				background: red;
+			}
+			.btn:hover {
+				box-shadow: 0 4px 4px 4px 0.1 black;
+				@include box-shadow(0, 3px, 4px, 0px, rgba(black, 0.1));
+			}
+		}
+	}
+	.panel-body {
+		.input-group-btn button {
+			border-radius: 3px; 
+		}
+	}
+}
+.demo {
+	.panel-heading {
+		color: #333333;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

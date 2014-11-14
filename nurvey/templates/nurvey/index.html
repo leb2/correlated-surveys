@@ -8,26 +8,87 @@
 
 
 {% block ng-app %}nurveyApp{% endblock %}
-
-
 {% block body %}
 
-<nav class='navbar navbar-default navbar-static-top' role='navigation'>
-<div class='container'>
-	<div class='navbar-header'>
-		<a class='navbar-brand' href='#'>Brand</a>
+{% verbatim %}
+
+<!-- NAVBAR -->
+<nav class='navbar navbar-default navbar-static-top' role='navigation' ng-controller='NavbarController as navbar'>
+	<div class='container'>
+		<div class='navbar-header'>
+			<a class='navbar-brand' href='#'>Brand</a>
+		</div>
+		<div id='navbar-main' class='navbar-collapse collapse'>
+			<ul class='nav navbar-nav'>
+			</ul>
+			<ul class='nav navbar-nav navbar-right'>
+				<li>
+					<a href='#/create'>CREATE</a>
+				</li>
+
+				<!-- New username system with pure ajax -->
+				<!-- Server api needs to return empty string when user is not signed in -->
+				<li ng-switch='navbar.username'>
+					<a ng-switch-when='true' href='#/acount'></a>
+					<a ng-switch-default data-toggle='modal' data-target='#login-modal'>LOGIN</a>
+				</li>
+
+				<!--
+				{% if user.is_authenticated %}
+				<li>
+					<a class='username' href='#/account'>{{ user.username|upper }}</a>
+				</li>
+				{% else %}
+				<li>
+					<a href data-toggle='modal' data-target='#login-modal'>LOGIN</a>
+				</li>
+				{% endif %}
+				-->
+			</ul>
+		</div>
 	</div>
-	<div id='navbar-main' class='navbar-collapse collapse'>
-		<ul class='nav navbar-nav'>
-		</ul>
-		<ul class='nav navbar-nav navbar-right'>
-			<li>
-				<a href='#/create'>CREATE</a>
-			</li>
-		</ul>
+</nav>
+
+{% endverbatim %}
+
+
+<!-- LOGIN MODAL -->
+<div id='login-modal' class='modal fade' tabindex='-1' role='dialog' ng-controller='LoginController as login'>
+	<div class='modal-dialog'>
+		<div class='modal-content'>
+			<div class='modal-header'>
+				LOG IN
+			</div>
+			<div class='modal-body'>
+				<div style='width: 100%' class='container'>
+					<div class='row'>
+						<label>
+							Username
+							<input ng-model='credentials.username' type='text' class='form-control' required novalidate></input>
+						</label>
+					</div>
+					<div class='row'>
+						<label>
+							Password
+							<input ng-model='credentials.password' type='password' class='form-control' required novalidate></input>
+						</label>
+					</div>
+					<div class='row'>
+						<label>
+							Email
+							<input ng-model='credentials.email' type='email' class='form-control' required novalidate></input>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-click='login.login()'>Login</button>
+				<button type="button" class="btn btn-primary" ng-click='login.register()'>Register</button>
+			</div>
+		</div>
 	</div>
 </div>
-</nav>
 
 {% verbatim %}
 

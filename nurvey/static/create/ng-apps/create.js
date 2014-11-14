@@ -17,14 +17,26 @@
 		};
 
 		this.submit = function() {
+
+			// Extracts parameters from selected questionType and assigns to new property on question
+			angular.forEach(questions, function(question) {
+				angular.forEach(question.questionTypes, function(questionType) {
+					if (questionType.selected) {
+						question.parameters = questionType.parameters;
+					}
+				});
+				delete question.questionTypes;
+			});
+			console.log(questions);
+			console.log(this.survey);
+
+
 			$http.post('/create/submit/', this.survey).
 				success(function(data, status, headers, config) {
 					console.log(data);
 				});
 		};
 	}]);
-
-
 
 
 
@@ -42,14 +54,26 @@
 			},
 			controller: function($scope) {
 
-				$scope.questionTypes = [
+				// Specific 'create' directives have a reference to their corresponding questionType
+				// 'selected' property is used to determine which specific 'create' directive is shown
+				// Question parameters also stored in questionType
+				$scope.question.questionTypes = $scope.questionTypes = [
 					{
 						name: 'choice',
-						title: 'Multiple Choice'
+						title: 'Multiple Choice',
+						// Having the parameters property explicitly defined
+						// neccessary to prevent ambiguous references from demo and create
+						parameters: {}
 					},
 					{
 						name: 'yesNo',
-						title: 'True or False'
+						title: 'True or False',
+						parameters: {}
+					},
+					{
+						name: 'slider',
+						title: 'Range Slider',
+						parameters: {}
 					}
 				];
 
@@ -57,8 +81,7 @@
 
 				// Selects the question type
 				$scope.select = function(questionType) {
-					console.log("Selecting");
-					//$scope.question = {};
+
 					angular.forEach($scope.questionTypes, function(questionType) {
 						questionType.selected = false;
 					});
@@ -74,9 +97,6 @@
 
 				// Removes the question
 				this.remove = function() {
-					console.log('removeing question');
-					console.log($scope.question); 
-					console.log($scope.questions);
 					var questionIndex = $scope.questions.indexOf($scope.question);
 					if (questionIndex > -1) {
 						$scope.questions.splice(questionIndex, 1);
@@ -104,12 +124,13 @@
 				questiontype: '='
 			},
 			controller: function($scope) {
-				$scope.question = $scope.$parent.question;
+				//$scope.question = $scope.$parent.question;
+				$scope.question = $scope.questiontype.parameters;
+
 			},
 			link: function(scope, element, attrs) {
-				scope.contentUrl = '/static/nurvey/directives/' + scope.questiontype + 'Question.html';
-				//$(element).find('.checkbox').checkBo();
-			},
+				scope.contentUrl = '/static/nurvey/directives/' + scope.questiontype.name + 'Question.html';
+			}
 		};
 	});
 
@@ -130,8 +151,9 @@
 			},
 			controller: function($scope) {
 
-				var question = $scope.question = $scope.$parent.question;
-				$scope.choices = question.choices = [{}, {}];
+				//var question = $scope.question = $scope.$parent.question;
+				$scope.question = $scope.questiontype.parameters;
+				$scope.choices = $scope.question.choices = [{}, {}];
 
 				$scope.addChoice = function() {
 					$scope.choices.push({});
@@ -144,8 +166,26 @@
 					}
 				};
 			},
-			link: function(scope, element, attrs) {
-				//$(element).find('.checkbox').checkBo();
+			link: function(scope, elem, attrs) {
+				scope.question = scope;
+			}
+		};
+	});
+
+
+	app.directive('sliderCreate', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/static/create/directives/sliderCreate.html',
+			scope: {
+				questiontype: '='
+			},
+			controller: function($scope) {
+				//var question = $scope.question = $scope.$parent.question;
+				var question = $scope.question = $scope.questiontype.parameters; 
+				$scope.min = question.min = 0;
+				$scope.max = question.max = 10;
+				$scope.step = question.step = 1;
 			}
 		};
 	});
@@ -164,7 +204,7 @@
 			}
 		};
 	});
-	
+
 
 	// Skeleton for parameter directive for new question type
 	// TODO: Make DRYer design 

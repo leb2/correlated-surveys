@@ -1,11 +1,22 @@
-<div class='checkbox' ng-repeat='choice in question.choices'>
+<div ng-switch='question.isCheckbox'>
 
-<label>
-	<span ng-switch='question.isCheckbox'>
-		<input ng-switch-when='true' type='checkbox' name='test'></input>
-		<input ng-switch-default type='radio' name='test'></input>
-	</span>
-	{{ choice.text }}
-	<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
-</label>
+	<div ng-switch-when='true' ng-repeat='choice in question.choices'>
+		<div>
+			<md-checkbox>
+				{{ choice.text }}
+				<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
+			</md-checkbox>
+		</div>
+	</div>
+
+	<div ng-switch-default>
+		<md-radio-group ng-model='selected'>
+			<md-radio-button ng-repeat="choice in question.choices" ng-value="choice" aria-label="{{ choice.text }}">
+				{{ choice.text }}
+				<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
+			</md-radio-button>
+		</md-radio-group>
+	</div>
+
 </div>
+

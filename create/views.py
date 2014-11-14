@@ -12,7 +12,7 @@ def submit(request):
         survey = json.loads(request.body)
 
         # TODO: Replace owner_id=1 with actual owner id
-        survey_entry = Survey(title=survey['title'], description=survey['description'], owner_id=1)
+        survey_entry = Survey(title=survey['title'], description=survey['description'], owner_id=request.user)
         survey_entry.save()
         questions = survey['questions']
 

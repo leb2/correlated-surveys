@@ -3,10 +3,10 @@
 	<div class='col-md-5'>
 
 
-		<div class='panel panel-default'>
+		<div class='panel panel-primary create'>
 
 			<div class='panel-heading'>
-				<label>Title</label>
+
 				<div class='input-group'>
 					<input id='title' type='text' class='form-control' ng-model='question.title'></input>
 					<div class='input-group-btn'>
@@ -40,10 +40,11 @@
 							</div>
 
 						</div>
-						<div class='content'>
+						<div class='content' ng-cloak>
 							<!-- Add all of the question creation parameter directives here -->
 							<choice-create questiontype='findQuestionType("choice")' ng-show='findQuestionType("choice").selected'></choice-create>
-							<yes-no-create questiontype='findQuesitonType("yesNo")' ng-show='findQuestionType("yesNo").selected'></yes-no-create>
+							<yes-no-create questiontype='findQuestionType("yesNo")' ng-show='findQuestionType("yesNo").selected'></yes-no-create>
+							<slider-create questiontype='findQuestionType("slider")' ng-show='findQuestionType("slider").selected'></slider-create>
 						</div>
 					</div>
 				</div>
@@ -56,14 +57,14 @@
 
 
 	<!-- DEMO -->
-	<div class='col-md-7'>
+	<div class='col-md-7 demo'>
 
 
-		<div class='panel panel-default'>
+		<div class='panel panel-success'>
 
 			<div class='panel-heading text-center'>
 				<strong>{{ question.title }}</strong>
-				<strong ng-show='!question.title'>DEMOs</strong>
+				<strong ng-show='!question.title'>DEMO</strong>
 			</div>
 			<div class='panel-body' ng-cloak>
 				<label ng-show='question.description.length > 0'>Description</label>
@@ -73,7 +74,7 @@
 					<div ng-show='questionType.selected'>
 						{{ questionType.title }}
 					</div>
-					<demo questiontype='questionType.name' ng-show='questionType.selected'>
+					<demo questiontype='findQuestionType(questionType.name)' ng-show='questionType.selected'>
 					</demo>
 				</div>
 
