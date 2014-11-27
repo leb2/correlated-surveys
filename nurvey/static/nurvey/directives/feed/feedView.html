@@ -1,0 +1,114 @@
+<div id='feed' class='container'>
+
+<div class='row'>
+
+	<div class='col-md-9'>
+		<div class='interpanel row' ng-repeat='poll in survey.poll_set'>
+
+			<!-- MAIN PANEL -->
+			<div class='demo'>
+
+				<div class='main panel panel-success'>
+
+					<div class='panel-heading text-center'>
+						<strong>{{ poll.title }}</strong>
+					</div>
+
+
+					<div class='panel-body' ng-cloak>
+						<div class='row'>
+							<div class='col-md-offset-2 col-md-8'>
+								<div class='well well-sm' ng-bind='poll.description'></div>
+							</div>
+						</div>
+						<div class='row'>
+							<specific-poll ng-hide='showResults' poll='poll' questiontype='polltype_mapping[poll.poll_type]'></specific-poll>
+							<div ng-show='showResults' class='results text-center' ng-controller='ResultsController as results'>
+								<canvas></canvas>
+							</div>
+						</div>
+					</div>
+				</div> <!-- /panel -->
+
+			</div> <!-- /col -->
+
+		</div>
+
+		<!-- BUTTONS -->
+		<div class='row text-center'>
+			<div class='col-md-10 col-md-offset-1'>
+				<div class='buttons panel panel-default'>
+					<div class='panel-body'>
+						<div class='row'>
+							<div class='col-md-4 text-center'>
+								<span>
+									<div class='btn-group-vertical' role='group'>
+										<button class='btn btn-success' ng-click='givePoint(true)'>▲</button>
+										<button class='btn btn-danger' ng-click='givePoint(false)'>▼</button>
+									</div>
+								</span>
+								<span class='well points'>
+									{{ survey.num_upvotes - survey.num_downvotes }}
+									<span class='glyphicon glyphicon-leaf'></span>
+								</span>
+							</div>
+							<div class='col-md-4 text-center'>
+								<button class='btn btn-primary' ng-click='submit()'>Submit</button>
+							</div>
+							<div class='col-md-4 text-center'>
+								<button class='btn btn-default'>
+									COMMENT
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- SIDE MENU -->
+	<div class='col-md-3'>
+		<div class='side panel panel-primary' style='position: fixed; width: 20%'>
+			<div class='panel-heading text-center'>
+				<div class='btn-group'role='group'>
+					<button ng-click='previous()' type='button' class='btn btn-default'>
+						<span class='glyphicon glyphicon-chevron-left'></span>
+					</button>
+					<button ng-click='next()' type='button' class='btn btn-success'>
+						<span class='glyphicon glyphicon-chevron-right'></span>
+					</button>
+				</div>
+			</div>
+			<div class='panel-body'>
+				<div class='list-group'>
+					<a  ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}' 
+						ng-repeat='loadedSurvey in loadedSurveys' class='list-group-item'>
+
+						{{ loadedSurvey.poll_set[0].title }}
+						<span ng-hide='loadedSurvey.poll_set[0].title.length'>Untitled</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+<!-- VOTE BUTTONS AND COMMENT -->
+
+
+</div> <!-- /container -->
+
+
+
+
+
+
+
+

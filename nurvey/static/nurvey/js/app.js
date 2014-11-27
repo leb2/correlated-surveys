@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('nurveyApp', ['ngRoute', 'ngMaterial', 'CreateApp']);
+	var app = angular.module('nurveyApp', ['ngRoute', 'ngMaterial', 'feedApp', 'CreateApp']);
 
 	app.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/create', {
@@ -11,6 +11,16 @@
 			templateUrl: '/static/nurvey/directives/account/accountView.html',
 			controller: 'AccountController',
 			controllerAs: 'account'
+		})
+		.when('/feed', {
+			templateUrl: '/static/nurvey/directives/feed/feedView.html',
+			controller: 'FeedController',
+			controllerAs: 'feed'
+		})
+		.when('/feed/:id', {
+			templateUrl: '/static/nurvey/directives/feed/feedView.html',
+			controller: 'FeedController',
+			controllerAs: 'feed'
 		});
 	}]);
 

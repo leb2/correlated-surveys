@@ -8,7 +8,7 @@
 
 
 	// Controller for all of the questions
-	app.controller('surveyController', ['$scope', '$http', function($scope, $http) {
+	app.controller('surveyController', ['$location', '$scope', '$http', function($location, $scope, $http) {
 		this.survey = {title: '', description: ''};
 		var questions = this.survey.questions = this.questions = [{}];
 
@@ -23,6 +23,7 @@
 				angular.forEach(question.questionTypes, function(questionType) {
 					if (questionType.selected) {
 						question.parameters = questionType.parameters;
+						question.type = questionType.name;
 					}
 				});
 				delete question.questionTypes;
@@ -30,10 +31,10 @@
 			console.log(questions);
 			console.log(this.survey);
 
-
-			$http.post('/create/submit/', this.survey).
+			$http.post('/surveys/', this.survey).
 				success(function(data, status, headers, config) {
-					console.log(data);
+					id = data;
+					$location.path('/feed/' + id);
 				});
 		};
 	}]);
@@ -47,6 +48,7 @@
 	app.directive('questionCreate', function() {
 		return {
 			restrict: 'E', 
+
 			templateUrl: '/static/create/directives/questionCreate.html',
 			scope: {
 				question: '=',
@@ -82,7 +84,7 @@
 				// Selects the question type
 				$scope.select = function(questionType) {
 
-					angular.forEach($scope.questionTypes, function(questionType) {
+				angular.forEach($scope.questionTypes, function(questionType) {
 						questionType.selected = false;
 					});
 					questionType.selected = true;
@@ -129,7 +131,7 @@
 
 			},
 			link: function(scope, element, attrs) {
-				scope.contentUrl = '/static/nurvey/directives/' + scope.questiontype.name + 'Question.html';
+				scope.contentUrl = '/static/create/directives/demos/' + scope.questiontype.name + 'Question.html';
 			}
 		};
 	});
@@ -145,7 +147,7 @@
 	app.directive('choiceCreate', function() {
 		return {
 			restrict: 'E', 
-			templateUrl: '/static/create/directives/choiceCreate.html',
+			templateUrl: '/static/create/directives/create-params/choiceCreate.html',
 			scope: {
 				questiontype: '='
 			},
@@ -176,7 +178,7 @@
 	app.directive('sliderCreate', function() {
 		return {
 			restrict: 'E',
-			templateUrl: '/static/create/directives/sliderCreate.html',
+			templateUrl: '/static/create/directives/create-params/sliderCreate.html',
 			scope: {
 				questiontype: '='
 			},
@@ -195,7 +197,7 @@
 	app.directive('yesNoCreate', function() {
 		return {
 			restrict: 'E',
-			templateUrl: '/static/create/directives/yesNoCreate.html',
+			templateUrl: '/static/create/directives/create-params/yesNoCreate.html',
 			scope: {
 				questiontype: '='
 			},
@@ -211,7 +213,7 @@
 	app.directive('typenameCreate', function() {
 		return {
 			restrict: 'E',
-			templateUrl: '/static/create/directives/yesNoCreate.html',
+			templateUrl: '/static/create/directives/create-params/yesNoCreate.html',
 			scope: {
 				questiontype: '='
 			},

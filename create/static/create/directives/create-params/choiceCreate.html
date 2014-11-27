@@ -1,0 +1,26 @@
+<!-- Toggle Allow Multiple Selection -->
+<div class='checkbox' style='margin-top: 25px'>
+<label>
+	<md-checkbox ng-model='question.isCheckbox' aria-label="Allow Multiple Selection">Allow Multiple Selection</md-checkbox>
+</label>
+</div>
+
+<!-- Input Choices -->
+<label>Choices</label>
+<div ng-repeat='choice in choices' style='margin-top: 15px'>
+<div class='input-group'>
+	<input type='text' class='form-control' ng-model='choice.text' placeholder='Choice {{ $index + 1 }}'></input>
+	<div class='input-group-btn'>
+		<button tabindex='-1' type='button' class='btn btn-danger' ng-click='removeChoice(choice)' ng-disabled='choices.length <= 2'>
+			<span class='glyphicon glyphicon-remove'></span>
+		</button>
+	</div>
+</div>
+</div>
+
+<!-- Add Choice Button -->
+<div class='text-center' style='margin-top: 15px'>
+	<button type='button' class='btn btn-sm btn-success' ng-click='addChoice()'>
+		Add Choice&nbsp <span class='glyphicon glyphicon-plus'></span>
+	</button>
+</div>

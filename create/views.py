@@ -5,14 +5,14 @@ from django.views.decorators.csrf import csrf_exempt
 from nurvey.models import *
 
 
+'''
 # Create your views here.
 @csrf_exempt
 def submit(request):
     if request.method == 'POST':
         survey = json.loads(request.body)
 
-        # TODO: Replace owner_id=1 with actual owner id
-        survey_entry = Survey(title=survey['title'], description=survey['description'], owner_id=request.user)
+        survey_entry = Survey(title=survey['title'], description=survey['description'], owner_id=request.user.id)
         survey_entry.save()
         questions = survey['questions']
 
@@ -24,3 +24,4 @@ def submit(request):
         return HttpResponse(json.dumps(question_descriptions));
     else:
         return HttpResponse("Not a post");
+'''

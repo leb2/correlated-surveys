@@ -3,6 +3,7 @@
 
 {% block js %}
 	<script src="{% static 'create/js/create.js'%}"></script>
+	<script src="{% static 'nurvey/js/feed.js' %}"></script>
 	<script src="{% static 'nurvey/js/app.js' %}"></script>
 {% endblock js %}
 
@@ -16,41 +17,65 @@
 <nav class='navbar navbar-default navbar-static-top' role='navigation' ng-controller='NavbarController as navbar'>
 	<div class='container'>
 		<div class='navbar-header'>
-			<a class='navbar-brand' href='#'>Brand</a>
+			<a class='navbar-brand' href='#'>———</a>
 		</div>
 		<div id='navbar-main' class='navbar-collapse collapse'>
 			<ul class='nav navbar-nav'>
 			</ul>
 			<ul class='nav navbar-nav navbar-right'>
 				<li>
-					<a href='#/create'>CREATE</a>
+					<a href='#/'>
+						<span class='text'>EXPLORE</span>
+						<span class='glyphicon glyphicon-globe'></span>
+					</a>
+				</li>
+				<li>
+					<a href='#/feed'>
+						<span class='text'>VIEW</span>
+						<span class='glyphicon glyphicon-eye-open'></span>
+					</a>
+				</li>
+				<li>
+					<a href='#/create'>
+						<span class='text'>CREATE</span>
+						<span class='glyphicon glyphicon-plus'></span>
+					</a>
 				</li>
 
 				<!-- New username system with pure ajax -->
 				<!-- Server api needs to return empty string when user is not signed in -->
 				<!-- Not yet implemented -->
+				<!--
 				<li ng-switch='navbar.username'>
 					<a ng-switch-when='true' href='#/acount'></a>
 					<a ng-switch-default data-toggle='modal' data-target='#login-modal'>LOGIN</a>
 				</li>
+				-->
 
-				<!--
+{% endverbatim %}
+
+
+
 				{% if user.is_authenticated %}
 				<li>
-					<a class='username' href='#/account'>{{ user.username|upper }}</a>
+					<a class='username' href='#/account'>
+						<span class='text'>{{ user.username|upper }}</span>
+						<span class='glyphicon glyphicon-user'></span>
+					</a>
 				</li>
 				{% else %}
 				<li>
-					<a href data-toggle='modal' data-target='#login-modal'>LOGIN</a>
+					<a href data-toggle='modal' data-target='#login-modal'>
+						<span class='text'>LOGIN</span>
+						<span class='glyphicon glyphicon-user'></span>
+					</a>
 				</li>
 				{% endif %}
-				-->
 			</ul>
 		</div>
 	</div>
 </nav>
 
-{% endverbatim %}
 
 
 <!-- LOGIN MODAL -->

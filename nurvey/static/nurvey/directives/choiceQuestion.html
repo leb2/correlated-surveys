@@ -1,22 +1,23 @@
-<div ng-switch='question.isCheckbox'>
 
-	<div ng-switch-when='true' ng-repeat='choice in question.choices'>
-		<div>
-			<md-checkbox>
+<div class='row'>
+	<div class='col-md-6 col-md-offset-3' ng-switch='question.isCheckbox'>
+
+		<div ng-switch-when='true' ng-repeat='choice in question.choice_set'>
+			<div>
+				<md-checkbox>
 				{{ choice.text }}
 				<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
-			</md-checkbox>
+				</md-checkbox>
+			</div>
 		</div>
-	</div>
 
-	<div ng-switch-default>
-		<md-radio-group ng-model='selected'>
-			<md-radio-button ng-repeat="choice in question.choices" ng-value="choice" aria-label="{{ choice.text }}">
-				{{ choice.text }}
-				<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
-			</md-radio-button>
-		</md-radio-group>
-	</div>
+		<div ng-switch-default>
+			<md-radio-group ng-model='poll.value'>
+				<md-radio-button ng-repeat="choice in question.choice_set" ng-value="choice.id" aria-label="{{ choice.text }}">
+					{{ choice.text }}
+				</md-radio-button>
+			</md-radio-group>
+		</div>
 
+	</div>
 </div>
-
