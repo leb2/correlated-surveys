@@ -18,42 +18,82 @@ def landing(request):
 
 
 
-
-
 # ---------------- REST API ---------------- #
 
 
 @csrf_exempt
+# TODO: Move some logic to model
 def points(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        vote = json.loads(request.body)
+        id = vote['id']
 
-        point = Point(user=request.user, is_up=data['isUp'])
-
-        id = data['id']
-        if data['targetType'] == 'survey':
+        # Obtains target based on id and targetType
+        if vote['targetType'] == 'survey':
             target = Survey.objects.get(pk=id)
-
-        elif data['targetType'] == 'comment':
+        elif vote['targetType'] == 'comment':
             target = Comment.objects.get(pk=id)
 
-        # Ignore repeat votes
-        if target.points.filter(user=request.user).exists():
-            return HttpResponse('Already Voted - Frontend bypass attempt logged', status=400)
+        # Applies vote to target
+        def apply_votes(is_up, should_undo=False):
+            change = -1 if should_undo else 1
 
-        if data['isUp']:
-            target.num_upvotes += 1
-        elif not data['isUp']:
-            target.num_downvotes += 1
+            if is_up:
+                target.num_upvotes += change
+            else:
+                target.num_downvotes += change
+
+        # If first vote on target, makes a new point object
+        if not target.point_set.filter(user=request.user).exists():
+            point = Point(user=request.user, is_up=vote['isUp'], voted_object=target)
+            apply_votes(vote['isUp'])
+            point.save()
+
+        # Updates current point object on revote
+        else:
+            previous_vote = point = target.point_set.get(user=request.user)
+
+            # Should undo if previous vote is the same as new vote
+            unvoting = previous_vote.is_up is vote['isUp']
+
+            # Undoes old vote
+            apply_votes(previous_vote.is_up, should_undo=True)
+
+            # If vote is different, apply the vote
+            if not unvoting:
+                apply_votes(vote['isUp'])
+                point.is_up = vote['isUp']
+                point.save()
+            elif unvoting:
+                point.delete()
+
+            # Updates previous vote with new vote data
+
+        # Save changes to database
         target.save()
+        return HttpResponse(str(target.num_upvotes) + " " + str(target.num_downvotes), status=201)
 
-        point.voted_object = target;
-        point.save()
-        return HttpResponse(status=201)
+    # Gets point data for survey (unfortunately not RESTy)
+    elif request.method == 'GET':
+        vote_data = {}
+        data = request.GET.dict()
+
+        survey = Survey.objects.get(pk=data['id'])
+
+        try:
+            point = survey.point_set.get(user=request.user)
+        except Exception: # Does not exist error
+            vote_data = {'survey_vote': None}
+        else:
+            vote_data['survey_vote'] = survey.point_set.get(user=request.user).is_up
+
+        return HttpResponse(json.dumps(vote_data), content_type='application/json')
+
+    return HttpResponse('Request must be POST or GET')
 
 
 @csrf_exempt
-# Change Name to survey_submit or vote_survey
+# TODO: Change Name to survey_submit or vote_survey
 def survey_results(request, id):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -126,6 +166,19 @@ def polls(request):
         return HttpResponse(serialized, content_type='application/json')
 
 
+def users(request):
+
+    if request.method == 'GET':
+        username = request.GET.dict().get('user')
+        user = User.objects.get(username=username) if username is not None else request.user
+        if not user.is_authenticated():
+            return HttpResponse("")
+
+        serializer = UserSerializer(user)
+        data = serializer.data
+        response = JSONRenderer().render(data)
+        return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+
 
 # ---------------- LOGIN MECHANIC ---------------- #
 
@@ -146,7 +199,9 @@ def login_user(request):
 def register(request):
     if request.method == 'POST':
         credentials = json.loads(request.body)
-        User.objects.create_user(credentials['username'], credentials['email'], credentials['password']).save()
+        user = User.objects.create_user(credentials['username'], credentials['email'], credentials['password'])
+        user.save()
+        Profile(user=user).save()
         return login_user(request)
 
 def logout_user(request):

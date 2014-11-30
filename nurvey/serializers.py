@@ -3,6 +3,20 @@ from nurvey.models import *
 
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('id', 'points')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = ('id', 'profile', 'username')
+
+
 class SliderPollSerializer(serializers.ModelSerializer):
     class Meta:
         model = SliderPoll
@@ -49,10 +63,11 @@ class PollSerializer(serializers.ModelSerializer):
 
 class SurveySerializer(serializers.ModelSerializer):
     poll_set = PollSerializer(many=True)
+    hotness = serializers.Field(source='hotness')
 
     class Meta:
         model = Survey
-        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'poll_set')
+        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'poll_set', 'hotness')
 
 
 

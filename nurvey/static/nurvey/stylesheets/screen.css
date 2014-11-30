@@ -1,15 +1,52 @@
+/* line 5, ../sass/screen.scss */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+/* -------------------------------- LANDING -------------------------------- */
+/* line 13, ../sass/screen.scss */
+#landing {
+  position: relative;
+  top: -50px;
+}
+/* line 17, ../sass/screen.scss */
+#landing .splash {
+  height: 550px;
+  background: #439CBF;
+}
+/* line 19, ../sass/screen.scss */
+#landing .splash .row {
+  position: relative;
+  top: 120px;
+  color: #DDD;
+}
+/* line 24, ../sass/screen.scss */
+#landing .splash .row h1 {
+  color: white;
+  font-size: 60px;
+  font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 /* -------------------------------- EVERYTHING -------------------------------- */
-/* line 14, ../sass/screen.scss */
+/* line 46, ../sass/screen.scss */
 .well {
   background: #D9D9D9;
 }
 
 /* -------------------------------- INDEX -------------------------------- */
-/* line 29, ../sass/screen.scss */
+/* line 58, ../sass/screen.scss */
+nav .navbar-brand {
+  font-size: 40px;
+  position: relative;
+  top: -5px;
+}
+/* line 67, ../sass/screen.scss */
 nav .navbar-right a .text {
   padding-right: 8px;
 }
-/* line 33, ../sass/screen.scss */
+/* line 71, ../sass/screen.scss */
 nav .navbar-right a .glyphicon {
   font-size: 20px;
   position: relative;
@@ -17,35 +54,35 @@ nav .navbar-right a .glyphicon {
 }
 
 /* -------------------------------- FEED -------------------------------- */
-/* line 51, ../sass/screen.scss */
+/* line 89, ../sass/screen.scss */
 #feed .interpanel.row {
   margin-bottom: 40px;
 }
-/* line 56, ../sass/screen.scss */
+/* line 94, ../sass/screen.scss */
 #feed .main.panel .panel-heading {
   background: #333;
   color: #DDD;
 }
-/* line 60, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 #feed .main.panel .panel-body {
   padding: 50px;
   padding-top: 30px;
   padding: 30px 50px 30px 50px;
 }
-/* line 66, ../sass/screen.scss */
+/* line 104, ../sass/screen.scss */
 #feed .main.panel .panel-body .results {
   padding-top: 15px;
   min-height: 250px;
 }
-/* line 75, ../sass/screen.scss */
+/* line 113, ../sass/screen.scss */
 #feed .side.panel .panel-heading .btn-group {
   width: 80%;
 }
-/* line 78, ../sass/screen.scss */
+/* line 116, ../sass/screen.scss */
 #feed .side.panel .panel-heading .btn-group button {
   width: 50%;
 }
-/* line 85, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group {
   max-height: 300px;
   overflow: scroll;
@@ -57,15 +94,15 @@ nav .navbar-right a .glyphicon {
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
 }
-/* line 94, ../sass/screen.scss */
+/* line 132, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group a.list-group-item:first-child {
   border-top: 0px;
 }
-/* line 97, ../sass/screen.scss */
+/* line 135, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group a.list-group-item:last-child {
   border-bottom: 0px;
 }
-/* line 106, ../sass/screen.scss */
+/* line 144, ../sass/screen.scss */
 #feed .buttons.panel .points.well {
   font-size: 18px;
   padding: 7px;
@@ -79,69 +116,74 @@ nav .navbar-right a .glyphicon {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
+/* line 156, ../sass/screen.scss */
+#feed .buttons.panel .submit.btn, #feed .buttons.panel .comment.btn {
+  position: relative;
+  top: 18px;
+}
 
 /* -------------------------------- MODAL -------------------------------- */
-/* line 127, ../sass/screen.scss */
+/* line 171, ../sass/screen.scss */
 .login-modal {
   margin-top: 150px;
 }
 
-/* line 131, ../sass/screen.scss */
+/* line 175, ../sass/screen.scss */
 .modal-backdrop {
   z-index: -10;
 }
 
-/* line 137, ../sass/screen.scss */
+/* line 181, ../sass/screen.scss */
 .modal-body .row {
   margin-top: 45px;
 }
-/* line 140, ../sass/screen.scss */
+/* line 184, ../sass/screen.scss */
 .modal-body .row label {
   width: 100%;
 }
 
 /* -------------------------------- CREATE -------------------------------- */
-/* line 153, ../sass/screen.scss */
+/* line 197, ../sass/screen.scss */
 #content {
   margin-bottom: 250px;
 }
 
-/* line 160, ../sass/screen.scss */
+/* line 204, ../sass/screen.scss */
 .create .panel-heading .input-group input {
   color: black;
 }
-/* line 163, ../sass/screen.scss */
+/* line 207, ../sass/screen.scss */
 .create .panel-heading .input-group input:focus {
   box-shadow: 0px -2px 0px #88EEFF inset;
 }
-/* line 166, ../sass/screen.scss */
+/* line 210, ../sass/screen.scss */
 .create .panel-heading .input-group .btn {
   border-radius: 15px;
   padding: 0px 5px 0px 5px;
   margin-left: 15px;
 }
-/* line 171, ../sass/screen.scss */
+/* line 215, ../sass/screen.scss */
 .create .panel-heading .input-group .btn:disabled {
   background: red;
 }
-/* line 174, ../sass/screen.scss */
+/* line 218, ../sass/screen.scss */
 .create .panel-heading .input-group .btn:hover {
   box-shadow: 0 4px 4px 4px 0.1 black;
   -webkit-box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
   box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
 }
-/* line 181, ../sass/screen.scss */
+/* line 225, ../sass/screen.scss */
 .create .panel-body .input-group-btn button {
   border-radius: 3px;
 }
 
-/* line 187, ../sass/screen.scss */
+/* line 231, ../sass/screen.scss */
 .demo .panel-heading {
   color: #333333;
 }
 
-/* line 197, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 .example-animate-container {
   background: white;
   border: 1px solid black;
@@ -150,14 +192,14 @@ nav .navbar-right a .glyphicon {
   padding: 0 10px;
 }
 
-/* line 206, ../sass/screen.scss */
+/* line 250, ../sass/screen.scss */
 .animate-repeat {
   line-height: 40px;
   list-style: none;
   box-sizing: border-box;
 }
 
-/* line 215, ../sass/screen.scss */
+/* line 259, ../sass/screen.scss */
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter,
 .animate-repeat.ng-leave {
@@ -165,7 +207,7 @@ nav .navbar-right a .glyphicon {
   transition: all linear 0.5s;
 }
 
-/* line 223, ../sass/screen.scss */
+/* line 267, ../sass/screen.scss */
 .animate-repeat.ng-leave.ng-leave-active,
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
@@ -173,7 +215,7 @@ nav .navbar-right a .glyphicon {
   max-height: 0;
 }
 
-/* line 231, ../sass/screen.scss */
+/* line 275, ../sass/screen.scss */
 .animate-repeat.ng-leave,
 .animate-repeat.ng-move.ng-move-active,
 .animate-repeat.ng-enter.ng-enter-active {

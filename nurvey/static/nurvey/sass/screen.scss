@@ -2,13 +2,45 @@
 
 
 
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	  display: none !important;
+
+}
 
 
+/* -------------------------------- LANDING -------------------------------- */
 
+#landing {
+	position: relative;
+	top: -50px;
+
+	.splash {
+		
+		.row {
+			position: relative;
+			top: 120px;
+			color: #DDD;
+
+			h1 {
+				color: white;
+				font-size: 60px;
+				font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
+				font-weight: bold;
+				text-transform: uppercase;
+
+
+			}
+		}
+
+		height: 550px;
+		background: #439CBF;
+	}
+}
 
 
 
 /* -------------------------------- EVERYTHING -------------------------------- */
+
 // TODO: Replace with Bootswatch LESS or SASS (new)
 
 .well {
@@ -23,6 +55,12 @@
 
 // A lot of magic numbers unfortunately 
 nav {
+	.navbar-brand {
+		font-size: 40px;
+		position: relative;
+		top: -5px;
+	}
+
 	.navbar-right {
 
 		a {
@@ -113,6 +151,12 @@ nav {
 			top: 4px;
 			
 			@include border-radius(4px);
+		}
+
+		.submit.btn, .comment.btn {
+			position: relative;
+			// Magic number for vertical align :(
+			top: 18px;
 		}
 	}
 

@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('nurveyApp', ['ngRoute', 'ngMaterial', 'feedApp', 'CreateApp']);
+	var app = angular.module('nurveyApp', ['ngRoute', 'ngMaterial', 'feedApp', 'accountApp', 'CreateApp']);
 
 	app.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.when('/create', {
@@ -21,47 +21,32 @@
 			templateUrl: '/static/nurvey/directives/feed/feedView.html',
 			controller: 'FeedController',
 			controllerAs: 'feed'
+		})
+		.when('/correlate', {
+			templateUrl: '/static/nurvey/directives/correlate/correlateController.html',
+			controller: 'CorrelateController',
+			controllerAs: 'correlate'
+		})
+		.when('/', {
+			templateUrl: '/static/nurvey/directives/landing.html',
 		});
 	}]);
 
 
 
 	// Controller for Navbar
-	app.controller('NavbarController', ['$scope', '$http', function($scope, $http) {
-		$scope.username = "";
+	app.controller('NavbarController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
-		this.refreshUsername = function() {
-			$http.get('/username/').success(function(data, status, headers, config) {
-				$scope.username = data;
-			})
-		}
-	}]);
 
-	// Controller for Account View
-	app.controller('AccountController', ['$scope', '$http', function($scope, $http) {
-		this.logout = function() {
-			$http.get('/logout/');
-		}
-	}]);
-
-	// Controller for Login Modal
-	// TODO: Move to separate file
-	app.controller('LoginController', ['$scope', '$http', function($scope, $http) {
-		$scope.credentials = {
-			username: '',
-			password: '',
-			email: '',
-		}
-
-		$scope.verifyAccount = function(location) {
-			$http.post('/' + location + '/', $scope.credentials).
-				success(function(data, status, headers, config) {
-					$('#login-modal').modal('hide');
-				});
+		$rootScope.refreshUser = function() {
+			console.log("REFreshing user");
+			$http.get('/users/').success(function(data) {
+				$rootScope.user = data;
+				console.log("User refreshed");
+			});
 		};
 
-		this.login = function() {$scope.verifyAccount('login');};
-		this.register = function() {$scope.verifyAccount('register');};
+		$rootScope.refreshUser();
 	}]);
 
 })(); 
