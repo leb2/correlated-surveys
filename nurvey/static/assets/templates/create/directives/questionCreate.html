@@ -8,7 +8,7 @@
 			<div class='panel-heading'>
 
 				<div class='input-group'>
-					<input id='title' type='text' class='form-control' ng-model='question.title'></input>
+					<input id='title' type='text' class='form-control' placeholder='Poll Title' ng-model='question.title'></input>
 					<div class='input-group-btn'>
 						<button type='button' class='btn btn-danger' ng-click='questionController.remove()' ng-disabled='questions.length <= 1'>
 							<span class='glyphicon glyphicon-remove'></span>
@@ -60,7 +60,7 @@
 	<div class='col-md-7 demo'>
 
 
-		<div class='panel panel-success'>
+		<div class='panel panel-default'>
 
 			<div class='panel-heading text-center'>
 				<strong>{{ question.title }}</strong>

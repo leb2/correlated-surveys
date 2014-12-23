@@ -61,13 +61,15 @@ class PollSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'poll_type', 'poll_object', 'results', 'results_pretty')
 
 
+
 class SurveySerializer(serializers.ModelSerializer):
     poll_set = PollSerializer(many=True)
     hotness = serializers.Field(source='hotness')
+    owner = UserSerializer()
 
     class Meta:
         model = Survey
-        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'poll_set', 'hotness')
+        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'poll_set', 'hotness', 'owner')
 
 
 

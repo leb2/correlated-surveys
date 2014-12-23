@@ -1,4 +1,4 @@
-<div id='feed' class='container'>
+<div id='feed' class='container app-view'>
 
 <div class='row'>
 
@@ -8,7 +8,7 @@
 			<!-- MAIN PANEL -->
 			<div class='demo'>
 
-				<div class='main panel panel-success'>
+				<div class='main panel panel-default'>
 
 					<div class='panel-heading text-center'>
 						<strong>{{ poll.title }}</strong>
@@ -34,13 +34,23 @@
 
 		</div>
 
-		<!-- BUTTONS -->
+		<!-- BOTTOM PANEL -->
 		<div class='row text-center'>
 			<div class='col-md-10 col-md-offset-1'>
 				<div class='buttons panel panel-default'>
 					<div class='panel-body'>
+						<!-- SURVEY CREATOR -->
 						<div class='row'>
+							<span ng-bind='survey.owner.username'></span>
+						</div>
+
+						<!-- BUTTONS -->
+						<div class='row'>
+
+							<!-- VOTING -->
 							<div class='col-md-4 text-center'>
+
+								<!-- UPVOTE / DOWNVOTE -->
 								<span>
 									<div class='btn-group-vertical' role='group'>
 										<button ng-class='{"btn-success": survey.voteData.survey_vote}' class='btn' ng-click='givePoint(true)'>▲</button>
@@ -48,14 +58,20 @@
 											class='btn' ng-click='givePoint(false)'>▼</button>
 									</div>
 								</span>
+
+								<!-- CURRENT NUMBER OF POINTS -->
 								<span class='well points'>
 									<span ng-bind='voteAmount()'></span>
 									<span class='glyphicon glyphicon-leaf'></span>
 								</span>
 							</div>
+
+							<!-- SUBMIT SURVEY RESPONSE -->
 							<div class='col-md-4 text-center'>
 								<button class='submit btn btn-primary' ng-click='submit()'>Submit</button>
 							</div>
+
+							<!-- COMMENT -->
 							<div class='col-md-4 text-center'>
 								<button class='comment btn btn-default'>
 									COMMENT
@@ -75,7 +91,7 @@
 	<div class='col-md-3'>
 		<div class='side panel panel-primary' style='position: fixed; width: 20%'>
 			<div class='panel-heading text-center'>
-				<div class='btn-group'role='group'>
+				<div class='btn-group' role='group'>
 					<button ng-click='previous()' type='button' class='btn btn-default'>
 						<span class='glyphicon glyphicon-chevron-left'></span>
 					</button>
@@ -99,8 +115,6 @@
 
 </div>
 
-
-<!-- VOTE BUTTONS AND COMMENT -->
 
 
 </div> <!-- /container -->

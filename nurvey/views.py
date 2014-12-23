@@ -8,6 +8,8 @@ from rest_framework.renderers import JSONRenderer
 from serializers import *
 from models import *
 import json
+from django.db.models import Avg
+import datetime
 
 
 
@@ -19,6 +21,84 @@ def landing(request):
 
 
 # ---------------- REST API ---------------- #
+
+
+def correlate(request):
+    if request.method == 'GET':
+        ids = json.loads(request.GET['ids'])
+        polls = [Poll.objects.get(pk=id) for id in ids]
+        valuesets = []
+
+        def polls_with_type(type):
+            return [poll for poll in polls if poll.poll_type.model == type]
+
+        if len(polls) is 1:
+            domain = polls[0].domain_pretty()
+            valuesets = [polls[0].values()]
+
+        elif len(polls_with_type('choicepoll')) == 2 and len(polls_with_type('sliderpoll')) == 0:
+            domain_poll, values_poll = polls[0], polls[1]
+            domain = domain_poll.domain_pretty()
+
+            for values_choice in values_poll.domain():
+                valueset = []
+
+                for domain_choice in domain_poll.domain():
+                    count = User.objects.filter(vote__poll=domain_poll, vote__value=domain_choice.pk)
+                    count =        count.filter(vote__poll=values_poll, vote__value=values_choice.pk).count()
+                    valueset.append(count)
+
+                valuesets.append(valueset)
+
+        elif len(polls_with_type('sliderpoll')) == 2 and len(polls_with_type('choicepoll')) <= 1:
+            sliderpolls = polls_with_type('sliderpoll')
+            domain_poll, values_poll = sliderpolls[0], sliderpolls[1]
+            domain = domain_poll.domain()
+
+            valueset = []
+            valuesets.append(valueset)
+            for x_val in domain:
+
+                to_value_votes = Vote.objects.filter(poll=values_poll)
+                valid_votes = to_value_votes.filter(user__vote__poll=domain_poll, user__vote__value=x_val)
+                average = valid_votes.aggregate(Avg('value'))
+
+                valueset.append(average['value__avg'])
+
+        elif len(polls_with_type('sliderpoll'))== 1 and len(polls_with_type('choicepoll')) == 1:
+            pass
+
+        data = {
+            'type': 'bar',
+            'labels': domain,
+            'datasets': [{'values': valueset} for valueset in valuesets]
+        }
+
+        return HttpResponse(json.dumps(data), content_type='application/json')
+
+    return HttpResponse('Wrong method?')
+
+
+# GET:
+#   term: returns list of polls that contain the term in title
+#   id: returns the poll by given id
+def polls(request):
+
+    if request.method == 'GET':
+        term = request.GET.dict().get('term')
+        if term is not None:
+            related_polls = Poll.objects.filter(title__icontains=term)
+            serializer = PollSerializer(related_polls, many=True)
+            return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+
+
+
+        id = request.GET.dict().get('id')
+        polls = Poll.objects.filter(pk=id) if id is not None else Poll.objects.order_by('-pk')[0:1]
+
+        serialized = serializers.serialize('json', polls)
+        return HttpResponse(serialized, content_type='application/json')
+
 
 
 @csrf_exempt
@@ -40,8 +120,11 @@ def points(request):
 
             if is_up:
                 target.num_upvotes += change
+                request.user.profile.points += change
             else:
                 target.num_downvotes += change
+                request.user.profile.points -= change
+            request.user.profile.save()
 
         # If first vote on target, makes a new point object
         if not target.point_set.filter(user=request.user).exists():
@@ -94,33 +177,51 @@ def points(request):
 
 @csrf_exempt
 # TODO: Change Name to survey_submit or vote_survey
+# Submits a response to a survey
 def survey_results(request, id):
     if request.method == 'POST':
         data = json.loads(request.body)
         for poll_id, answer in data.iteritems():
             poll = Poll.objects.get(pk=poll_id)
-            if len(Vote.objects.filter(poll=poll, user=request.user)):
+            # TODO: Use count() instead of len()
+            # Uncomment rest of line to disable multiple voting
+            if False:# len(Vote.objects.filter(poll=poll, user=request.user)):
                return HttpResponse('Already Voted')
             vote = Vote(user=request.user, poll=poll, value=answer).save()
         return HttpResponse(status=201)
     return HttpResponse('Request Not POST', status=400)
 
 
+
+# POST:
+#       Saves a created survey to database - must be logged in
+# GET:
+#       default:    Returns serialied top surveys
+#       id:         Returns serialized survey with id
+
 @csrf_exempt
 def surveys(request):
 
+    # Bug: if one poll is incorrect, the other may still be saved to the database
     # Load Survey into database
     if request.method == 'POST':
         survey = json.loads(request.body)
-
-        survey_entry = Survey(title=survey['title'], description=survey['description'], owner_id=request.user.id)
-        survey_entry.save()
         questions = survey['questions']
+
+        if len(questions) == 1:
+            title = questions[0]['title']
+            description = questions[0].get('description', '')
+        else:
+            title = survey['title']
+            description = survey.get('description', '')
+
+        survey_entry = Survey(title=title, description=description, owner_id=request.user.id)
+        survey_entry.save()
 
         for question in questions:
             params = question['parameters']
 
-            poll = Poll(survey=survey_entry, title=question['title'], description=question.get('description'))
+            poll = Poll(survey=survey_entry, title=question['title'], description=question.get('description', ''))
 
             if question['type'] == 'slider':
                 slider_poll = SliderPoll(min=params['min'], max=params['max'])
@@ -132,13 +233,13 @@ def surveys(request):
                 choice_poll.save()
                 poll.poll_object = choice_poll
 
+                if len(params['choices']) < 2:
+                    return HttpResponse('Not enough choices', status=400)
                 for choice in params['choices']:
                     Choice(text=choice['text'], poll=choice_poll).save()
 
             poll.save();
         return HttpResponse(json.dumps(survey_entry.pk), content_type='application/json')
-
-
 
     # Retreive question by id if present or by most recent
     elif request.method == 'GET':
@@ -149,21 +250,21 @@ def surveys(request):
             many = False
         else:
             amount = request.GET.dict().get('amount', 10)
+            before_survey_id = request.GET.dict().get('beforeSurveyId')
+            if before_survey_id is not None:
+                before_date = Survey.objects.get(pk=before_survey_id).pub_date
+            else:
+                before_date = datetime.datetime.now()
+
+
             many = True
-            surveys = Survey.objects.exclude(poll__vote__user=request.user).order_by('-pub_date')[:amount]
+            # USE BELOW LINE TO EXCLUDE SURVEYS ALREADY VOTED ON
+            # surveys = Survey.objects.exclude(poll__vote__user=request.user).order_by('-pub_date')[:amount]
+            surveys = Survey.objects.all().order_by('-pub_date').filter(pub_date__lt=before_date)[:amount]
 
         serializer = SurveySerializer(surveys, many=many)
         return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
-
-def polls(request):
-
-    if request.method == 'GET':
-        id = request.GET.dict().get('id')
-        polls = Poll.objects.filter(pk=id) if id is not None else Poll.objects.order_by('-pk')[0:1]
-
-        serialized = serializers.serialize('json', polls)
-        return HttpResponse(serialized, content_type='application/json')
 
 
 def users(request):
@@ -192,7 +293,7 @@ def login_user(request):
             login(request, user)
             return HttpResponse('Login Successful')
         else:
-            return HttpResponse('Incorrect Credentials')
+            return HttpResponse('Incorrect Credentials', status=400)
     return HttpResponse('Request must be a POST', status=400)
 
 @csrf_exempt

@@ -1,10 +1,15 @@
-<div class='container'>
+<div class='container app-view'>
 <div class='row'>
 	<div class='panel panel-default text-center'>
 		<div class='panel-body'>
-			<button ng-click='account.logout()' class='btn btn-danger'>
-				LOG OUT
-			</button>
+			<div class='row'>
+				Points: <span ng-bind='user.profile.points'></span>
+			</div>
+			<div class='row'>
+				<button ng-click='account.logout()' class='btn btn-danger'>
+					LOG OUT
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,9 +1,9 @@
 
-<div id='content' class='container'>
+<div id='content' class='container app-view'>
 
 
 	<!-- SURVEY TITLE -->
-	<div class='row' style='padding: 35px'>
+	<div class='row' style='padding: 35px' ng-show='questions.length > 1'>
 		<div class='input-group'>
 			<span class='input-group-addon'>Survey Title</span>
 			<input type='text' class='form-control' placeholder='Untitled Survey' ng-model='survey.survey.title'>

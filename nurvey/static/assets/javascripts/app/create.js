@@ -8,7 +8,7 @@
 	// Controller for all of the questions
 	app.controller('surveyController', ['$location', '$scope', '$http', function($location, $scope, $http) {
 		this.survey = {title: '', description: ''};
-		var questions = this.survey.questions = this.questions = [{}];
+		var questions = $scope.questions = this.survey.questions = this.questions = [{}];
 
 		this.addQuestion = function() {
 			questions.push({});
@@ -26,8 +26,12 @@
 				});
 				delete question.questionTypes;
 			});
-			console.log(questions);
-			console.log(this.survey);
+
+
+			if (questions.length == 1) {
+				this.survey.title = questions[0].title;
+				this.survey.description = questions[0].description;
+			}
 
 			$http.post('/surveys/', this.survey).
 				success(function(data, status, headers, config) {
@@ -63,11 +67,6 @@
 						title: 'Multiple Choice',
 						// Having the parameters property explicitly defined
 						// neccessary to prevent ambiguous references from demo and create
-						parameters: {}
-					},
-					{
-						name: 'yesNo',
-						title: 'True or False',
 						parameters: {}
 					},
 					{
@@ -186,21 +185,6 @@
 				$scope.min = question.min = 0;
 				$scope.max = question.max = 10;
 				$scope.step = question.step = 1;
-			}
-		};
-	});
-
-
-	// Directive for Yes or No questions
-	app.directive('yesNoCreate', function() {
-		return {
-			restrict: 'E',
-			templateUrl: '/static/assets/templates/create/directives/forms/yesNoCreate.html',
-			scope: {
-				questiontype: '='
-			},
-			controller: function($scope) {
-				var question = $scope.question = $scope.$parent.question;
 			}
 		};
 	});

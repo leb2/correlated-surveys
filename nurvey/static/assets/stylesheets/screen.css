@@ -370,8 +370,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url(fonts/bootstrap/glyphicons-halflings-regular.eot);
-  src: url(fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"), url(fonts/bootstrap/glyphicons-halflings-regular.woff) format("woff"), url(fonts/bootstrap/glyphicons-halflings-regular.ttf) format("truetype"), url(fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg");
+  src: url(/static/assets/stylesheets/fonts/bootstrap/glyphicons-halflings-regular.eot);
+  src: url(/static/assets/stylesheets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"), url(/static/assets/stylesheets/fonts/bootstrap/glyphicons-halflings-regular.woff) format("woff"), url(/static/assets/stylesheets/fonts/bootstrap/glyphicons-halflings-regular.ttf) format("truetype"), url(/static/assets/stylesheets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg");
 }
 
 /* line 21, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_glyphicons.scss */
@@ -1430,12 +1430,12 @@ textarea {
 
 /* line 48, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_scaffolding.scss */
 a {
-  color: #2196f3;
+  color: #4584b5;
   text-decoration: none;
 }
 /* line 53, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_scaffolding.scss */
 a:hover, a:focus {
-  color: #0a6ebd;
+  color: #305b7e;
   text-decoration: underline;
 }
 /* line 58, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_scaffolding.scss */
@@ -1694,22 +1694,22 @@ mark,
 
 /* line 5, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_text-emphasis.scss */
 .text-primary {
-  color: #2196f3;
+  color: #4584b5;
 }
 
 /* line 8, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_text-emphasis.scss */
 a.text-primary:hover {
-  color: #0c7cd5;
+  color: #376990;
 }
 
 /* line 5, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_text-emphasis.scss */
 .text-success {
-  color: #4caf50;
+  color: #52a956;
 }
 
 /* line 8, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_text-emphasis.scss */
 a.text-success:hover {
-  color: #3d8b40;
+  color: #428644;
 }
 
 /* line 5, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_text-emphasis.scss */
@@ -1749,12 +1749,12 @@ a.text-danger:hover {
 
 /* line 5, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_background-variant.scss */
 .bg-primary {
-  background-color: #2196f3;
+  background-color: #4584b5;
 }
 
 /* line 8, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_background-variant.scss */
 a.bg-primary:hover {
-  background-color: #0c7cd5;
+  background-color: #376990;
 }
 
 /* line 5, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_background-variant.scss */
@@ -3794,35 +3794,40 @@ select[multiple].input-lg,
 }
 
 /* line 17, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .help-block,
+.has-success .help-block, .ng-valid .help-block,
 .has-success .control-label,
+.ng-valid .control-label,
 .has-success .radio,
+.ng-valid .radio,
 .has-success .checkbox,
+.ng-valid .checkbox,
 .has-success .radio-inline,
-.has-success .checkbox-inline, .has-success.radio label, .has-success.checkbox label, .has-success.radio-inline label, .has-success.checkbox-inline label {
-  color: #4caf50;
+.ng-valid .radio-inline,
+.has-success .checkbox-inline,
+.ng-valid .checkbox-inline, .has-success.radio label, .radio.ng-valid label, .has-success.checkbox label, .checkbox.ng-valid label, .has-success.radio-inline label, .radio-inline.ng-valid label, .has-success.checkbox-inline label, .checkbox-inline.ng-valid label {
+  color: #52a956;
 }
 /* line 21, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .form-control {
-  border-color: #4caf50;
+.has-success .form-control, .ng-valid .form-control {
+  border-color: #52a956;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 24, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .form-control:focus {
-  border-color: #3d8b40;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #92cf94;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #92cf94;
+.has-success .form-control:focus, .ng-valid .form-control:focus {
+  border-color: #428644;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #95cc98;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #95cc98;
 }
 /* line 31, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .input-group-addon {
-  color: #4caf50;
-  border-color: #4caf50;
+.has-success .input-group-addon, .ng-valid .input-group-addon {
+  color: #52a956;
+  border-color: #52a956;
   background-color: #dff0d8;
 }
 /* line 37, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .form-control-feedback {
-  color: #4caf50;
+.has-success .form-control-feedback, .ng-valid .form-control-feedback {
+  color: #52a956;
 }
 
 /* line 17, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -4100,13 +4105,13 @@ select[multiple].input-lg,
 /* line 63, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-primary {
   color: white;
-  background-color: #2196f3;
+  background-color: #4584b5;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 16, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
   color: white;
-  background-color: #0c7cd5;
+  background-color: #376990;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 23, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
@@ -4115,25 +4120,25 @@ select[multiple].input-lg,
 }
 /* line 34, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
-  background-color: #2196f3;
+  background-color: #4584b5;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 40, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary .badge {
-  color: #2196f3;
+  color: #4584b5;
   background-color: white;
 }
 
 /* line 67, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-success {
   color: white;
-  background-color: #4caf50;
+  background-color: #52a956;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 16, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {
   color: white;
-  background-color: #3d8b40;
+  background-color: #428644;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 23, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
@@ -4142,12 +4147,12 @@ select[multiple].input-lg,
 }
 /* line 34, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled.focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success[disabled].focus, .btn-success[disabled]:active, .btn-success[disabled].active, fieldset[disabled] .btn-success, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success.focus, fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success.active {
-  background-color: #4caf50;
+  background-color: #52a956;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 40, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-success .badge {
-  color: #4caf50;
+  color: #52a956;
   background-color: white;
 }
 
@@ -4234,7 +4239,7 @@ select[multiple].input-lg,
 
 /* line 88, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-link {
-  color: #2196f3;
+  color: #4584b5;
   font-weight: normal;
   border-radius: 0;
 }
@@ -4250,7 +4255,7 @@ select[multiple].input-lg,
 }
 /* line 108, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-link:hover, .btn-link:focus {
-  color: #0a6ebd;
+  color: #305b7e;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -4427,7 +4432,7 @@ tbody.collapse.in {
   color: white;
   text-decoration: none;
   outline: 0;
-  background-color: #2196f3;
+  background-color: #4584b5;
 }
 
 /* line 103, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_dropdowns.scss */
@@ -4945,7 +4950,7 @@ tbody.collapse.in {
 /* line 48, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navs.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #2196f3;
+  border-color: #4584b5;
 }
 /* line 59, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navs.scss */
 .nav .nav-divider {
@@ -5003,7 +5008,7 @@ tbody.collapse.in {
 /* line 133, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navs.scss */
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   color: white;
-  background-color: #2196f3;
+  background-color: #4584b5;
 }
 
 /* line 144, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navs.scss */
@@ -5628,12 +5633,12 @@ tbody.collapse.in {
 
 /* line 531, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse {
-  background-color: #2196f3;
+  background-color: #4584b5;
   border-color: rgba(0, 0, 0, 0);
 }
 /* line 535, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-brand {
-  color: #b2dbfb;
+  color: #b2cce2;
 }
 /* line 538, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
@@ -5646,7 +5651,7 @@ tbody.collapse.in {
 }
 /* line 549, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-nav > li > a {
-  color: #b2dbfb;
+  color: #b2cce2;
 }
 /* line 553, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
@@ -5656,7 +5661,7 @@ tbody.collapse.in {
 /* line 561, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
   color: white;
-  background-color: #0c7cd5;
+  background-color: #376990;
 }
 /* line 569, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
@@ -5678,11 +5683,11 @@ tbody.collapse.in {
 /* line 589, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #0c84e4;
+  border-color: #3b719b;
 }
 /* line 598, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #0c7cd5;
+  background-color: #376990;
   color: white;
 }
 @media (max-width: 767px) {
@@ -5696,7 +5701,7 @@ tbody.collapse.in {
   }
   /* line 613, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-    color: #b2dbfb;
+    color: #b2cce2;
   }
   /* line 616, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -5706,7 +5711,7 @@ tbody.collapse.in {
   /* line 624, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: white;
-    background-color: #0c7cd5;
+    background-color: #376990;
   }
   /* line 632, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
@@ -5716,7 +5721,7 @@ tbody.collapse.in {
 }
 /* line 641, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-link {
-  color: #b2dbfb;
+  color: #b2cce2;
 }
 /* line 643, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .navbar-link:hover {
@@ -5724,7 +5729,7 @@ tbody.collapse.in {
 }
 /* line 648, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .btn-link {
-  color: #b2dbfb;
+  color: #b2cce2;
 }
 /* line 651, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-inverse .btn-link:hover, .navbar-inverse .btn-link:focus {
@@ -5777,7 +5782,7 @@ tbody.collapse.in {
   padding: 6px 16px;
   line-height: 1.846;
   text-decoration: none;
-  color: #2196f3;
+  color: #4584b5;
   background-color: white;
   border: 1px solid #dddddd;
   margin-left: -1px;
@@ -5799,7 +5804,7 @@ tbody.collapse.in {
 .pagination > li > a:hover, .pagination > li > a:focus,
 .pagination > li > span:hover,
 .pagination > li > span:focus {
-  color: #0a6ebd;
+  color: #305b7e;
   background-color: #eeeeee;
   border-color: #dddddd;
 }
@@ -5810,8 +5815,8 @@ tbody.collapse.in {
 .pagination > .active > span:focus {
   z-index: 2;
   color: white;
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #4584b5;
+  border-color: #4584b5;
   cursor: default;
 }
 /* line 68, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_pagination.scss */
@@ -5961,20 +5966,20 @@ a.label:hover, a.label:focus {
 
 /* line 48, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_labels.scss */
 .label-primary {
-  background-color: #2196f3;
+  background-color: #4584b5;
 }
 /* line 8, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_labels.scss */
 .label-primary[href]:hover, .label-primary[href]:focus {
-  background-color: #0c7cd5;
+  background-color: #376990;
 }
 
 /* line 52, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_labels.scss */
 .label-success {
-  background-color: #4caf50;
+  background-color: #52a956;
 }
 /* line 8, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_labels.scss */
 .label-success[href]:hover, .label-success[href]:focus {
-  background-color: #3d8b40;
+  background-color: #428644;
 }
 
 /* line 56, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_labels.scss */
@@ -6035,7 +6040,7 @@ a.label:hover, a.label:focus {
 }
 /* line 40, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_badges.scss */
 .list-group-item.active > .badge, .nav-pills > .active > a > .badge {
-  color: #2196f3;
+  color: #4584b5;
   background-color: white;
 }
 /* line 44, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_badges.scss */
@@ -6137,7 +6142,7 @@ a.badge:hover, a.badge:focus {
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #2196f3;
+  border-color: #4584b5;
 }
 
 /* line 9, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_alerts.scss */
@@ -6184,7 +6189,7 @@ a.thumbnail.active {
 .alert-success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
-  color: #4caf50;
+  color: #52a956;
 }
 /* line 8, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_alerts.scss */
 .alert-success hr {
@@ -6192,7 +6197,7 @@ a.thumbnail.active {
 }
 /* line 11, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_alerts.scss */
 .alert-success .alert-link {
-  color: #3d8b40;
+  color: #428644;
 }
 
 /* line 60, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_alerts.scss */
@@ -6284,7 +6289,7 @@ a.thumbnail.active {
   line-height: 23px;
   color: white;
   text-align: center;
-  background-color: #2196f3;
+  background-color: #4584b5;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
@@ -6311,7 +6316,7 @@ a.thumbnail.active {
 
 /* line 73, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_progress-bars.scss */
 .progress-bar-success {
-  background-color: #4caf50;
+  background-color: #52a956;
 }
 /* line 7, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-success {
@@ -6464,8 +6469,8 @@ a.list-group-item:hover, a.list-group-item:focus {
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
   z-index: 2;
   color: white;
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #4584b5;
+  border-color: #4584b5;
 }
 /* line 92, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_list-group.scss */
 .list-group-item.active .list-group-item-heading,
@@ -6479,18 +6484,18 @@ a.list-group-item:hover, a.list-group-item:focus {
 }
 /* line 95, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_list-group.scss */
 .list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text {
-  color: #e3f2fd;
+  color: #d7e5f0;
 }
 
 /* line 4, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_list-group.scss */
 .list-group-item-success {
-  color: #4caf50;
+  color: #52a956;
   background-color: #dff0d8;
 }
 
 /* line 11, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_list-group.scss */
 a.list-group-item-success {
-  color: #4caf50;
+  color: #52a956;
 }
 /* line 14, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_list-group.scss */
 a.list-group-item-success .list-group-item-heading {
@@ -6498,14 +6503,14 @@ a.list-group-item-success .list-group-item-heading {
 }
 /* line 19, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_list-group.scss */
 a.list-group-item-success:hover, a.list-group-item-success:focus {
-  color: #4caf50;
+  color: #52a956;
   background-color: #d0e9c6;
 }
 /* line 25, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_list-group.scss */
 a.list-group-item-success.active, a.list-group-item-success.active:hover, a.list-group-item-success.active:focus {
   color: #fff;
-  background-color: #4caf50;
-  border-color: #4caf50;
+  background-color: #52a956;
+  border-color: #52a956;
 }
 
 /* line 4, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_list-group.scss */
@@ -6888,8 +6893,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 /* line 6, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-default > .panel-heading {
-  color: #212121;
-  background-color: whitesmoke;
+  color: #dddddd;
+  background-color: #333333;
   border-color: #dddddd;
 }
 /* line 11, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
@@ -6898,8 +6903,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 /* line 14, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-default > .panel-heading .badge {
-  color: whitesmoke;
-  background-color: #212121;
+  color: #333333;
+  background-color: #dddddd;
 }
 /* line 20, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
@@ -6908,26 +6913,26 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 
 /* line 247, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_panels.scss */
 .panel-primary {
-  border-color: #2196f3;
+  border-color: #4584b5;
 }
 /* line 6, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-primary > .panel-heading {
   color: white;
-  background-color: #2196f3;
-  border-color: #2196f3;
+  background-color: #4584b5;
+  border-color: #4584b5;
 }
 /* line 11, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-primary > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #2196f3;
+  border-top-color: #4584b5;
 }
 /* line 14, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-primary > .panel-heading .badge {
-  color: #2196f3;
+  color: #4584b5;
   background-color: white;
 }
 /* line 20, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #2196f3;
+  border-bottom-color: #4584b5;
 }
 
 /* line 250, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/_panels.scss */
@@ -6936,7 +6941,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 /* line 6, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-success > .panel-heading {
-  color: #4caf50;
+  color: #52a956;
   background-color: #dff0d8;
   border-color: #d6e9c6;
 }
@@ -6947,7 +6952,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 /* line 14, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-success > .panel-heading .badge {
   color: #dff0d8;
-  background-color: #4caf50;
+  background-color: #52a956;
 }
 /* line 20, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_panels.scss */
 .panel-success > .panel-footer + .panel-collapse > .panel-body {
@@ -7062,7 +7067,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #f9f9f9;
+  background-color: #d9d9d9;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -8170,21 +8175,21 @@ button.close {
 }
 /* line 103, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
 .navbar .navbar-inverse .form-control::-moz-placeholder {
-  color: #b2dbfb;
+  color: #b2cce2;
   opacity: 1;
 }
 /* line 107, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
 .navbar .navbar-inverse .form-control:-ms-input-placeholder {
-  color: #b2dbfb;
+  color: #b2cce2;
 }
 /* line 108, ../../../../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.3.1.0/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
 .navbar .navbar-inverse .form-control::-webkit-input-placeholder {
-  color: #b2dbfb;
+  color: #b2cce2;
 }
 /* line 22, ../sass/_bootswatch.scss */
 .navbar .navbar-inverse .form-control[type=text] {
-  -webkit-box-shadow: inset 0 -1px 0 #b2dbfb;
-  box-shadow: inset 0 -1px 0 #b2dbfb;
+  -webkit-box-shadow: inset 0 -1px 0 #b2cce2;
+  box-shadow: inset 0 -1px 0 #b2cce2;
 }
 /* line 25, ../sass/_bootswatch.scss */
 .navbar .navbar-inverse .form-control[type=text]:focus {
@@ -8223,8 +8228,8 @@ button.close {
 
 /* line 40, ../sass/_bootswatch.scss */
 .btn-primary {
-  background-image: -webkit-radial-gradient(circle, #2196f3 80%, #0d87e9 81%);
-  background-image: radial-gradient(circle, #2196f3 80%, #0d87e9 81%);
+  background-image: -webkit-radial-gradient(circle, #4584b5 80%, #3d749f 81%);
+  background-image: radial-gradient(circle, #4584b5 80%, #3d749f 81%);
   background-repeat: no-repeat;
   background-size: 200%;
   background-position: 50%;
@@ -8233,13 +8238,13 @@ button.close {
 /* line 46, ../sass/_bootswatch.scss */
 .btn-primary:hover {
   background-size: 100%;
-  border-color: #0d87e9;
+  border-color: #3d749f;
 }
 /* line 51, ../sass/_bootswatch.scss */
 .btn-primary:active {
-  background-color: #0d87e9;
-  background-image: -webkit-radial-gradient(circle, #0d87e9 10%, #2196f3 11%);
-  background-image: radial-gradient(circle, #0d87e9 10%, #2196f3 11%);
+  background-color: #3d749f;
+  background-image: -webkit-radial-gradient(circle, #3d749f 10%, #4584b5 11%);
+  background-image: radial-gradient(circle, #3d749f 10%, #4584b5 11%);
   background-repeat: no-repeat;
   background-size: 1000%;
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
@@ -8248,8 +8253,8 @@ button.close {
 
 /* line 40, ../sass/_bootswatch.scss */
 .btn-success {
-  background-image: -webkit-radial-gradient(circle, #4caf50 80%, #439a46 81%);
-  background-image: radial-gradient(circle, #4caf50 80%, #439a46 81%);
+  background-image: -webkit-radial-gradient(circle, #52a956 80%, #48944b 81%);
+  background-image: radial-gradient(circle, #52a956 80%, #48944b 81%);
   background-repeat: no-repeat;
   background-size: 200%;
   background-position: 50%;
@@ -8258,13 +8263,13 @@ button.close {
 /* line 46, ../sass/_bootswatch.scss */
 .btn-success:hover {
   background-size: 100%;
-  border-color: #439a46;
+  border-color: #48944b;
 }
 /* line 51, ../sass/_bootswatch.scss */
 .btn-success:active {
-  background-color: #439a46;
-  background-image: -webkit-radial-gradient(circle, #439a46 10%, #4caf50 11%);
-  background-image: radial-gradient(circle, #439a46 10%, #4caf50 11%);
+  background-color: #48944b;
+  background-image: -webkit-radial-gradient(circle, #48944b 10%, #52a956 11%);
+  background-image: radial-gradient(circle, #48944b 10%, #52a956 11%);
   background-repeat: no-repeat;
   background-size: 1000%;
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
@@ -8364,7 +8369,7 @@ button.close {
 }
 /* line 78, ../sass/_bootswatch.scss */
 .btn .btn-link:hover, .btn .btn-link:focus {
-  color: #2196f3;
+  color: #4584b5;
   text-decoration: none;
 }
 /* line 84, ../sass/_bootswatch.scss */
@@ -8430,8 +8435,8 @@ input[type=number]:focus,
 [type=password].form-control:focus,
 [type=email].form-control:focus,
 [type=tel].form-control:focus {
-  -webkit-box-shadow: inset 0 -2px 0 #2196f3;
-  box-shadow: inset 0 -2px 0 #2196f3;
+  -webkit-box-shadow: inset 0 -2px 0 #4584b5;
+  box-shadow: inset 0 -2px 0 #4584b5;
 }
 /* line 138, ../sass/_bootswatch.scss */
 textarea[disabled], textarea[readonly],
@@ -8474,8 +8479,8 @@ select.form-control {
 /* line 153, ../sass/_bootswatch.scss */
 select:focus,
 select.form-control:focus {
-  -webkit-box-shadow: inset 0 -2px 0 #2196f3;
-  box-shadow: inset 0 -2px 0 #2196f3;
+  -webkit-box-shadow: inset 0 -2px 0 #4584b5;
+  box-shadow: inset 0 -2px 0 #4584b5;
 }
 
 /* line 162, ../sass/_bootswatch.scss */
@@ -8497,12 +8502,15 @@ select.form-control:focus {
 }
 
 /* line 180, ../sass/_bootswatch.scss */
-.has-success input,
+.has-success input, .ng-valid input,
 .has-success .form-control,
+.ng-valid .form-control,
 .has-success input:focus,
-.has-success .form-control:focus {
-  -webkit-box-shadow: inset 0 -2px 0 #4caf50;
-  box-shadow: inset 0 -2px 0 #4caf50;
+.ng-valid input:focus,
+.has-success .form-control:focus,
+.ng-valid .form-control:focus {
+  -webkit-box-shadow: inset 0 -2px 0 #52a956;
+  box-shadow: inset 0 -2px 0 #52a956;
 }
 
 /* line 188, ../sass/_bootswatch.scss */
@@ -8519,21 +8527,21 @@ select.form-control:focus {
 /* line 195, ../sass/_bootswatch.scss */
 .nav-tabs > li > a:hover {
   background-color: transparent;
-  -webkit-box-shadow: inset 0 -2px 0 #2196f3;
-  box-shadow: inset 0 -2px 0 #2196f3;
-  color: #2196f3;
+  -webkit-box-shadow: inset 0 -2px 0 #4584b5;
+  box-shadow: inset 0 -2px 0 #4584b5;
+  color: #4584b5;
 }
 /* line 202, ../sass/_bootswatch.scss */
 .nav-tabs > li.active > a {
   border: none;
-  -webkit-box-shadow: inset 0 -2px 0 #2196f3;
-  box-shadow: inset 0 -2px 0 #2196f3;
-  color: #2196f3;
+  -webkit-box-shadow: inset 0 -2px 0 #4584b5;
+  box-shadow: inset 0 -2px 0 #4584b5;
+  color: #4584b5;
 }
 /* line 207, ../sass/_bootswatch.scss */
 .nav-tabs > li.active > a:hover {
   border: none;
-  color: #2196f3;
+  color: #4584b5;
 }
 /* line 213, ../sass/_bootswatch.scss */
 .nav-tabs > li.disabled > a {
@@ -8563,7 +8571,7 @@ select.form-control:focus {
 }
 /* line 243, ../sass/_bootswatch.scss */
 .alert .alert-success {
-  background-color: #4caf50;
+  background-color: #52a956;
 }
 /* line 247, ../sass/_bootswatch.scss */
 .alert .alert-info {
@@ -8621,11 +8629,11 @@ select.form-control:focus {
   left: 0;
   right: 0;
   z-index: -1;
-  background-color: #cae6fc;
+  background-color: #c4d9e9;
 }
 /* line 303, ../sass/_bootswatch.scss */
 .progress .progress-bar .progress-bar-success:last-child.progress-bar:before {
-  background-color: #c7e7c8;
+  background-color: #c9e5ca;
 }
 /* line 307, ../sass/_bootswatch.scss */
 .progress .progress-bar .progress-bar-info:last-child.progress-bar:before {
@@ -8685,7 +8693,7 @@ select.form-control:focus {
 }
 /* line 365, ../sass/_bootswatch.scss */
 .panel .panel-success .panel-heading {
-  background-color: #4caf50;
+  background-color: #52a956;
 }
 /* line 369, ../sass/_bootswatch.scss */
 .panel .panel-success .panel-title {
@@ -8723,29 +8731,64 @@ select.form-control:focus {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* line 12, ../sass/screen.scss */
+/* -------------------------------- VARIABLES -------------------------------- */
+/* -------------------------------- ANGULAR FORM VALIDATION -------------------------------- */
+/* -------------------------------- EVERYTHING -------------------------------- */
+/* line 31, ../sass/screen.scss */
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
 
-/* -------------------------------- LANDING -------------------------------- */
-/* line 20, ../sass/screen.scss */
-#landing {
-  position: relative;
-  top: -50px;
+/* line 34, ../sass/screen.scss */
+p.large-text, p.medium-text {
+  font-family: 'Open Sans', 'Raleway', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 100;
+  font-size: 26px;
+  line-height: 30px;
 }
-/* line 25, ../sass/screen.scss */
+
+/* line 40, ../sass/screen.scss */
+p.medium-text {
+  font-size: 18px;
+}
+
+/* line 46, ../sass/screen.scss */
+.top-buffer {
+  margin-top: 30px;
+}
+
+/* line 49, ../sass/screen.scss */
+.top-buffer-large {
+  margin-top: 90px;
+}
+
+/* line 53, ../sass/screen.scss */
+h1, h2 {
+  font-family: "Raleway", "Open Sans", "Helvetica", "Arial", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #333;
+}
+
+/* line 60, ../sass/screen.scss */
+.app-view {
+  margin-top: 28px;
+}
+
+/* -------------------------------- LANDING -------------------------------- */
+/* line 72, ../sass/screen.scss */
 #landing .splash {
+  box-shadow: inset 0 0 720px rgba(0, 0, 0, 0.3);
   height: 550px;
   background: #439CBF;
 }
-/* line 27, ../sass/screen.scss */
+/* line 76, ../sass/screen.scss */
 #landing .splash .row {
   position: relative;
   top: 120px;
   color: #DDD;
 }
-/* line 32, ../sass/screen.scss */
+/* line 80, ../sass/screen.scss */
 #landing .splash .row h1 {
   color: white;
   font-size: 60px;
@@ -8753,61 +8796,152 @@ select.form-control:focus {
   font-weight: bold;
   text-transform: uppercase;
 }
-
-/* -------------------------------- EVERYTHING -------------------------------- */
-/* line 54, ../sass/screen.scss */
-.well {
-  background: #D9D9D9;
+/* line 87, ../sass/screen.scss */
+#landing .splash .row p {
+  color: white;
+}
+/* line 95, ../sass/screen.scss */
+#landing .content:nth-child(odd) {
+  background: #F0F0F0;
+  z-index: 1;
+}
+/* line 99, ../sass/screen.scss */
+#landing .content:nth-child(even) {
+  z-index: 2;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+}
+/* line 104, ../sass/screen.scss */
+#landing .content {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+/* line 108, ../sass/screen.scss */
+#landing .content .panel {
+  margin-top: 20px;
+}
+/* line 111, ../sass/screen.scss */
+#landing .content .panel .panel-body {
+  padding: 35px;
+}
+/* line 119, ../sass/screen.scss */
+#landing .content.features h1 {
+  color: #444;
+}
+/* line 126, ../sass/screen.scss */
+#landing .content.top-surveys .list-group-item-heading {
+  padding-right: 50px;
+  word-wrap: break-word;
+  padding-bottom: 12px;
+}
+/* line 132, ../sass/screen.scss */
+#landing .content.top-surveys .list-group-item p {
+  display: none;
+  color: #666;
+}
+/* line 136, ../sass/screen.scss */
+#landing .content.top-surveys .list-group-item:hover p {
+  display: initial;
 }
 
 /* -------------------------------- INDEX -------------------------------- */
-/* line 66, ../sass/screen.scss */
-nav .navbar-brand {
+/* line 151, ../sass/screen.scss */
+nav.navbar {
+  margin-bottom: 0px;
+}
+/* line 154, ../sass/screen.scss */
+nav.navbar .navbar-brand {
   font-size: 40px;
   position: relative;
   top: -5px;
 }
-/* line 75, ../sass/screen.scss */
-nav .navbar-right a .text {
+/* line 163, ../sass/screen.scss */
+nav.navbar .navbar-right a .text {
   padding-right: 8px;
 }
-/* line 79, ../sass/screen.scss */
-nav .navbar-right a .glyphicon {
+/* line 167, ../sass/screen.scss */
+nav.navbar .navbar-right a .glyphicon {
   font-size: 20px;
   position: relative;
   top: 4px;
 }
 
+/* line 176, ../sass/screen.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 181, ../sass/screen.scss */
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -250px;
+}
+
+/* line 187, ../sass/screen.scss */
+.wrapper:after {
+  content: '';
+  display: block;
+}
+
+/* line 191, ../sass/screen.scss */
+.footer, .wrapper:after {
+  height: 250px;
+}
+
+/* line 195, ../sass/screen.scss */
+.footer {
+  padding-top: 50px;
+  background: #333333;
+  font-size: 14px;
+}
+/* line 200, ../sass/screen.scss */
+.footer a {
+  color: #555;
+}
+/* line 203, ../sass/screen.scss */
+.footer a:hover {
+  color: #777;
+}
+
+/* -------------------------------- EXPLORE -------------------------------- */
+/* line 213, ../sass/screen.scss */
+#explore .panel-body {
+  padding: 30px 50px 30px 50px;
+}
+/* line 216, ../sass/screen.scss */
+#explore .panel-body .row.graph-row {
+  margin-top: 50px;
+  height: 300px;
+}
+
 /* -------------------------------- FEED -------------------------------- */
-/* line 97, ../sass/screen.scss */
+/* line 229, ../sass/screen.scss */
 #feed .interpanel.row {
   margin-bottom: 40px;
 }
-/* line 102, ../sass/screen.scss */
-#feed .main.panel .panel-heading {
-  background: #333;
-  color: #DDD;
-}
-/* line 106, ../sass/screen.scss */
+/* line 235, ../sass/screen.scss */
 #feed .main.panel .panel-body {
   padding: 50px;
   padding-top: 30px;
   padding: 30px 50px 30px 50px;
 }
-/* line 112, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 #feed .main.panel .panel-body .results {
   padding-top: 15px;
   min-height: 250px;
 }
-/* line 121, ../sass/screen.scss */
+/* line 250, ../sass/screen.scss */
 #feed .side.panel .panel-heading .btn-group {
   width: 80%;
 }
-/* line 124, ../sass/screen.scss */
+/* line 253, ../sass/screen.scss */
 #feed .side.panel .panel-heading .btn-group button {
   width: 50%;
 }
-/* line 131, ../sass/screen.scss */
+/* line 260, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group {
   max-height: 300px;
   overflow: scroll;
@@ -8819,15 +8953,15 @@ nav .navbar-right a .glyphicon {
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
 }
-/* line 140, ../sass/screen.scss */
+/* line 269, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group a.list-group-item:first-child {
   border-top: 0px;
 }
-/* line 143, ../sass/screen.scss */
+/* line 272, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group a.list-group-item:last-child {
   border-bottom: 0px;
 }
-/* line 152, ../sass/screen.scss */
+/* line 281, ../sass/screen.scss */
 #feed .buttons.panel .points.well {
   font-size: 18px;
   padding: 7px;
@@ -8841,74 +8975,70 @@ nav .navbar-right a .glyphicon {
   -o-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 164, ../sass/screen.scss */
+/* line 293, ../sass/screen.scss */
 #feed .buttons.panel .submit.btn, #feed .buttons.panel .comment.btn {
   position: relative;
   top: 18px;
 }
 
 /* -------------------------------- MODAL -------------------------------- */
-/* line 179, ../sass/screen.scss */
+/* line 308, ../sass/screen.scss */
 .login-modal {
   margin-top: 150px;
 }
 
-/* line 183, ../sass/screen.scss */
+/* line 312, ../sass/screen.scss */
 .modal-backdrop {
   z-index: -10;
 }
 
-/* line 189, ../sass/screen.scss */
+/* line 318, ../sass/screen.scss */
 .modal-body .row {
   margin-top: 45px;
 }
-/* line 192, ../sass/screen.scss */
+/* line 321, ../sass/screen.scss */
 .modal-body .row label {
   width: 100%;
 }
 
 /* -------------------------------- CREATE -------------------------------- */
-/* line 205, ../sass/screen.scss */
+/* line 334, ../sass/screen.scss */
 #content {
   margin-bottom: 250px;
 }
 
-/* line 212, ../sass/screen.scss */
+/* line 341, ../sass/screen.scss */
 .create .panel-heading .input-group input {
-  color: black;
+  color: #222;
+  font-weight: thin;
 }
-/* line 215, ../sass/screen.scss */
+/* line 345, ../sass/screen.scss */
 .create .panel-heading .input-group input:focus {
-  box-shadow: 0px -2px 0px #88EEFF inset;
+  box-shadow: 0px -2px 0px #a0dde7 inset;
 }
-/* line 218, ../sass/screen.scss */
+/* line 348, ../sass/screen.scss */
 .create .panel-heading .input-group .btn {
   border-radius: 15px;
   padding: 0px 5px 0px 5px;
   margin-left: 15px;
 }
-/* line 223, ../sass/screen.scss */
+/* line 353, ../sass/screen.scss */
 .create .panel-heading .input-group .btn:disabled {
   background: red;
 }
-/* line 226, ../sass/screen.scss */
+/* line 356, ../sass/screen.scss */
 .create .panel-heading .input-group .btn:hover {
   box-shadow: 0 4px 4px 4px 0.1 black;
   -webkit-box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
   box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
 }
-/* line 233, ../sass/screen.scss */
+/* line 363, ../sass/screen.scss */
 .create .panel-body .input-group-btn button {
   border-radius: 3px;
 }
 
-/* line 239, ../sass/screen.scss */
-.demo .panel-heading {
-  color: #333333;
-}
-
-/* line 249, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .example-animate-container {
   background: white;
   border: 1px solid black;
@@ -8917,14 +9047,14 @@ nav .navbar-right a .glyphicon {
   padding: 0 10px;
 }
 
-/* line 258, ../sass/screen.scss */
+/* line 382, ../sass/screen.scss */
 .animate-repeat {
   line-height: 40px;
   list-style: none;
   box-sizing: border-box;
 }
 
-/* line 267, ../sass/screen.scss */
+/* line 391, ../sass/screen.scss */
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter,
 .animate-repeat.ng-leave {
@@ -8932,7 +9062,7 @@ nav .navbar-right a .glyphicon {
   transition: all linear 0.5s;
 }
 
-/* line 275, ../sass/screen.scss */
+/* line 399, ../sass/screen.scss */
 .animate-repeat.ng-leave.ng-leave-active,
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
@@ -8940,7 +9070,7 @@ nav .navbar-right a .glyphicon {
   max-height: 0;
 }
 
-/* line 283, ../sass/screen.scss */
+/* line 407, ../sass/screen.scss */
 .animate-repeat.ng-leave,
 .animate-repeat.ng-move.ng-move-active,
 .animate-repeat.ng-enter.ng-enter-active {

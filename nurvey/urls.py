@@ -22,4 +22,7 @@ urlpatterns = patterns('',
     url(r'polls/', views.polls, name='polls'),
     url(r'points/', views.points, name='points'),
     url(r'users/', views.users, name='users'),
+
+    # Other
+    url(r'correlate/', views.correlate, name='correlate'),
 )

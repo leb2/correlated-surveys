@@ -66,6 +66,15 @@ class Poll(models.Model):
 
     points = generic.GenericRelation(Point, content_type_field='voted_type', object_id_field='voted_id')
 
+    def domain_pretty(self):
+        return self.poll_object.domain_pretty()
+
+    def domain(self):
+        return self.poll_object.domain()
+
+    def values(self):
+        return self.poll_object.values(self)
+
     @property
     def results(self):
         return self.poll_object.results(self)
@@ -87,9 +96,21 @@ class SliderPoll(models.Model):
     max = models.IntegerField()
     step = models.IntegerField(default=1)
 
+    def domain(self):
+        return range(self.min, self.max, self.step)
+
+    def domain_pretty(self):
+        return self.domain()
+
+    def values(self, poll):
+        values = []
+        for i in self.domain():
+            values.append(Vote.objects.filter(poll=poll, value=i).count())
+        return values
+
     def results(self, poll):
         results = {}
-        for i in range(self.min, self.max, self.step):
+        for i in self.domain():
             results[i] = Vote.objects.filter(poll=poll, value=i).count()
         return results
 
@@ -103,6 +124,18 @@ class SliderPoll(models.Model):
 
 class ChoicePoll(models.Model):
     poll = generic.GenericRelation(Poll)
+
+    def domain_pretty(self):
+        return [choice.text for choice in self.domain()]
+
+    def domain(self):
+        return self.choice_set.all().order_by('pk')
+
+    def values(self, poll):
+        values = []
+        for choice in self.domain():
+            values.append(Vote.objects.filter(poll=poll, value=choice.pk).count())
+        return values
 
     def results(self, poll):
         results = {}

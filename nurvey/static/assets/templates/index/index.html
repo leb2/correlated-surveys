@@ -5,10 +5,88 @@
 			<div class='row'>
 				<div class='col-md-8 col-md-offset-2 text-center'>
 					<h1>
-						TESTING
+						LOREM IPSUM
 					</h1>
+					<p class='large-text'>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+					</p>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class='content features'>
+		<div class='container'>
+			<!-- UNIQUE FEATURES HEADER
+			<div class='row'>
+				<div class='col-md-8 col-md-offset-2 text-center'>
+					<h2 class='dark'>UNIQUE FEATURES</h2>
+				</div>
+			</div>
+			-->
+			<div class='row'>
+				<div class='col-md-4'>
+					<div class='panel panel-default'>
+						<div class='panel-body'>
+							<h1 class='text-center'><span class='glyphicon glyphicon-leaf'></span></h1>
+							<p class='text-center medium-text'>
+								A custom point system is used to rank better surveys and add some incentive to answer surveys.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class='col-md-4'>
+					<div class='panel panel-default'>
+						<div class='panel-body'>
+							<h1 class='text-center'><span class='glyphicon glyphicon-stats'></span></h1>
+							<p class='text-center medium-text'>
+								An intuitive system allows for the comparing of different surveys, finding unique correlations.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class='col-md-4'>
+					<div class='panel panel-default'>
+						<div class='panel-body'>
+							<h1 class='text-center'><span class='glyphicon glyphicon-globe'></span></h1>
+							<p class='text-center medium-text'>
+								Share your survey with the internet for more results. Data can be normalized for a localization.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='content top-surveys'>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-md-8 col-md-offset-2 text-center'>
+					<h2 class='dark'>VIEW TOP SURVEYS</h2>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-md-10 col-md-offset-1 text-center'>
+					<div class='panel panel-default'>
+						<div class='panel-body'>
+
+							<div class='list-group text-left'>
+								<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in surveys'>
+									<span class='badge' ng-cloak>
+										{{ survey.num_upvotes - survey.num_downvotes }} 
+										<span class='glyphicon glyphicon-leaf'></span>
+									</span>
+									<h4 class='list-group-item-heading' ng-cloak>{{ survey.title }}</h4>
+									<p class='list-group-item-text' ng-cloak>{{ survey.poll_set[0].description }}</p>
+								</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>

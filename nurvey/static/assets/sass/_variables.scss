@@ -14,8 +14,8 @@ $gray:                   #666;
 $gray-light:             #bbb;
 $gray-lighter:           lighten($gray-base, 93.5%); // #eee
 
-$brand-primary:         #2196F3;
-$brand-success:         #4CAF50;
+$brand-primary:         darken(desaturate(#2196F3, 45%), 5%);
+$brand-success:         desaturate(#4CAF50, 5%);
 $brand-info:            #9C27B0;
 $brand-warning:         #ff9800;
 $brand-danger:          #e51c23;
@@ -702,9 +702,9 @@ $panel-border-radius:         $border-radius-base;
 $panel-inner-border:          #ddd;
 $panel-footer-bg:             #f5f5f5;
 
-$panel-default-text:          $gray-dark;
+$panel-default-text:          #DDDDDD;// $gray-dark;
 $panel-default-border:        #ddd;
-$panel-default-heading-bg:    #f5f5f5;
+$panel-default-heading-bg:    #333333;// #f5f5f5;
 
 $panel-primary-text:          #fff;
 $panel-primary-border:        $brand-primary;
@@ -750,7 +750,7 @@ $thumbnail-caption-padding:   9px;
 //
 //##
 
-$well-bg:                     #f9f9f9;
+$well-bg:                     #D9D9D9; //#f9f9f9;
 $well-border:                 rgba(0, 0, 0, 0);
 
 

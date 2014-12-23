@@ -15,6 +15,13 @@
 		$scope.loadedSurveys = [];
 		$scope.surveyLocation = 0;
 
+		// Initialize $scope.survey with voteData to prevent warnings - eventually switch to resolve
+		$scope.survey = {
+			voteData: {
+				survey_vote: false
+			}
+		}
+
 
 		$scope.submit = function() {
 			var answers = {};
@@ -106,10 +113,11 @@
 		};
 
 		// Make ajax request to surver for a survey
-		$scope.fetchSurveys = function(first, completeCallback, id=0) {
-			idParam = id ? "&id=" + id : "";
-			$http.get('/surveys/?amount=10' + idParam).
-				success(function(data, a, b, c) {
+		$scope.fetchSurveys = function(first, id=0) {
+			var idParam = id ? "&id=" + id : "";
+			var beforeSurveyParam = first ? "" : "&beforeSurveyId=" + $scope.loadedSurveys[$scope.loadedSurveys.length - 1].id;
+			$http.get('/surveys/?amount=10' + beforeSurveyParam + idParam).
+				success(function(data) {
 					$scope.loadedSurveys = $scope.loadedSurveys.concat(data);
 					console.log($scope.loadedSurveys);
 
@@ -126,7 +134,6 @@
 
 		if ($routeParams.id != undefined) {
 			$scope.fetchSurveys(true, id=$routeParams.id);
-
 		} else {
 			$scope.fetchSurveys(true);
 		}
@@ -221,7 +228,5 @@
 			}
 		};
 	});
-
-
 
 })();

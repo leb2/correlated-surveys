@@ -6,6 +6,7 @@
 	<script src="{% static 'assets/javascripts/app/account.js' %}"></script>
 	<script src="{% static 'assets/javascripts/app/feed.js' %}"></script>
 	<script src="{% static 'assets/javascripts/app/app.js' %}"></script>
+	<script src="{% static 'assets/javascripts/app/explore.js' %}"></script>
 {% endblock js %}
 
 
@@ -22,6 +23,7 @@
 		</div>
 		<div id='navbar-main' class='navbar-collapse collapse'>
 			<ul class='nav navbar-nav'>
+
 			</ul>
 			<ul class='nav navbar-nav navbar-right'>
 				<li>
@@ -70,26 +72,34 @@
 				LOG IN
 			</div>
 			<div class='modal-body'>
-				<div style='width: 100%' class='container'>
-					<div class='row'>
-						<label>
-							Username
-							<input ng-model='credentials.username' type='text' class='form-control' required novalidate></input>
-						</label>
+				<form>
+					<div style='width: 100%' class='container'>
+						<div class='row'>
+							<div class='form-group' show-errors>
+							<label>
+								Username
+							</label>
+							<input ng-model='credentials.username' name='name' type='text' class='form-control' required novalidate></input>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='form-group' show-errors>
+								<label>
+									Password
+								</label>
+								<input ng-model='credentials.password' name='password' type='password' class='form-control'required novalidate></input>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='form-group' show-errors>
+								<label>
+									Email
+								</label>
+								<input ng-model='credentials.email' name='email' type='email' class='form-control' required novalidate></input>
+							</div>
+						</div>
 					</div>
-					<div class='row'>
-						<label>
-							Password
-							<input ng-model='credentials.password' type='password' class='form-control' required novalidate></input>
-						</label>
-					</div>
-					<div class='row'>
-						<label>
-							Email
-							<input ng-model='credentials.email' type='email' class='form-control' required novalidate></input>
-						</label>
-					</div>
-				</div>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -100,11 +110,27 @@
 	</div>
 </div>
 
-{% verbatim %}
 
-<div ng-view></div>
+<div class='wrapper'>
+	<div ng-view></div>
+	<div class='push'></div>
+</div>
 
-{% endverbatim %}
+<div class='footer'>
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-3 col-md-offset-2'>
+				<a href>Report an Issue</a><br>
+				<a href>About Page</a>
+			</div>
+			<div class='col-md-3'>
+			</div>
+			<div class='col-md-3'>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 {% endblock %}
-
 
