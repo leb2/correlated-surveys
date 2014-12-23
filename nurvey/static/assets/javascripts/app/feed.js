@@ -8,8 +8,7 @@
 
 	/* ----------------- MAIN CONTROLLER FOR FEED ----------------- */
 
-
-	app.controller('FeedController', ['$routeParams', '$scope', '$http', function($routeParams, $scope, $http) {
+	app.controller('FeedController', ['$routeParams', '$rootScope', '$scope', '$http', function($routeParams, $rootScope, $scope, $http) {
 
 		$scope.showResults = false;
 		$scope.loadedSurveys = [];
@@ -24,6 +23,13 @@
 
 
 		$scope.submit = function() {
+
+			// Login Required
+			if (!$rootScope.user) {
+				$('#login-modal').modal();
+				return;
+			}
+
 			var answers = {};
 			var polls = $scope.survey.poll_set;
 
@@ -37,6 +43,7 @@
 					$scope.showResults = true;
 				});
 		};
+
 
 		$scope.displaySurvey = function() {
 			// $scope.survey = $scope.loadedSurveys.shift();
@@ -57,14 +64,23 @@
 				});
 		};
 
+
+		// When clicking on a particular survey on the sidebar
 		$scope.gotoSurvey = function(survey) {
 			$scope.surveyLocation = $scope.loadedSurveys.indexOf(survey)
-
 			$scope.displaySurvey();
 		};
 
+
 		$scope.givePoint = function(isUp) {
-			// If they are unvoting
+
+			// Login required
+			if (!$rootScope.user) {
+				$('#login-modal').modal();
+				return;
+			}
+
+			// Handle un-voting
 			if (isUp == $scope.survey.voteData.survey_vote) {
 				$scope.survey.voteData.survey_vote = null;
 			} else {
@@ -79,8 +95,9 @@
 			$http.post('/points/', data);
 		};
 
+		// What does this do?
 		$scope.voteAmount = function() {
-
+			console.log("Voteamoutn called");
 			var score = $scope.survey.num_upvotes - $scope.survey.num_downvotes;
 
 			function voteToInt(vote) {
@@ -90,13 +107,11 @@
 					return vote ? 1 : -1;
 				}
 			}
-
 			return score + voteToInt($scope.survey.voteData.survey_vote);
 
 			// Undo previous vote and apply new vote
 			var previousVote = $scope.survey.voteData.survey_vote;
 			return voteToInt($scope.freshVote) - voteToInt(previousVote)
-
 		};
 
 		$scope.next = function() {
@@ -132,6 +147,7 @@
 				});
 		};
 
+		// If looking at a particular survey
 		if ($routeParams.id != undefined) {
 			$scope.fetchSurveys(true, id=$routeParams.id);
 		} else {

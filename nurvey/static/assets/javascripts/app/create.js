@@ -6,7 +6,7 @@
 
 
 	// Controller for all of the questions
-	app.controller('surveyController', ['$location', '$scope', '$http', function($location, $scope, $http) {
+	app.controller('surveyController', ['$location', '$rootScope', '$scope', '$http', function($location, $rootScope, $scope, $http) {
 		this.survey = {title: '', description: ''};
 		var questions = $scope.questions = this.survey.questions = this.questions = [{}];
 
@@ -15,6 +15,12 @@
 		};
 
 		this.submit = function() {
+
+			// Login required
+			if (!$rootScope.user) {
+				$('#login-modal').modal().on('hidden.bs.modal', this.submit);
+				return;
+			}
 
 			// Extracts parameters from selected questionType and assigns to new property on question
 			angular.forEach(questions, function(question) {
@@ -206,9 +212,3 @@
 	});
 
 })();
-
-
-
-
-
-
