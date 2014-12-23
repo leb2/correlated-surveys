@@ -10,6 +10,9 @@
 		this.survey = {title: '', description: ''};
 		var questions = $scope.questions = this.survey.questions = this.questions = [{}];
 
+		// Whether to display danger alert
+		$scope.error = false;
+
 		this.addQuestion = function() {
 			questions.push({});
 		};
@@ -30,10 +33,11 @@
 						question.type = questionType.name;
 					}
 				});
-				delete question.questionTypes;
+				//delete question.questionTypes;
 			});
 
 
+			// If only one question, make survey's title same as question's title
 			if (questions.length == 1) {
 				this.survey.title = questions[0].title;
 				this.survey.description = questions[0].description;
@@ -43,6 +47,10 @@
 				success(function(data, status, headers, config) {
 					id = data;
 					$location.path('/feed/' + id);
+					$scope.error = false;
+				}).
+				error(function(data) {
+					$scope.error = true;
 				});
 		};
 	}]);

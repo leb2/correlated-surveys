@@ -12,6 +12,8 @@
 
 	app.controller('LoginController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
+		$scope.error = false;
+
 		// Credentials for model in DOM
 		$scope.credentials = {
 			username: '',
@@ -24,6 +26,10 @@
 				success(function(data) {
 					$('#login-modal').modal('hide');
 					$rootScope.refreshUser();
+					$scope.error = false;
+				}).
+				error(function(data) {
+					$scope.error = true;
 				});
 		};
 

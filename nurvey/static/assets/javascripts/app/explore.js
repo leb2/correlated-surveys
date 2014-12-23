@@ -32,39 +32,12 @@
 
 		/* ---------------- CHART DATA ---------------- */
 
-		data = {
-			labels: ['pizza', 'pasta', 'cereal', 'rice', 'bread', 'cake', 'steak'], 
-			datasets: [{
-				label: "My First dataset",
-				fillColor: "rgba(120,220,120,0.2)",
-				strokeColor: "rgba(120,220,120,1)",
-				pointColor: "rgba(120,220,120,1)",
-				pointStrokeColor: "#fff",
-				pointHighlightFill: "#fff",
-				pointHighlightStroke: "rgba(220,220,220,1)",
-				data: [5, 4, 3, 5, 8, 12, 5]
-			},
-			{
-				label: "My second dataset",
-				/*
-				fillColor: "rgba(220,120,120,0.2)",
-				strokeColor: "rgba(220,120,120,1)",
-				pointColor: "rgba(220,120,120,1)",
-				pointStrokeColor: "#fff",
-				pointHighlightFill: "#fff",
-				pointHighlightStroke: "rgba(220,220,220,1)",
-				*/
-				data: [1, 4, 7, 3, 4, 1, 3]
-			}]
-		};
 
 		var canvas = $('#exploreGraph')[0];
 		var chart = new Chart(canvas.getContext('2d'));
-		// chart.Bar(data);
 
 
 		$scope.updateGraph = function() {
-
 			var data = $scope.correlateData;
 
 			// TODO: Make having only one poll not return undfined error but submit to survey with only one
@@ -84,9 +57,6 @@
 						datasets: graphDatasets
 					}
 
-					console.log("graphing with data:")
-					console.log(graphData);
-
 					if (data.type == 'line') {
 						chart.Line(graphData);
 					} else if (data.type == 'bar') {
@@ -94,11 +64,5 @@
 					}
 				});
 		};
-
-
-
 	}]);
-
-
-
 })();

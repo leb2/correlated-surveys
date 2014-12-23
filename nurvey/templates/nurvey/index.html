@@ -75,17 +75,20 @@
 				<form>
 					<div style='width: 100%' class='container'>
 						<div class='row'>
+							<div ng-show='error' class='alert alert-danger' role='alert'>Incorrect credentials</div> 
+						</div>
+						<div class='row'>
 							<div class='form-group' show-errors>
-							<label>
-								Username
-							</label>
-							<input ng-model='credentials.username' name='name' type='text' class='form-control' required novalidate></input>
+								<label>
+									Username *
+								</label>
+								<input ng-model='credentials.username' name='username' type='text' class='form-control' required novalidate></input>
 							</div>
 						</div>
 						<div class='row'>
 							<div class='form-group' show-errors>
 								<label>
-									Password
+									Password *
 								</label>
 								<input ng-model='credentials.password' name='password' type='password' class='form-control'required novalidate></input>
 							</div>
@@ -93,9 +96,9 @@
 						<div class='row'>
 							<div class='form-group' show-errors>
 								<label>
-									Email
+									Email (only if new user)
 								</label>
-								<input ng-model='credentials.email' name='email' type='email' class='form-control' required novalidate></input>
+								<input ng-model='credentials.email' name='email' type='email' class='form-control' novalidate></input>
 							</div>
 						</div>
 					</div>
@@ -103,8 +106,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" ng-click='login.login()'>Login</button>
-				<button type="button" class="btn btn-primary" ng-click='login.register()'>Register</button>
+				<button type="button" ng-bind='credentials.email.length > 0 ? "Register" : "Login"' class="btn btn-primary"
+																						ng-click='credentials.email.length > 0 ? login.register() : login.login()'></button>
 			</div>
 		</div>
 	</div>

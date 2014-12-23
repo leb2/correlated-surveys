@@ -1,6 +1,10 @@
 
 <div id='content' class='container app-view'>
 
+	<div ng-show='error' class='row'>
+		<div class='alert alert-danger'>Missing some fields</div>
+	</div>
+
 
 	<!-- SURVEY TITLE -->
 	<div class='row' style='padding: 35px' ng-show='questions.length > 1'>
