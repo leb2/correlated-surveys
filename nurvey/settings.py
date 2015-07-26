@@ -52,6 +52,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'nurvey.backends.RedditBackend'
+)
+CLIENT_ID = 'JgVqt9xSpAk4yg'
+CLIENT_SECRET = 'ifu_gFOQrandEGZKf_NWpbAOjRM'
+REDIRECT_URI = 'http://localhost:8000/callback/'
+
+
 ROOT_URLCONF = 'nurvey.urls'
 
 WSGI_APPLICATION = 'nurvey.wsgi.application'

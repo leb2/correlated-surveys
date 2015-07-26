@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     url(r'^$', views.landing, name='landing'),
 
     #Login
+    url(r'^reddit-auth-url', views.reddit_auth_url, name='reddit_auth_url'),
+    url(r'^callback/', views.reddit_callback, name='reddit_callback'),
     url(r'^login/', views.login_user, name='login'),
     url(r'^register/', views.register, name='register'),
     url(r'^logout/', views.logout_user, name='logout'),

@@ -167,10 +167,3 @@ class Vote(models.Model):
 
     def __unicode__(self):
         return str(self.value)
-
-
-
-
-
-
-

@@ -10,7 +10,12 @@ from models import *
 import json
 from django.db.models import Avg
 import datetime
+from django.conf import settings
 
+import requests
+import requests.auth
+import urllib
+from uuid import uuid4
 
 
 # ---------------- MAIN PAGE ---------------- #
@@ -302,8 +307,65 @@ def register(request):
         credentials = json.loads(request.body)
         user = User.objects.create_user(credentials['username'], credentials['email'], credentials['password'])
         user.save()
-        Profile(user=user).save()
+        profile = Profile(user=user)
+        profile.save()
         return login_user(request)
+
+
+
+def reddit_auth_url(request):
+    # Generate a random string for the state parameter
+    # Save it for use later to prevent xsrf attacks
+    state = str(uuid4())
+    params = {"client_id": settings.CLIENT_ID,
+              "response_type": "code",
+              "state": state,
+              "redirect_uri": settings.REDIRECT_URI,
+              "duration": "permanent",
+              "scope": "identity"}
+    url = "https://www.reddit.com/api/v1/authorize?" + urllib.urlencode(params)
+    return HttpResponse(url)
+
+
+def reddit_callback(request):
+    code = request.GET.dict().get('code')
+    access_token = get_access_token(request, code)
+    user = authenticate(access_token=access_token)
+    profile = Profile(user=user)
+    profile.save()
+    login(request, user)
+
+    return landing(request)
+
+
+def get_access_token(request, code=None):
+    client_auth = requests.auth.HTTPBasicAuth(settings.CLIENT_ID, settings.CLIENT_SECRET)
+    url = 'https://www.reddit.com/api/v1/access_token'
+
+    # If getting access token for first time
+    if request.session.get('access_token') is None:
+        post_data = {
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': settings.REDIRECT_URI
+        }
+    # if refreshing token
+    else:
+        post_data = {
+            'grant_type': 'refresh_token',
+            'refresh_token': request.session['refresh_token']
+        }
+
+    headers = {'User-Agent': 'Surveying app by /u/TreeTwo'}
+    response = requests.post(url, headers=headers, data=post_data, auth=client_auth)
+    response_test = response.json()
+    request.session['access_token'] = response.json()['access_token']
+    refresh_token = response.json().get('refresh_token')
+    if refresh_token is not None:
+        request.session['refresh_token'] = refresh_token
+    return response.json()['access_token']
+
+
 
 def logout_user(request):
     logout(request)
@@ -312,29 +374,3 @@ def logout_user(request):
 # Use to tell if a username is unique
 def unique_username(request):
     pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

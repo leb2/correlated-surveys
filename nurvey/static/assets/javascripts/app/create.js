@@ -63,7 +63,7 @@
 	// Directive for a single question
 	app.directive('questionCreate', function() {
 		return {
-			restrict: 'E', 
+			restrict: 'E',
 
 			templateUrl: '/static/assets/templates/create/directives/questionCreate.html',
 			scope: {
@@ -154,10 +154,10 @@
 	/* -------------------------------- SPECIFICS -------------------------------- */
 
 
-	// Directive for creating a multiple choice question 
+	// Directive for creating a multiple choice question
 	app.directive('choiceCreate', function() {
 		return {
-			restrict: 'E', 
+			restrict: 'E',
 			templateUrl: '/static/assets/templates/create/directives/forms/choiceCreate.html',
 			scope: {
 				questiontype: '='
@@ -195,7 +195,7 @@
 			},
 			controller: function($scope) {
 				//var question = $scope.question = $scope.$parent.question;
-				var question = $scope.question = $scope.questiontype.parameters; 
+				var question = $scope.question = $scope.questiontype.parameters;
 				$scope.min = question.min = 0;
 				$scope.max = question.max = 10;
 				$scope.step = question.step = 1;
@@ -205,7 +205,7 @@
 
 
 	// Skeleton for parameter directive for new question type
-	// TODO: Make DRYer design 
+	// TODO: Make DRYer design
 	app.directive('typenameCreate', function() {
 		return {
 			restrict: 'E',

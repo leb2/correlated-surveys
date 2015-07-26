@@ -75,7 +75,7 @@
 				<form>
 					<div style='width: 100%' class='container'>
 						<div class='row'>
-							<div ng-show='error' class='alert alert-danger' role='alert'>Incorrect credentials</div> 
+							<div ng-show='error' class='alert alert-danger' role='alert'>Incorrect credentials</div>
 						</div>
 						<div class='row'>
 							<div class='form-group' show-errors>
@@ -105,6 +105,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" ng-bind='credentials.email.length > 0 ? "Register" : "Login"' class="btn btn-primary"
 																						ng-click='credentials.email.length > 0 ? login.register() : login.login()'></button>
@@ -136,4 +137,3 @@
 
 
 {% endblock %}
-

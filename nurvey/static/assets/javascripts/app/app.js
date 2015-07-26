@@ -36,7 +36,7 @@
 		});
 	}]);
 
-	
+
 	// TODO: Move to separate file
 	app.controller('LandingController', ['$scope', '$http', function($scope, $http) {
 		$scope.surveys = [];
@@ -81,13 +81,4 @@
 		$rootScope.refreshUser();
 	}]);
 
-})(); 
-
-
-
-
-
-
-
-
-
+})();

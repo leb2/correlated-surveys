@@ -39,7 +39,7 @@ class ChoicePollSerializer(serializers.ModelSerializer):
 
 class SpecificPollField(serializers.RelatedField):
 
-    def to_native(self, value):
+    def to_representation(self, value):
         if isinstance(value, SliderPoll):
             serializer = SliderPollSerializer(value)
         elif isinstance(value, ChoicePoll):
@@ -51,8 +51,8 @@ class SpecificPollField(serializers.RelatedField):
 
 
 class PollSerializer(serializers.ModelSerializer):
-    poll_object = SpecificPollField()
-    poll_type = serializers.RelatedField()
+    poll_object = SpecificPollField(read_only=True)
+    poll_type = serializers.RelatedField(read_only=True)
     results = serializers.Field(source='results')
     results_pretty = serializers.Field(source='results_pretty')
 
@@ -70,14 +70,3 @@ class SurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey
         fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'poll_set', 'hotness', 'owner')
-
-
-
-
-
-
-
-
-
-
-

@@ -35,6 +35,21 @@
 
 		this.login = function() {$scope.verifyAccount('login');};
 		this.register = function() {$scope.verifyAccount('register');};
+		this.loginReddit = function() {
+			// var params = {
+			// 	client_id: 'JgVqt9xSpAk4yg',
+			// 	response_type: 'code',
+			//  	state: 'asdf',
+			// 	redirect_uri: 'http://localhost:8000/callback/',
+			// 	duration: 'temporary',
+			// 	scope: 'identity',
+			// };
+			//url = 'https://www.reddit.com/api/v1/authorize?' + $.param(params);
+			$http.get('/reddit-auth-url').
+				success(function(url) {
+					window.location = url;
+				});
+		};
 	}]);
 
 

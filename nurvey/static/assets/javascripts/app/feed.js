@@ -3,9 +3,6 @@
 	var app = angular.module('feedApp', []);
 
 
-
-
-
 	/* ----------------- MAIN CONTROLLER FOR FEED ----------------- */
 
 	app.controller('FeedController', ['$routeParams', '$rootScope', '$scope', '$http', function($routeParams, $rootScope, $scope, $http) {
@@ -128,7 +125,7 @@
 		};
 
 		// Make ajax request to surver for a survey
-		$scope.fetchSurveys = function(first, id=0) {
+		$scope.fetchSurveys = function(first, id) {
 			var idParam = id ? "&id=" + id : "";
 			var beforeSurveyParam = first ? "" : "&beforeSurveyId=" + $scope.loadedSurveys[$scope.loadedSurveys.length - 1].id;
 			$http.get('/surveys/?amount=10' + beforeSurveyParam + idParam).
@@ -168,7 +165,7 @@
 		var results = $scope.poll.results_pretty;
 
 		data = {
-			labels: results.domain, 
+			labels: results.domain,
 			datasets: [{
 				label: "My First dataset",
 				fillColor: "rgba(220,220,220,0.2)",
@@ -196,7 +193,7 @@
 				highlights = ['#DE3F42', '#4FBAB8', '#E6B465', '#61DE6C']
 
 				var pieData = [];
-				
+
 				for (var i=0; i<results.domain.length; i++) {
 					pieData.push({
 						color: colors[i],
