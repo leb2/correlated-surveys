@@ -12,45 +12,119 @@
 
 	app.controller('LoginController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
-		$scope.error = false;
+		$scope.loginError = false;
+		$scope.registerError = false;
+		$scope.loginOnSubmit = true;
 
 		// Credentials for model in DOM
-		$scope.credentials = {
-			username: '',
-			password: '',
-			email: '',
-		}
-
-		$scope.verifyAccount = function(location) {
-			$http.post('/' + location + '/', $scope.credentials).
-				success(function(data) {
-					$('#login-modal').modal('hide');
-					$rootScope.refreshUser();
-					$scope.error = false;
-				}).
-				error(function(data) {
-					$scope.error = true;
-				});
+		this.resetCredentials = function() {
+			console.log("Resetting credentials");
+			$scope.credentials = {
+				username: '',
+				password: '',
+				email: '',
+			};
 		};
 
-		this.login = function() {$scope.verifyAccount('login');};
-		this.register = function() {$scope.verifyAccount('register');};
+		this.resetCredentials();
+
+		this.shouldLogin = function(shouldLogin) {
+			this.resetCredentials();
+			$scope.loginOnSubmit = shouldLogin;
+		};
+
+
+		this.login = function(valid) {
+			if (valid) {
+				$http.post('/login/', $scope.credentials).
+					success(function(data) {
+						$('#login-modal').modal('hide');
+						$rootScope.refreshUser();
+						$scope.loginError = false;
+					}).
+					error(function(data) {
+						$scope.loginError = true;
+					});
+			}
+		};
+
+		this.register = function(valid) {
+			if (valid) {
+				$http.post('/register/', $scope.credentials).
+					success(function(data) {
+						$('#login-modal').modal('hide');
+						$rootScope.refreshUser();
+						$scope.registerError = false;
+					}).
+					error(function(data) {
+						$scope.registerError = data;
+					});
+			}
+		};
+
+
 		this.loginReddit = function() {
-			// var params = {
-			// 	client_id: 'JgVqt9xSpAk4yg',
-			// 	response_type: 'code',
-			//  	state: 'asdf',
-			// 	redirect_uri: 'http://localhost:8000/callback/',
-			// 	duration: 'temporary',
-			// 	scope: 'identity',
-			// };
-			//url = 'https://www.reddit.com/api/v1/authorize?' + $.param(params);
 			$http.get('/reddit-auth-url').
 				success(function(url) {
 					window.location = url;
 				});
 		};
 	}]);
+
+
+
+	// Custom validation to tell whether username is unique
+	app.directive('uniqueUsername', function($q, $http) {
+		return {
+			require: 'ngModel',
+			link: function(scope, elm, attrs, ctrl) {
+				console.log("Runing sodfthing");
+
+				ctrl.$asyncValidators.uniqueUsername = function(modelValue, viewValue) {
+
+					var def = $q.defer();
+
+					$http.get('/unique-username?username=' + modelValue).
+						success(function(isUnique) {
+							if (isUnique) {
+								def.reject();
+							} else {
+								def.resolve();
+							}
+						}).
+						error(function() {
+							def.reject();
+						});
+
+					return def.promise;
+				};
+			}
+		};
+	});
+
+
+	// Custom validation to make sure passwords and confirmation match
+	app.directive('matchPassword', function() {
+		return {
+			require: 'ngModel',
+			link: function(scope, elm, attrs, ctrl) {
+				console.log("LINKIGN");
+
+				ctrl.$validators.matchPassword = function(modelValue, viewValue) {
+
+					// Consider empty model valid
+					if (ctrl.$isEmpty(modelValue)) { return true; console.log("Model is empty!")};
+					console.log("\n\n\n\n\n====================");
+					console.log("Running Validation");
+					console.log("ModelValue: " + modelValue);
+					console.log("password: " + scope.credentials.password);
+					console.log("Are equal?: " + modelValue == scope.credentials.password);
+					console.log("====================\n\n\n\n\n")
+					return modelValue == scope.credentials.password;
+				};
+			}
+		};
+	});
 
 
 })();

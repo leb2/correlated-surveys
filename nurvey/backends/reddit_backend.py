@@ -22,6 +22,8 @@ class RedditBackend:
             # Password may be checked from default backend, make sure to move to settings
             user = User(username=username, password="TODO: Hide in settings")
             user.save()
+            profile = Profile(user=user)
+            profile.save()
         return user
 
     def get_user(self, user_id):

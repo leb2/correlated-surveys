@@ -331,8 +331,7 @@ def reddit_callback(request):
     code = request.GET.dict().get('code')
     access_token = get_access_token(request, code)
     user = authenticate(access_token=access_token)
-    profile = Profile(user=user)
-    profile.save()
+
     login(request, user)
 
     return landing(request)
@@ -373,4 +372,5 @@ def logout_user(request):
 
 # Use to tell if a username is unique
 def unique_username(request):
-    pass
+    username = request.GET['username']
+    return HttpResponse(json.dumps(User.objects.filter(username=username).exists()), content_type='application/json')

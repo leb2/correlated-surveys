@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('nurveyApp', ['ngRoute', 'ngMaterial', 'exploreApp', 'feedApp', 'accountApp', 'CreateApp']);
+	var app = angular.module('nurveyApp', ['ngRoute', 'ui.bootstrap', 'ngMessages', 'ngMaterial', 'exploreApp', 'feedApp', 'accountApp', 'CreateApp']);
 
 
 	app.config(['$routeProvider', function($routeProvider) {
@@ -48,20 +48,22 @@
 	}]);
 
 	// Directive for form validation
-
 	app.directive('showErrors', function() {
 		return {
 			restrict: 'A',
 			require:  '^form',
 			link: function (scope, el, attrs, formCtrl) {
-				console.log("linking");
 				var inputEl   = el[0].querySelector("[name]");
 				var inputNgEl = angular.element(inputEl);
 				var inputName = inputNgEl.attr('name');
-				inputNgEl.bind('blur', function() {
-					console.log("blurring")
-					el.toggleClass('has-error', formCtrl[inputName].$invalid);
 
+				// Removes red when user is typing
+				inputNgEl.bind('focus', function() {
+					el.removeClass('has-error');
+				});
+
+				inputNgEl.bind('blur', function() {
+					el.toggleClass('has-error', formCtrl[inputName].$invalid);
 				});
 			}
 		};
@@ -72,8 +74,6 @@
 
 		$rootScope.refreshUser = function() {
 			$http.get('/users/').success(function(data) {
-				console.log("User is");
-				console.log(data);
 				$rootScope.user = data;
 			});
 		};

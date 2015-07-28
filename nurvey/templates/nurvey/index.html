@@ -72,43 +72,103 @@
 				LOG IN
 			</div>
 			<div class='modal-body'>
-				<form>
-					<div style='width: 100%' class='container'>
-						<div class='row'>
-							<div ng-show='error' class='alert alert-danger' role='alert'>Incorrect credentials</div>
-						</div>
-						<div class='row'>
-							<div class='form-group' show-errors>
-								<label>
-									Username *
-								</label>
-								<input ng-model='credentials.username' name='username' type='text' class='form-control' required novalidate></input>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='form-group' show-errors>
-								<label>
-									Password *
-								</label>
-								<input ng-model='credentials.password' name='password' type='password' class='form-control'required novalidate></input>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='form-group' show-errors>
-								<label>
-									Email (only if new user)
-								</label>
-								<input ng-model='credentials.email' name='email' type='email' class='form-control' novalidate></input>
-							</div>
-						</div>
-					</div>
-				</form>
+				<div style='width: 100%' class='container'>
+					<tabset>
+						<tab heading='Login' select='login.shouldLogin(true)'>
+
+							<form name='loginForm' ng-submit='login(loginForm.$valid)' novalidate>
+								<div class='row'>
+									<div ng-show='loginError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
+								</div>
+								<div class='row'>
+									<div class='form-group' show-errors>
+										<label>
+											Username *
+										</label>
+										<input ng-model='credentials.username' ng-required='true' required name='username'
+											ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+											type='text' class='form-control'></input>
+										<div ng-bind='login.usernameValid()'></div>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='form-group' show-errors>
+										<label>
+											Password *
+										</label>
+										<input ng-model='credentials.password' ng-required='true' required name='password'
+											type='password' class='form-control'></input>
+									</div>
+								</div>
+								<div class='row'>
+									<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="submit" ng-disabled='loginForm.$invalid' class="btn btn-primary">Login</button>
+								</div>
+							</form>
+						</tab>
+
+							<!-- Second Tab -->
+						<tab heading='Register' select='login.shouldLogin(false)'>
+							<form name='registerForm' ng-submit='register(registerForm.$valid)' novalidate>
+								<div class='row'>
+									<div ng-show='registerError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
+								</div>
+								<div class='row'>
+									<div class='form-group' show-errors>
+										<label>
+											Username *
+										</label>
+										<input ng-model='credentials.username' required name='username'
+											ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+											type='text' class='form-control' unique-username></input>
+											<span ng-show="registerForm.username.$pending.uniqueUsername">Checking if this name is available...</span>
+											<span ng-show="registerForm.username.$error.uniqueUsername">This username is already taken!</span>
+											<span ng-show="registerForm.username.$dirty && registerForm.username.$error.required">This field is required</span>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='form-group' show-errors>
+										<label>
+											Password *
+										</label>
+										<input ng-model='credentials.password' ng-required='true' required name='password'
+											type='password' class='form-control'></input>
+										<span ng-show="registerForm.password.$dirty && registerForm.password.$error.required">This field is required</span>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='form-group' show-errors>
+										<label>
+											Confirm Password *
+										</label>
+										<input ng-model='confirmPassword' ng-model-options="{ updateOn: 'blur' }" name='confirmPassword'
+											type='password' class='form-control' match-password></input>
+										<span ng-show="registerForm.confirmPassword.$error.matchPassword">Passwords do not match</span>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='form-group' show-errors>
+										<label>
+											Email *
+										</label>
+										<input required ng-model='credentials.email' ng-model-options="{ updateOn: 'blur' }" name='email' type='email' class='form-control'></input>
+										<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">This field is required</span>
+										<span ng-show="registerForm.email.$error.email">Not a valid Email!</span>
+									</div>
+								</div>
+								<div class='row'>
+									<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="submit" ng-disabled='registerForm.$invalid' class="btn btn-primary">Register</button>
+								</div>
+							</form>
+						</tab>
+					</tabset>
+				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" ng-bind='credentials.email.length > 0 ? "Register" : "Login"' class="btn btn-primary"
-																						ng-click='credentials.email.length > 0 ? login.register() : login.login()'></button>
+				<!-- The buttons used to be here... -->
 			</div>
 		</div>
 	</div>

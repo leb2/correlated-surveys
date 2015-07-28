@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^login/', views.login_user, name='login'),
     url(r'^register/', views.register, name='register'),
     url(r'^logout/', views.logout_user, name='logout'),
+    url(r'^unique-username/', views.unique_username, name='unique_username'),
 
     # REST API
     url(r'surveys/(?P<id>\d+)/$', views.survey_results, name='survey_results'),
