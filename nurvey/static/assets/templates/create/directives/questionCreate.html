@@ -20,7 +20,7 @@
 			<div class='panel-body'>
 				<div class='row'>
 					<div class='col-md-12'>
-						<label for='description'>Description</label>
+						<label for='description'>Description (optional)</label>
 						<textarea id='description' class='form-control' rows='2' ng-model='question.description'></textarea>
 					</div>
 				</div> <!-- /row -->
@@ -60,22 +60,22 @@
 	<div class='col-md-7 demo'>
 
 
-		<div class='panel panel-default'>
+		<div class='panel panel-default demo-panel'>
 
 			<div class='panel-heading text-center'>
 				<strong>{{ question.title }}</strong>
 				<strong ng-show='!question.title'>DEMO</strong>
 			</div>
 			<div class='panel-body' ng-cloak>
-				<label ng-show='question.description.length > 0'>Description</label>
+				<!--<label ng-show='question.description.length > 0'>Description</label>-->
 				<div class='well well-sm' ng-bind='question.description' ng-show='question.description.length > 0'></div>
 
 				<div ng-repeat="questionType in questionTypes">
-					<div ng-show='questionType.selected'>
-						{{ questionType.title }}
-					</div>
+					<div class='border-title' ng-show='questionType.selected'>
+						<div class='inline-title'>{{ questionType.title }}</div>
 					<demo questiontype='findQuestionType(questionType.name)' ng-show='questionType.selected'>
 					</demo>
+					</div>
 				</div>
 
 			</div>
@@ -84,4 +84,4 @@
 
 
 	</div> <!-- col-md-7 -->
-</div> <!-- /row --> 
+</div> <!-- /row -->

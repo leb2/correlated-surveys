@@ -1,12 +1,12 @@
 <div ng-switch='question.isCheckbox'>
 
-	<div ng-switch-when='true' ng-repeat='choice in question.choices'>
-		<div>
-			<md-checkbox>
+	<div ng-switch-when='true'>
+		<fieldset class='standard'>
+			<md-checkbox ng-repeat='choice in question.choices' ng-value='choice'>
 				{{ choice.text }}
 				<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
 			</md-checkbox>
-		</div>
+		</fieldset>
 	</div>
 
 	<div ng-switch-default>
@@ -16,7 +16,7 @@
 				<span class='text-muted' ng-hide='choice.text.length > 0'>Choice {{ $index + 1}}</span>
 			</md-radio-button>
 		</md-radio-group>
+
 	</div>
 
 </div>
-

@@ -5,20 +5,22 @@
 
 	/* ----------------- MAIN CONTROLLER FOR FEED ----------------- */
 
+
+	// TODO: Changing url routing info depending on current survey for bookmarking etc.
+
 	app.controller('FeedController', ['$routeParams', '$rootScope', '$scope', '$http', function($routeParams, $rootScope, $scope, $http) {
 
-		$scope.showResults = false;
 		$scope.loadedSurveys = [];
 		$scope.surveyLocation = 0;
 
-		// Initialize $scope.survey with voteData to prevent warnings - eventually switch to resolve
 		$scope.survey = {
 			voteData: {
 				survey_vote: false
 			}
-		}
+		};
 
 
+		// Submits the user's survey response
 		$scope.submit = function() {
 
 			// Login Required
@@ -34,23 +36,29 @@
 				var poll = polls[i]
 					answers[poll.id] = poll.value;
 			}
+			console.log("POST DATA");
+			console.log(answers);
 
 			$http.post('/surveys/' + $scope.survey.id + '/', answers).
 				success(function(data, a, b, c) {
-					$scope.showResults = true;
+					$scope.survey.showResults = true;
+					$scope.survey.submitted = true;
 				});
 		};
 
 
+
+		// Sets the scope's survey to the target survey from $scope.surveyLocation
 		$scope.displaySurvey = function() {
 			// $scope.survey = $scope.loadedSurveys.shift();
+
 			$scope.survey = $scope.loadedSurveys[$scope.surveyLocation];
+
 
 			// Gets the users current vote
 			$http.get('/points/?id=' + $scope.survey.id).
 				success(function(data, status, config, headers) {
 					$scope.survey.voteData = data;
-					console.log($scope.survey.voteData);
 
 					// Undoing previous vote — Checking against null
 					if ($scope.survey.voteData.survey_vote == true) {
@@ -62,11 +70,6 @@
 		};
 
 
-		// When clicking on a particular survey on the sidebar
-		$scope.gotoSurvey = function(survey) {
-			$scope.surveyLocation = $scope.loadedSurveys.indexOf(survey)
-			$scope.displaySurvey();
-		};
 
 
 		$scope.givePoint = function(isUp) {
@@ -92,9 +95,9 @@
 			$http.post('/points/', data);
 		};
 
-		// What does this do?
+
+		// Returns the number of upvotes of the scope's survey
 		$scope.voteAmount = function() {
-			console.log("Voteamoutn called");
 			var score = $scope.survey.num_upvotes - $scope.survey.num_downvotes;
 
 			function voteToInt(vote) {
@@ -104,19 +107,32 @@
 					return vote ? 1 : -1;
 				}
 			}
-			return score + voteToInt($scope.survey.voteData.survey_vote);
 
-			// Undo previous vote and apply new vote
-			var previousVote = $scope.survey.voteData.survey_vote;
-			return voteToInt($scope.freshVote) - voteToInt(previousVote)
+			// In case voteData is not defined for some odd reason
+			try {
+				return score + voteToInt($scope.survey.voteData.survey_vote);
+			} catch (e) {
+				return 0;
+			}
+
+			// Undoes previous vote and applies new vote
+			// var previousVote = $scope.survey.voteData.survey_vote;
+			// return voteToInt($scope.freshVote) - voteToInt(previousVote)
+		};
+
+
+		// Load more surveys if approaching end of loaded survey list
+		var fetchIfNearEnd = function() {
+			if ($scope.loadedSurveys.length - $scope.surveyLocation <= 5) {
+				$scope.fetchSurveys(false);
+			}
 		};
 
 		$scope.next = function() {
 			$scope.surveyLocation += 1;
 			$scope.displaySurvey();
-			if ($scope.loadedSurveys.length - $scope.surveyLocation <= 5) {
-				$scope.fetchSurveys(false);
-			}
+
+			fetchIfNearEnd();
 		};
 
 		$scope.previous = function() {
@@ -124,26 +140,40 @@
 			$scope.displaySurvey();
 		};
 
+
+		// When clicking on a particular survey on the sidebar
+		$scope.gotoSurvey = function(survey) {
+			$scope.surveyLocation = $scope.loadedSurveys.indexOf(survey)
+			$scope.displaySurvey();
+
+			fetchIfNearEnd()
+		};
+
 		// Make ajax request to surver for a survey
 		$scope.fetchSurveys = function(first, id) {
 			var idParam = id ? "&id=" + id : "";
+
+			// Tell server where you left off
 			var beforeSurveyParam = first ? "" : "&beforeSurveyId=" + $scope.loadedSurveys[$scope.loadedSurveys.length - 1].id;
 			$http.get('/surveys/?amount=10' + beforeSurveyParam + idParam).
 				success(function(data) {
-					$scope.loadedSurveys = $scope.loadedSurveys.concat(data);
-					console.log($scope.loadedSurveys);
 
-					if (first) {
-						$scope.displaySurvey();
-					}
+					var survey = data;
+
+					// Initialize the survey with extra data - eventually switch to resolve?
+					survey.voteData = {survey_vote: false};
+					survey.showResults = survey.submitted = false;
+
+					$scope.loadedSurveys = $scope.loadedSurveys.concat(data);
+
+					if (first) { $scope.displaySurvey(); }
 
 					// If an id is specified, make call again without id
-					if (id) {
-						$scope.fetchSurveys(false);
-					}
+					if (id) { $scope.fetchSurveys(false); }
 				});
 		};
 
+		// Load initial survey
 		// If looking at a particular survey
 		if ($routeParams.id != undefined) {
 			$scope.fetchSurveys(true, id=$routeParams.id);
@@ -164,7 +194,7 @@
 
 		var results = $scope.poll.results_pretty;
 
-		data = {
+		var data = {
 			labels: results.domain,
 			datasets: [{
 				label: "My First dataset",
@@ -189,8 +219,8 @@
 				chart.Bar(data);
 			} else {
 
-				colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
-				highlights = ['#DE3F42', '#4FBAB8', '#E6B465', '#61DE6C']
+				var colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
+				var highlights = ['#DE3F42', '#4FBAB8', '#E6B465', '#61DE6C']
 
 				var pieData = [];
 
@@ -218,6 +248,8 @@
 	/* ----------------- SPECIFIC POLL ----------------- */
 
 
+
+	// The Directive for all of the poll types (so far)
 	app.directive('specificPoll', function() {
 
 		return {
@@ -229,7 +261,7 @@
 			},
 			controller: function($scope) {
 				$scope.question = $scope.poll.poll_object;
-				$scope.poll.value = null;
+				$scope.poll.value = [];
 
 				$scope.polltype_mapping = {
 					'slider poll': 'slider',
@@ -237,9 +269,9 @@
 				}
 			},
 			link: function(scope, element, attrs) {
+				// Retrieves the correct template from the poll_type returned by the serialized poll model
 				scope.contentUrl = '/static/assets/templates/feed/directives/' + scope.polltype_mapping[scope.poll.poll_type] + 'Question.html';
 			}
 		};
 	});
-
 })();

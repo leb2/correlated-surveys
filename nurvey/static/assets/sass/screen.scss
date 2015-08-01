@@ -99,7 +99,7 @@ h1, h2 {
 	}
 	.content:nth-child(even) {
 		z-index: 2;
-		@include box-shadow(rgba(black, 0.3) 0px 0px 10px);	
+		@include box-shadow(rgba(black, 0.3) 0px 0px 10px);
 	}
 
 	.content {
@@ -148,7 +148,7 @@ h1, h2 {
 /* -------------------------------- INDEX -------------------------------- */
 
 
-// A lot of magic numbers unfortunately 
+// A lot of magic numbers unfortunately
 nav.navbar {
 	margin-bottom: 0px;
 
@@ -175,6 +175,7 @@ nav.navbar {
 
 html, body {
 	height: 100%;
+	background: #F9F9F9;
 }
 
 
@@ -213,11 +214,22 @@ html, body {
 	.panel-body {
 		padding: 30px 50px 30px 50px;
 
+		form .row {
+			margin-bottom: 18px;
+			margin-top: 18px;
+		}
+
+
 		.row.graph-row {
 			margin-top: 50px;
 			height: 300px;
 		}
 	}
+
+	.panel-body form .row.filters {
+		margin-top: 100px;
+	}
+
 }
 
 
@@ -244,6 +256,12 @@ html, body {
 			}
 		}
 	}
+
+
+	.feed-correlate.row {
+
+	}
+
 
 	.side.panel {
 		.panel-heading {
@@ -272,7 +290,7 @@ html, body {
 				a.list-group-item:last-child {
 					border-bottom: 0px;
 				}
-			}	
+			}
 		}
 	}
 
@@ -335,6 +353,9 @@ html, body {
 	margin-bottom: 250px;
 }
 
+$placeholder-color: #DFDFDF;
+
+
 .create {
 	.panel-heading {
 		.input-group {
@@ -342,9 +363,19 @@ html, body {
 				color: white;
 				font-weight: thin;
 			}
+
+			// Placeholder text color
+			input::-webkit-input-placeholder { color: $placeholder-color; }
+			input:-ms-input-placeholder { color: $placeholder-color; }
+			input::-moz-placeholder {color: $placeholder-color; }
+			input:-moz-placeholder {color: $placeholder-color; }
+
+			// Underline color on focus
 			input:focus {
 				box-shadow: 0px -2px 0px desaturate(#88EEFF, 40%) inset;
 			}
+
+			// Close button
 			.btn {
 				border-radius: 15px;
 				padding: 0px 5px 0px 5px;
@@ -359,16 +390,40 @@ html, body {
 			}
 		}
 	}
+}
+
+.demo {
 	.panel-body {
-		.input-group-btn button {
-			border-radius: 3px; 
+		padding: 25px !important;
+		.well {
+			padding: 5px 24px 5px 24px;
+			margin-bottom: 28px;
 		}
+	}
+}
+
+/* --- Specifics --- */
+.slider-question {
+	margin: 8px;
+
+	.slider-value {
+		text-align: center;
+		line-height: 24px;
+		padding: 12px;
+		margin-left: 12px;
+		background: #F9F9F9;
+		font-size: 16px;
+		font-weight: thin;
 	}
 }
 
 
 
-// Fade out animation when close
+
+
+
+// Animate adding question panels
+
 
 .example-animate-container {
 	background:white;
@@ -383,18 +438,18 @@ html, body {
 	line-height:40px;
 	list-style:none;
 	box-sizing:border-box;
-
 }
 
+// Uncomment to fade on panel close (buggy)
+// .animate-repeat.ng-leave,
 .animate-repeat.ng-move,
-.animate-repeat.ng-enter,
-.animate-repeat.ng-leave {
-	-webkit-transition:all linear 0.5s;
-	transition:all linear 0.5s;
+.animate-repeat.ng-enter {
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
 
 }
 
-.animate-repeat.ng-leave.ng-leave-active,
+// .animate-repeat.ng-leave.ng-leave-active,
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
 	opacity:0;
@@ -411,21 +466,37 @@ html, body {
 }
 
 
+/* --- Angular Material --- */
+
+// Removes outline on checkboxes and radioboxes
+md-checkbox .md-label {
+	border: transparent !important;
+}
+md-radio-group.md-default-theme:focus {
+	border-color: transparent !important;
+}
 
 
 
+/* --- Custom Stuff --- */
 
+// Creates a border with a space for the title
+.border-title {
+	border: 1px solid #CCC;
+	padding: 15px;
+	position: relative;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	.inline-title {
+		display: inline;
+		position: absolute;
+		top: -7px;
+		left: 20px;
+		line-height: 15px;
+		background: white;
+		padding: 0 12px 0 12px;
+		font-size: 15px;
+	}
+}
+.border-title.extra-padding {
+	padding: 40px;
+}

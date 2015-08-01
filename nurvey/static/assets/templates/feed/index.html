@@ -2,7 +2,7 @@
 
 <div class='row'>
 
-	<div class='col-md-9'>
+	<form ng-submit='submit()' name='surveyForm' class='col-md-9'>
 		<div class='interpanel row' ng-repeat='poll in survey.poll_set'>
 
 			<!-- MAIN PANEL -->
@@ -18,21 +18,36 @@
 					<div class='panel-body'>
 						<div class='row'>
 							<div class='col-md-offset-2 col-md-8'>
-								<div class='well well-sm' ng-bind='poll.description'></div>
+								<div class='well well-sm' ng-show='poll.description.length > 0' ng-bind='poll.description'></div>
 							</div>
 						</div>
 						<div class='row'>
-							<specific-poll ng-hide='showResults' poll='poll' questiontype='polltype_mapping[poll.poll_type]'></specific-poll>
-							<div ng-show='showResults' class='results text-center' ng-controller='ResultsController as results'>
-								<canvas></canvas>
+							<div class='col-md-12'>
+								<specific-poll ng-hide='survey.showResults' poll='poll' questiontype='polltype_mapping[poll.poll_type]'></specific-poll>
+
+								<!-- RESULTS -->
+								<div ng-show='survey.showResults' class='results text-center' ng-controller='ResultsController as results'>
+									<canvas></canvas>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div> <!-- /panel -->
 
-			</div> <!-- /col -->
-
+			</div>
 		</div>
+
+
+		<!-- Correlate within the survey -->
+		<div class='feed-correlate row'>
+			<div class='panel panel-default'>
+				<div class='panel-heading text-center'>Correlate</div>
+				<div class='panel-body'>
+					Sanity
+				</div>
+			</div>
+		</div>
+
 
 		<!-- BOTTOM PANEL -->
 		<div class='row text-center'>
@@ -48,13 +63,13 @@
 						<div class='row'>
 
 							<!-- VOTING -->
-							<div class='col-md-4 text-center'>
+							<div class='col-md-3 text-center'>
 
 								<!-- UPVOTE / DOWNVOTE -->
 								<span>
 									<div class='btn-group-vertical' role='group'>
-										<button ng-class='{"btn-success": survey.voteData.survey_vote}' class='btn' ng-click='givePoint(true)'>▲</button>
-										<button ng-class='{"btn-danger": !survey.voteData.survey_vote && survey.voteData.survey_vote != null}' 
+										<button type='button' ng-class='{"btn-success": survey.voteData.survey_vote}' class='btn' ng-click='givePoint(true)'>▲</button>
+										<button type='button' ng-class='{"btn-danger": !survey.voteData.survey_vote && survey.voteData.survey_vote != null}'
 											class='btn' ng-click='givePoint(false)'>▼</button>
 									</div>
 								</span>
@@ -67,13 +82,20 @@
 							</div>
 
 							<!-- SUBMIT SURVEY RESPONSE -->
-							<div class='col-md-4 text-center'>
-								<button class='submit btn btn-primary' ng-click='submit()'>Submit</button>
+							<div class='col-md-5 text-center'>
+								<div class='btn-group'>
+									<button ng-hide='survey.showResults' type='button' ng-click='survey.showResults=true' class='btn btn-default'>Results</button>
+									<button ng-hide='survey.showResults' ng-disabled='surveyForm.$invalid' type='submit' class='btn btn-primary'>Submit</button>
+
+									<!-- Allow user to go back to survey after viewing results
+									<button ng-show='survey.showResults && !survey.submitted' type='button' ng-click='survey.showResults=false' class='btn btn-default'>Back to Survey</button>
+									-->
+								</div>
 							</div>
 
 							<!-- COMMENT -->
-							<div class='col-md-4 text-center'>
-								<button class='comment btn btn-default'>
+							<div class='col-md-2 text-center'>
+								<button type='button' class='comment btn btn-default'>
 									COMMENT
 								</button>
 							</div>
@@ -82,7 +104,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 
 
 
@@ -92,7 +114,7 @@
 		<div class='side panel panel-primary' style='position: fixed; width: 20%'>
 			<div class='panel-heading text-center'>
 				<div class='btn-group' role='group'>
-					<button ng-click='previous()' type='button' class='btn btn-default'>
+					<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='btn btn-default'>
 						<span class='glyphicon glyphicon-chevron-left'></span>
 					</button>
 					<button ng-click='next()' type='button' class='btn btn-success'>
@@ -102,7 +124,7 @@
 			</div>
 			<div class='panel-body'>
 				<div class='list-group'>
-					<a ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}' 
+					<a ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}'
 						ng-repeat='loadedSurvey in loadedSurveys' class='list-group-item'>
 						{{ loadedSurvey.poll_set[0].title }}
 						<span ng-hide='loadedSurvey.poll_set[0].title.length'>Untitled</span>
@@ -118,11 +140,3 @@
 
 
 </div> <!-- /container -->
-
-
-
-
-
-
-
-

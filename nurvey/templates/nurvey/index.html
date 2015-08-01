@@ -19,7 +19,7 @@
 <nav class='navbar navbar-default navbar-static-top' role='navigation' ng-controller='NavbarController as navbar'>
 	<div class='container'>
 		<div class='navbar-header'>
-			<a class='navbar-brand' href='#'><span class='glyphicon glyphicon-home'></span></a>
+			<a class='navbar-brand' href='/#/'><span class='glyphicon glyphicon-home'></span></a>
 		</div>
 		<div id='navbar-main' class='navbar-collapse collapse'>
 			<ul class='nav navbar-nav'>
@@ -29,29 +29,29 @@
 				<li>
 					<a href='#/explore'>
 						<span class='text'>EXPLORE</span>
-						<span class='glyphicon glyphicon-globe'></span>
+						<!-- <span class='glyphicon glyphicon-globe'></span> -->
 					</a>
 				</li>
 				<li>
 					<a href='#/feed'>
 						<span class='text'>VIEW</span>
-						<span class='glyphicon glyphicon-eye-open'></span>
+						<!-- <span class='glyphicon glyphicon-eye-open'></span> -->
 					</a>
 				</li>
 				<li>
 					<a href='#/create'>
 						<span class='text'>CREATE</span>
-						<span class='glyphicon glyphicon-plus'></span>
+						<!-- <span class='glyphicon glyphicon-plus'></span> -->
 					</a>
 				</li>
 				<li ng-switch='user.username.length > 0' ng-cloak>
 					<a href='#/account' ng-switch-when='true'>
 						<span class='text'>{{ user.username | uppercase }}</span>
-						<span class='glyphicon glyphicon-user'></span>
+						<!-- <span class='glyphicon glyphicon-user'></span> -->
 					</a>
 					<a href ng-switch-default data-toggle='modal' data-target='#login-modal'>
 						<span class='text'>LOGIN</span>
-						<span class='glyphicon glyphicon-user'></span>
+						<!-- <span class='glyphicon glyphicon-user'></span> -->
 					</a>
 				</li>
 
@@ -76,7 +76,7 @@
 					<tabset>
 						<tab heading='Login' select='login.shouldLogin(true)'>
 
-							<form name='loginForm' ng-submit='login(loginForm.$valid)' novalidate>
+							<form name='loginForm' ng-submit='login.login(loginForm.$valid)' novalidate>
 								<div class='row'>
 									<div ng-show='loginError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
 								</div>
@@ -110,7 +110,7 @@
 
 							<!-- Second Tab -->
 						<tab heading='Register' select='login.shouldLogin(false)'>
-							<form name='registerForm' ng-submit='register(registerForm.$valid)' novalidate>
+							<form name='registerForm' ng-submit='login.register(registerForm.$valid)' novalidate>
 								<div class='row'>
 									<div ng-show='registerError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
 								</div>

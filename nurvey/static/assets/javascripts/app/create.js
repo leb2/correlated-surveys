@@ -43,6 +43,9 @@
 				this.survey.description = questions[0].description;
 			}
 
+			console.log("LOGGING SURVEY");
+			console.log(this.survey);
+
 			$http.post('/surveys/', this.survey).
 				success(function(data, status, headers, config) {
 					id = data;
@@ -57,7 +60,7 @@
 
 
 
-	/* -------------------------------- QUESTION -------------------------------- */
+	/* -------------------------------- POLL -------------------------------- */
 
 
 	// Directive for a single question
@@ -79,7 +82,7 @@
 					{
 						name: 'choice',
 						title: 'Multiple Choice',
-						// Having the parameters property explicitly defined
+						// Having the parameters property explicitly defined is
 						// neccessary to prevent ambiguous references from demo and create
 						parameters: {}
 					},
@@ -95,8 +98,8 @@
 				// Selects the question type
 				$scope.select = function(questionType) {
 
-				angular.forEach($scope.questionTypes, function(questionType) {
-						questionType.selected = false;
+					angular.forEach($scope.questionTypes, function(questionType) {
+							questionType.selected = false;
 					});
 					questionType.selected = true;
 					$scope.selectedTitle = questionType.title;
@@ -166,21 +169,19 @@
 
 				//var question = $scope.question = $scope.$parent.question;
 				$scope.question = $scope.questiontype.parameters;
-				$scope.choices = $scope.question.choices = [{}, {}];
+				$scope.question.choices = [{}, {}];
+				$scope.question.isCheckbox = false;
 
 				$scope.addChoice = function() {
-					$scope.choices.push({});
+					$scope.question.choices.push({});
 				};
 
 				$scope.removeChoice = function(choice) {
-					var choiceIndex = $scope.choices.indexOf(choice);
+					var choiceIndex = $scope.question.choices.indexOf(choice);
 					if (choiceIndex > -1) {
-						$scope.choices.splice(choiceIndex, 1);
+						$scope.question.choices.splice(choiceIndex, 1);
 					}
 				};
-			},
-			link: function(scope, elem, attrs) {
-				scope.question = scope;
 			}
 		};
 	});

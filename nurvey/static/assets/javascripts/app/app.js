@@ -2,7 +2,12 @@
 	var app = angular.module('nurveyApp', ['ngRoute', 'ui.bootstrap', 'ngMessages', 'ngMaterial', 'exploreApp', 'feedApp', 'accountApp', 'CreateApp']);
 
 
-	app.config(['$routeProvider', function($routeProvider) {
+
+	app.config(function($routeProvider, $mdThemingProvider) {
+
+		$mdThemingProvider.theme('default')
+			.primaryPalette('indigo')
+			.accentPalette('blue');
 
 		$routeProvider.when('/create', {
 			templateUrl: '/static/assets/templates/create/index.html',
@@ -34,7 +39,8 @@
 			controller: 'LandingController',
 			controllerAs: 'landing'
 		});
-	}]);
+
+	});
 
 
 	// TODO: Move to separate file

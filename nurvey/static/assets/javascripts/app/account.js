@@ -49,6 +49,7 @@
 		};
 
 		this.register = function(valid) {
+			console.log("Registering");
 			if (valid) {
 				$http.post('/register/', $scope.credentials).
 					success(function(data) {
@@ -59,6 +60,8 @@
 					error(function(data) {
 						$scope.registerError = data;
 					});
+			} else {
+				console.log("Form not valid");
 			}
 		};
 
@@ -114,12 +117,6 @@
 
 					// Consider empty model valid
 					if (ctrl.$isEmpty(modelValue)) { return true; console.log("Model is empty!")};
-					console.log("\n\n\n\n\n====================");
-					console.log("Running Validation");
-					console.log("ModelValue: " + modelValue);
-					console.log("password: " + scope.credentials.password);
-					console.log("Are equal?: " + modelValue == scope.credentials.password);
-					console.log("====================\n\n\n\n\n")
 					return modelValue == scope.credentials.password;
 				};
 			}

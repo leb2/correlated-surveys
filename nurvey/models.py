@@ -124,6 +124,7 @@ class SliderPoll(models.Model):
 
 class ChoicePoll(models.Model):
     poll = generic.GenericRelation(Poll)
+    allow_multiple_selection = models.BooleanField(default=False)
 
     def domain_pretty(self):
         return [choice.text for choice in self.domain()]

@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 class SliderPollSerializer(serializers.ModelSerializer):
     class Meta:
         model = SliderPoll
-        fields = ('id', 'min', 'max')
+        fields = ('id', 'min', 'max', 'step')
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -34,7 +34,7 @@ class ChoicePollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChoicePoll
-        fields = ('id', 'choice_set')
+        fields = ('id', 'choice_set', 'allow_multiple_selection')
 
 
 class SpecificPollField(serializers.RelatedField):
@@ -49,22 +49,32 @@ class SpecificPollField(serializers.RelatedField):
         return serializer.data
 
 
+# Separate survey serializer for the poll serializer to prevent recursion
+class SurveySerializer(serializers.ModelSerializer):
+    hotness = serializers.ReadOnlyField()
+    owner = UserSerializer()
+
+    class Meta:
+        model = Survey
+        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'hotness', 'owner')
 
 class PollSerializer(serializers.ModelSerializer):
     poll_object = SpecificPollField(read_only=True)
-    poll_type = serializers.RelatedField(read_only=True)
-    results = serializers.Field(source='results')
-    results_pretty = serializers.Field(source='results_pretty')
+    poll_type = serializers.StringRelatedField(read_only=True)
+    results = serializers.ReadOnlyField()
+    results_pretty = serializers.ReadOnlyField()
+
+    # TODO: survey's serializer will have a nested copy of the survey in each polls
+        # Make another version of poll without the  survey maybe?
+    survey = SurveySerializer()
 
     class Meta:
         model = Poll
-        fields = ('id', 'title', 'description', 'poll_type', 'poll_object', 'results', 'results_pretty')
-
-
+        fields = ('id', 'title', 'description', 'poll_type', 'poll_object', 'results', 'results_pretty', 'survey')
 
 class SurveySerializer(serializers.ModelSerializer):
     poll_set = PollSerializer(many=True)
-    hotness = serializers.Field(source='hotness')
+    hotness = serializers.ReadOnlyField()
     owner = UserSerializer()
 
     class Meta:

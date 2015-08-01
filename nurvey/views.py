@@ -31,8 +31,18 @@ def landing(request):
 def correlate(request):
     if request.method == 'GET':
         ids = json.loads(request.GET['ids'])
+        filters = json.loads(request.GET['filters'])
         polls = [Poll.objects.get(pk=id) for id in ids]
         valuesets = []
+        chart_type = 'bar'
+
+        filtered_users = User.objects.all()
+        for filter in filters:
+            poll = Poll.objects.get(pk=filter['pollId'])
+            if poll.poll_type == 'slider_poll':
+                filtered_users.filter(vote__poll=poll, vote__value__lt=min(filter['value']), vote__value__gt=max(filter['value']))
+            elif poll.poll_type == 'choice_poll':
+                filtered_users.filter(vote__poll=poll, vote__value=filter['value'])
 
         def polls_with_type(type):
             return [poll for poll in polls if poll.poll_type.model == type]
@@ -48,14 +58,18 @@ def correlate(request):
             for values_choice in values_poll.domain():
                 valueset = []
 
+                # Count the users who voted for a specific choice in p
                 for domain_choice in domain_poll.domain():
-                    count = User.objects.filter(vote__poll=domain_poll, vote__value=domain_choice.pk)
+                    count = filtered_users.fileer(vote__poll=domain_poll, vote__value=domain_choice.pk)
                     count =        count.filter(vote__poll=values_poll, vote__value=values_choice.pk).count()
                     valueset.append(count)
 
                 valuesets.append(valueset)
 
+        # Results in a single-line line graph
+        # TODO: Handle choicepoll by adding multiple lines
         elif len(polls_with_type('sliderpoll')) == 2 and len(polls_with_type('choicepoll')) <= 1:
+            chart_type = 'line'
             sliderpolls = polls_with_type('sliderpoll')
             domain_poll, values_poll = sliderpolls[0], sliderpolls[1]
             domain = domain_poll.domain()
@@ -64,17 +78,38 @@ def correlate(request):
             valuesets.append(valueset)
             for x_val in domain:
 
+                # Get all the votes to the second (values) slider poll
                 to_value_votes = Vote.objects.filter(poll=values_poll)
+
+                # TODO: Find a way to factor in the user-specified filters
+                # TODO: VERIFIY THAT THIS WORKS!!! - The logic is hurting my head right now
+                # Keep only the votes in which the voter also voted on the first (domain) poll with a specific value on the values poll
                 valid_votes = to_value_votes.filter(user__vote__poll=domain_poll, user__vote__value=x_val)
                 average = valid_votes.aggregate(Avg('value'))
 
                 valueset.append(average['value__avg'])
 
+        # TODO: Refactor to be DRYer - repeats first case mostly
+        # Should results in a line graph with multiple lines
         elif len(polls_with_type('sliderpoll'))== 1 and len(polls_with_type('choicepoll')) == 1:
-            pass
+            chart_type = 'line'
+            domain_poll = polls_with_type('sliderpoll')[0]
+            values_poll = polls_with_type('choicepoll')[0]
+            domain = domain_poll.domain()
+
+            for values_choice in values_poll.domain():
+                valueset = []
+
+                for x_val in domain:
+                    count = filtered_users.filter(vote__poll=domain_poll, vote__value=x_val)
+                    count =        count.filter(vote__poll=values_poll, vote__value=values_choice.pk).count()
+                    valueset.append(count)
+
+                valuesets.append(valueset)
+
 
         data = {
-            'type': 'bar',
+            'type': chart_type,
             'labels': domain,
             'datasets': [{'values': valueset} for valueset in valuesets]
         }
@@ -107,7 +142,7 @@ def polls(request):
 
 
 @csrf_exempt
-# TODO: Move some logic to model
+# TODO: Move some logic to model - view is too fat!
 def points(request):
     if request.method == 'POST':
         vote = json.loads(request.body)
@@ -192,7 +227,11 @@ def survey_results(request, id):
             # Uncomment rest of line to disable multiple voting
             if False:# len(Vote.objects.filter(poll=poll, user=request.user)):
                return HttpResponse('Already Voted')
-            vote = Vote(user=request.user, poll=poll, value=answer).save()
+
+            # Answer will be an array because multiple choice can have multiple values
+            # TODO: Ignore duplicate id's to prevent rigging poll and only loop when allow_multiple_selection is True
+            for answer_value in answer:
+                vote = Vote(user=request.user, poll=poll, value=answer_value).save()
         return HttpResponse(status=201)
     return HttpResponse('Request Not POST', status=400)
 
@@ -234,7 +273,7 @@ def surveys(request):
                 poll.poll_object = slider_poll
 
             elif question['type'] == 'choice':
-                choice_poll = ChoicePoll()
+                choice_poll = ChoicePoll(allow_multiple_selection=params['isCheckbox'])
                 choice_poll.save()
                 poll.poll_object = choice_poll
 

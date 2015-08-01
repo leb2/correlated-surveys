@@ -1,2 +1,4 @@
-<md-slider ng-model='value' discrete step='{{ question.step }}' min='{{ question.min }}' max='{{ question.max }}'></md-slider>
-<span ng-bind='value'></span>
+<div class='slider-question' layout>
+    <md-slider class='md-primary' flex ng-model='value' discrete step='{{ question.step }}' min='{{ question.min }}' max='{{ question.max }}'></md-slider>
+    <div flex='10' class='slider-value' ng-bind='value ? value : 0'></div>
+</div>

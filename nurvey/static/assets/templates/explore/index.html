@@ -2,37 +2,103 @@
 	<div class='row'>
 		<div class='col-md-10 col-md-offset-1'>
 			<div class='panel panel-default'>
+				<div class='panel-heading text-center'>
+					EXPLORE
+				</div>
 				<div class='panel-body text-center'>
 
-					<div class='row'>
-						<h2>EXPLORE</h2>
-					</div>
+					<form class='row'>
+						<div class='col-md-10 col-md-offset-1'>
 
-					<div class='row top-buffer'>
-						<div class='col-md-3 col-md-offset-1 text-right'>
-							<h4>CORRELATE:</h4>
-						</div>
-						<div class='col-md-6'>
-							<input id='1' class='poll-select form-control'></input>
-						</div>
-					</div>
+							<div class='row' ng-repeat='pollToCorrelate in pollsToCorrelate track by $index'>
+								<md-autocomplete
+									md-search-text='searchText'
+									md-items='poll in findPolls(searchText)'
+									md-delay='150'
+									md-item-text='poll.title'
+									placeholder='Poll Title'
+									md-selected-item-change='correlateData()'
+									md-selected-item='pollsToCorrelate[$index]'
+									md-autofocus='true'
+									md-autoselect='true'>
+									<md-item-template>
+										<span md-highlight-flags='ig' md-highlight-text="searchText">{{ poll.title }}</span>
+										<span>{{ poll.poll_type }}</span>
+										<span>{{ poll.survey.num_upvotes - poll.survey.num_downvotes }}</span>
+									</md-item-template>
+									<md-not-found>
+										No matches found.
+									</md-not-found>
+								</md-autocomplete>
+							</div>
 
-					<div class='row top-buffer'>
-						<div class='col-md-3 col-md-offset-1 text-right'>
-							<h4>WITH:</h4>
-						</div>
-						<div class='col-md-6'>
-							<input id='2' class='poll-select form-control'></input>
-						</div>
-					</div>
+							<!-- Use for when there can be more than 2 correlated polls'
+							<div class='row'>
+								<button ng-disabled='pollsToCorrelate.length >= 2' ng-click='addPoll()' type='button' class='btn btn-primary'>Add Poll</button>
+							</div>
+							-->
 
-					<div class='row graph-row top-buffer'>
-						<canvas id='exploreGraph'></canvas>
-					</div>
+						</div>
 
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
+						<div class='row graph-row top-buffer'>
+							<canvas id='exploreGraph'></canvas>
+						</div>
+
+
+						<div class='row filters'>
+							<div class='col-md-10 col-md-offset-1'>
+								<div class='row border-title extra-padding'>
+									<div class='inline-title'>FILTERS</div>
+
+									<!-- TODO: Convert to angular material flex layout -->
+									<div class='row' ng-repeat='filter in filters track by $index'>
+										<div class='col-md-8'>
+											<md-autocomplete
+												md-search-text='searchText'
+												md-items='poll in findPolls(searchText)'
+												md-delay='150'
+												md-item-text='poll.title'
+												placeholder='Filter'
+												md-selected-item-change='runFilters()'
+												md-selected-item='filters[$index].poll'
+												md-autoselect='true'>
+												<md-item-template>
+													<span md-highlight-flags='ig' md-highlight-text='searchText'>{{ poll.title }}</span>
+												</md-item-template>
+											</md-autocomplete>
+										</div>
+										<div class='col-md-4'>
+											<div ng-show='filter.poll.poll_type=="slider poll"'>
+												<span>Min: {{ filter.poll.poll_object.min }}</span>
+												<span>Max: {{ filter.poll.poll_object.max }}</span>
+											</div>
+											<md-autocomplete
+												ng-show='filter.poll.poll_type=="choice poll"'
+												md-items='choice in filter.poll.poll_object.choice_set'
+												md-item-text='choice.text'
+												md-min-length="0"
+												md-selected-item-change='runFilters()'
+												md-selected-item='filters[$index].choice'
+												md-search-text='choiceSearchText'>
+												<span md-highlight-flags='ig' md-highlight-text='choiceSearchText'>{{ choice.text }}</span>
+											</md-autocomplete>
+										</div>
+
+									</div>
+								</div>
+								<div class='row'>
+									<button type='button' ng-click='addFilter()' class='btn btn-success'>
+										Add Filter
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+
+				</div> <!-- .panel-heading -->
+			</div> <!-- .panel -->
+		</div> <!-- .col -->
+	</div> <!-- .row -->
+</div> <!-- .container -->

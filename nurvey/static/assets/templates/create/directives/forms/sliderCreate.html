@@ -1,4 +1,15 @@
 
-<md-text-float flex label='Minimum Value' ng-model='question.min'></md-text-float>
-<md-text-float flex label='Maximum Value' ng-model='question.max'></md-text-float>
-<md-text-float flex label='Step' ng-model='question.step'></md-text-float>
+<md-input-container>
+    <label>Minimum Value</label>
+    <input ng-model="question.min"></input>
+</md-input-container>
+
+<md-input-container>
+    <label>Maximum Value</label>
+    <input ng-model="question.max"></input>
+</md-input-container>
+
+<md-input-container>
+    <label>Step</label>
+    <input ng-model="question.step"></input>
+</md-input-container>
