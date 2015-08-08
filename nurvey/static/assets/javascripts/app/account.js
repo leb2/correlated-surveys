@@ -2,7 +2,21 @@
 
 	var app = angular.module('accountApp', []);
 
-	app.controller('AccountController', ['$scope', '$http', function($scope, $http) {
+	app.controller('AccountController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+
+		$rootScope.location = 'Account';
+
+		$scope.recentSurveys = [];
+		var numberOfSurveys = 10; // Default on backend too
+
+		// Gets the logged in user (again)
+		$http.get('/users/').success(function(user) {
+			$http.get('/user-recent-surveys?user_id=' + user.id).
+				success(function(recentSurveys) {
+					$scope.recentSurveys = recentSurveys;
+					$scope.emptyFillSurveys = new Array(numberOfSurveys - recentSurveys.length)
+				});
+		});
 
 		this.logout = function() {
 			$http.get('/logout/');
@@ -49,7 +63,6 @@
 		};
 
 		this.register = function(valid) {
-			console.log("Registering");
 			if (valid) {
 				$http.post('/register/', $scope.credentials).
 					success(function(data) {

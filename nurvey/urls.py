@@ -17,12 +17,16 @@ urlpatterns = patterns('',
     url(r'^unique-username/', views.unique_username, name='unique_username'),
 
     # REST API
-    url(r'surveys/(?P<id>\d+)/$', views.survey_results, name='survey_results'),
-    url(r'surveys/$', views.surveys, name='surveys'),
-    url(r'polls/', views.polls, name='polls'),
-    url(r'points/', views.points, name='points'),
-    url(r'users/', views.users, name='users'),
+    url(r'^surveys/(?P<id>\d+)/$', views.survey_results, name='survey_results'),
+    url(r'^surveys/$', views.surveys, name='surveys'),
+    url(r'^polls/', views.polls, name='polls'),
+    url(r'^points/', views.points, name='points'),
+    url(r'^users/', views.users, name='users'),
+    url(r'user-recent-surveys/', views.user_recent_surveys, name='user_recent_surveys'),
 
     # Other
-    url(r'correlate/', views.correlate, name='correlate'),
+    url(r'^correlate/', views.correlate, name='correlate'),
+
+    #Testing
+    url(r'^login_next_user/', views.login_next_user, name='login_next_user'),
 )

@@ -18,6 +18,7 @@ import urllib
 from uuid import uuid4
 
 
+
 # ---------------- MAIN PAGE ---------------- #
 
 def landing(request):
@@ -35,14 +36,18 @@ def correlate(request):
         polls = [Poll.objects.get(pk=id) for id in ids]
         valuesets = []
         chart_type = 'bar'
+        debug = ""
 
         filtered_users = User.objects.all()
         for filter in filters:
             poll = Poll.objects.get(pk=filter['pollId'])
-            if poll.poll_type == 'slider_poll':
-                filtered_users.filter(vote__poll=poll, vote__value__lt=min(filter['value']), vote__value__gt=max(filter['value']))
-            elif poll.poll_type == 'choice_poll':
-                filtered_users.filter(vote__poll=poll, vote__value=filter['value'])
+
+            if poll.poll_type.model == 'sliderpoll':
+                debug = filter['value']
+                filtered_users = filtered_users.filter(vote__poll=poll, vote__value__gt=min(filter['value']))
+                filtered_users = filtered_users.filter(vote__poll=poll, vote__value__lt=max(filter['value']))
+            elif poll.poll_type.model == 'choicepoll':
+                filtered_users = filtered_users.filter(vote__poll=poll, vote__value=filter['value'])
 
         def polls_with_type(type):
             return [poll for poll in polls if poll.poll_type.model == type]
@@ -50,9 +55,17 @@ def correlate(request):
         if len(polls) is 1:
             domain = polls[0].domain_pretty()
             valuesets = [polls[0].values()]
+            x_axis_label = polls[0].title
+            y_axis_label = 'Number of votes'
+            if polls[0].poll_type.model == 'sliderpoll':
+                chart_type = 'line'
+
 
         elif len(polls_with_type('choicepoll')) == 2 and len(polls_with_type('sliderpoll')) == 0:
             domain_poll, values_poll = polls[0], polls[1]
+            x_axis_label = domain_poll.title
+            y_axis_label = values_poll.title
+
             domain = domain_poll.domain_pretty()
 
             for values_choice in values_poll.domain():
@@ -60,7 +73,7 @@ def correlate(request):
 
                 # Count the users who voted for a specific choice in p
                 for domain_choice in domain_poll.domain():
-                    count = filtered_users.fileer(vote__poll=domain_poll, vote__value=domain_choice.pk)
+                    count = filtered_users.filter(vote__poll=domain_poll, vote__value=domain_choice.pk)
                     count =        count.filter(vote__poll=values_poll, vote__value=values_choice.pk).count()
                     valueset.append(count)
 
@@ -74,6 +87,9 @@ def correlate(request):
             domain_poll, values_poll = sliderpolls[0], sliderpolls[1]
             domain = domain_poll.domain()
 
+            x_axis_label = domain_poll.title
+            y_axis_label = values_poll.title + " (average)"
+
             valueset = []
             valuesets.append(valueset)
             for x_val in domain:
@@ -81,8 +97,10 @@ def correlate(request):
                 # Get all the votes to the second (values) slider poll
                 to_value_votes = Vote.objects.filter(poll=values_poll)
 
-                # TODO: Find a way to factor in the user-specified filters
-                # TODO: VERIFIY THAT THIS WORKS!!! - The logic is hurting my head right now
+                for filter in filters:
+                    poll = Poll.objects.get(pk=filter['pollId'])
+                    to_value_votes = to_value_votes.filter(user__vote__poll=poll, user__vote__value=filter['value'])
+
                 # Keep only the votes in which the voter also voted on the first (domain) poll with a specific value on the values poll
                 valid_votes = to_value_votes.filter(user__vote__poll=domain_poll, user__vote__value=x_val)
                 average = valid_votes.aggregate(Avg('value'))
@@ -96,6 +114,9 @@ def correlate(request):
             domain_poll = polls_with_type('sliderpoll')[0]
             values_poll = polls_with_type('choicepoll')[0]
             domain = domain_poll.domain()
+
+            x_axis_label = domain_poll.title
+            y_axis_label = values_poll.title
 
             for values_choice in values_poll.domain():
                 valueset = []
@@ -111,7 +132,10 @@ def correlate(request):
         data = {
             'type': chart_type,
             'labels': domain,
-            'datasets': [{'values': valueset} for valueset in valuesets]
+            'datasets': [{'values': valueset} for valueset in valuesets],
+            'x_axis': x_axis_label,
+            'y_axis': y_axis_label,
+            'debug': debug
         }
 
         return HttpResponse(json.dumps(data), content_type='application/json')
@@ -259,16 +283,24 @@ def surveys(request):
             title = survey['title']
             description = survey.get('description', '')
 
+        if len(title) > Survey._meta.get_field('title').max_length:
+            return HttpResponse('Survey title too long', status=400)
+
         survey_entry = Survey(title=title, description=description, owner_id=request.user.id)
         survey_entry.save()
 
         for question in questions:
             params = question['parameters']
 
+            if len(title) > Poll._meta.get_field('title').max_length:
+                return HttpResponse('Poll title too long', status=400)
             poll = Poll(survey=survey_entry, title=question['title'], description=question.get('description', ''))
 
             if question['type'] == 'slider':
-                slider_poll = SliderPoll(min=params['min'], max=params['max'])
+
+                # To prevent step = 0
+                step = params['step'] if params['step'] != 0 else 1
+                slider_poll = SliderPoll(min=params['min'], max=params['max'], step=step)
                 slider_poll.save()
                 poll.poll_object = slider_poll
 
@@ -307,6 +339,18 @@ def surveys(request):
             surveys = Survey.objects.all().order_by('-pub_date').filter(pub_date__lt=before_date)[:amount]
 
         serializer = SurveySerializer(surveys, many=many)
+        data = serializer.data
+        return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+
+
+def user_recent_surveys(request):
+    if request.method == 'GET':
+        user_id = request.GET.dict().get('user_id')
+        amount = request.GET.dict().get('amount', 4)
+
+        surveys = Survey.objects.all().order_by('-pub_date').filter(owner__pk=user_id)[:amount]
+        serializer = SurveySerializer(surveys, many=True)
+
         return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
 
@@ -326,6 +370,27 @@ def users(request):
 
 
 # ---------------- LOGIN MECHANIC ---------------- #
+
+
+
+
+# ---------------- FOR TESTING PURPOSES ONLY ---------------- #
+
+
+def login_next_user(request):
+    username = request.GET['username']
+    username_number = username[1:]
+    new_username = "u" + str(int(username_number) + 1)
+    user = authenticate(username=new_username, password='a')
+    if user is not None and user.is_active:
+        login(request, user)
+        return HttpResponse("Login Successful")
+    return HttpResponse("user " + new_username + " is not valid")
+
+
+
+
+
 
 
 @csrf_exempt

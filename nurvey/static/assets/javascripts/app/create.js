@@ -7,6 +7,8 @@
 
 	// Controller for all of the questions
 	app.controller('surveyController', ['$location', '$rootScope', '$scope', '$http', function($location, $rootScope, $scope, $http) {
+		$rootScope.location = 'Create';
+
 		this.survey = {title: '', description: ''};
 		var questions = $scope.questions = this.survey.questions = this.questions = [{}];
 
@@ -21,8 +23,7 @@
 
 			// Login required
 			if (!$rootScope.user) {
-				$('#login-modal').modal().on('hidden.bs.modal', this.submit);
-				return;
+				$('#login-modal').modal();
 			}
 
 			// Extracts parameters from selected questionType and assigns to new property on question

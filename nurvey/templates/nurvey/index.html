@@ -19,11 +19,18 @@
 <nav class='navbar navbar-default navbar-static-top' role='navigation' ng-controller='NavbarController as navbar'>
 	<div class='container'>
 		<div class='navbar-header'>
-			<a class='navbar-brand' href='/#/'><span class='glyphicon glyphicon-home'></span></a>
+			<a class='navbar-brand' href='/#/'>
+				<span class='glyphicon glyphicon-home'></span>
+			</a>
 		</div>
 		<div id='navbar-main' class='navbar-collapse collapse'>
-			<ul class='nav navbar-nav'>
-
+			<ul class='nav navbar-nav navbar-left'>
+				<li class='location-container' ng-show='location.length'>
+					<a>
+						<span class='glyphicon glyphicon-chevron-right'></span>
+						<span class='location' ng-bind='location'></span>
+					</a>
+				</li>
 			</ul>
 			<ul class='nav navbar-nav navbar-right'>
 				<li>
@@ -69,101 +76,105 @@
 	<div class='modal-dialog'>
 		<div class='modal-content'>
 			<div class='modal-header'>
-				LOG IN
+				<h4>LOG IN</h4>
 			</div>
 			<div class='modal-body'>
 				<div style='width: 100%' class='container'>
-					<tabset>
-						<tab heading='Login' select='login.shouldLogin(true)'>
+					<md-tabs md-dynamic-height>
+						<md-tab label='Login' md-on-select='login.shouldLogin(true)'>
+							<md-content class='md-padding'>
 
-							<form name='loginForm' ng-submit='login.login(loginForm.$valid)' novalidate>
-								<div class='row'>
-									<div ng-show='loginError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
-								</div>
-								<div class='row'>
-									<div class='form-group' show-errors>
-										<label>
-											Username *
-										</label>
-										<input ng-model='credentials.username' ng-required='true' required name='username'
-											ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-											type='text' class='form-control'></input>
+								<form name='loginForm' ng-submit='login.login(loginForm.$valid)' novalidate>
+									<div class='row'>
+										<div ng-show='loginError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
+									</div>
+									<div class='row'>
+										<md-input-container>
+											<label>
+												Username *
+											</label>
+											<input ng-model='credentials.username' ng-required='true' required name='username'
+												ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+												type='text'></input>
+										</md-input-container>
 										<div ng-bind='login.usernameValid()'></div>
 									</div>
-								</div>
-								<div class='row'>
-									<div class='form-group' show-errors>
-										<label>
-											Password *
-										</label>
-										<input ng-model='credentials.password' ng-required='true' required name='password'
-											type='password' class='form-control'></input>
+									<div class='row'>
+										<md-input-container>
+											<label>
+												Password *
+											</label>
+											<input ng-model='credentials.password' ng-required='true' required name='password'
+												type='password'></input>
+										</md-input-container>
 									</div>
-								</div>
-								<div class='row'>
-									<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="submit" ng-disabled='loginForm.$invalid' class="btn btn-primary">Login</button>
-								</div>
-							</form>
-						</tab>
+									<div class='row buttons-row'>
+										<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="submit" ng-disabled='loginForm.$invalid' class="btn btn-primary">Login</button>
+									</div>
+								</form>
+							</md-content>
+						</md-tab>
 
 							<!-- Second Tab -->
-						<tab heading='Register' select='login.shouldLogin(false)'>
-							<form name='registerForm' ng-submit='login.register(registerForm.$valid)' novalidate>
-								<div class='row'>
-									<div ng-show='registerError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
-								</div>
-								<div class='row'>
-									<div class='form-group' show-errors>
-										<label>
-											Username *
-										</label>
-										<input ng-model='credentials.username' required name='username'
-											ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-											type='text' class='form-control' unique-username></input>
-											<span ng-show="registerForm.username.$pending.uniqueUsername">Checking if this name is available...</span>
-											<span ng-show="registerForm.username.$error.uniqueUsername">This username is already taken!</span>
-											<span ng-show="registerForm.username.$dirty && registerForm.username.$error.required">This field is required</span>
+						<md-tab label='Register' md-on-select='login.shouldLogin(false)'>
+							<md-content class='md-padding'>
+								<form name='registerForm' ng-submit='login.register(registerForm.$valid)' novalidate>
+									<div class='row'>
+										<div ng-show='registerError' class='alert alert-danger' role='alert'>Incorrect credentials</div>
 									</div>
-								</div>
-								<div class='row'>
-									<div class='form-group' show-errors>
-										<label>
-											Password *
-										</label>
-										<input ng-model='credentials.password' ng-required='true' required name='password'
-											type='password' class='form-control'></input>
-										<span ng-show="registerForm.password.$dirty && registerForm.password.$error.required">This field is required</span>
+									<div class='row'>
+										<md-input-container>
+											<label>
+												Username *
+											</label>
+											<input ng-model='credentials.username' required name='username'
+												ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+												type='text' class='form-control' unique-username></input>
+												<span ng-show="registerForm.username.$pending.uniqueUsername">Checking if this name is available...</span>
+												<span ng-show="registerForm.username.$error.uniqueUsername">This username is already taken!</span>
+												<span ng-show="registerForm.username.$dirty && registerForm.username.$error.required">This field is required</span>
+										</md-input-container>
 									</div>
-								</div>
-								<div class='row'>
-									<div class='form-group' show-errors>
-										<label>
-											Confirm Password *
-										</label>
-										<input ng-model='confirmPassword' ng-model-options="{ updateOn: 'blur' }" name='confirmPassword'
-											type='password' class='form-control' match-password></input>
-										<span ng-show="registerForm.confirmPassword.$error.matchPassword">Passwords do not match</span>
+									<div class='row'>
+										<md-input-container>
+											<label>
+												Password *
+											</label>
+											<input ng-model='credentials.password' ng-required='true' required name='password'
+												type='password'></input>
+											<span ng-show="registerForm.password.$dirty && registerForm.password.$error.required">This field is required</span>
+										</md-input-container>
 									</div>
-								</div>
-								<div class='row'>
-									<div class='form-group' show-errors>
-										<label>
-											Email *
-										</label>
-										<input required ng-model='credentials.email' ng-model-options="{ updateOn: 'blur' }" name='email' type='email' class='form-control'></input>
-										<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">This field is required</span>
-										<span ng-show="registerForm.email.$error.email">Not a valid Email!</span>
+									<div class='row'>
+										<md-input-container>
+											<label>
+												Confirm Password *
+											</label>
+											<input ng-model='confirmPassword' ng-model-options="{ updateOn: 'blur' }" name='confirmPassword'
+												type='password' match-password></input>
+											<span ng-show="registerForm.confirmPassword.$error.matchPassword">Passwords do not match</span>
+										</md-input-container>
 									</div>
-								</div>
-								<div class='row'>
-									<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="submit" ng-disabled='registerForm.$invalid' class="btn btn-primary">Register</button>
-								</div>
-							</form>
-						</tab>
+									<div class='row'>
+										<md-input-container>
+											<label>
+												Email *
+											</label>
+											<input required ng-model='credentials.email' ng-model-options="{ updateOn: 'blur' }" name='email' type='email'></input>
+											<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">This field is required</span>
+											<span ng-show="registerForm.email.$error.email">Not a valid Email!</span>
+										</md-input-container>
+									</div>
+									<div class='row buttons-row'>
+										<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="submit" ng-disabled='registerForm.$invalid' class="btn btn-primary">Register</button>
+									</div>
+								</form>
+							</md-content>
+						</md-tab>
 					</tabset>
 				</div>
 			</div>
@@ -184,8 +195,10 @@
 	<div class='container'>
 		<div class='row'>
 			<div class='col-md-3 col-md-offset-2'>
+				<!--
 				<a href>Report an Issue</a><br>
 				<a href>About Page</a>
+				-->
 			</div>
 			<div class='col-md-3'>
 			</div>

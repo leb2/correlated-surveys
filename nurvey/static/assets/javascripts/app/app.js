@@ -44,7 +44,8 @@
 
 
 	// TODO: Move to separate file
-	app.controller('LandingController', ['$scope', '$http', function($scope, $http) {
+	app.controller('LandingController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+		$rootScope.location = "";
 		$scope.surveys = [];
 		$http.get('/surveys/').
 			success(function(data) {

@@ -2,8 +2,8 @@
 <div class='slider-question' layout>
     <md-slider ng-required='true' class='md-primary'
         flex ng-model='poll.value[0]' discrete step='{{ question.step }}'
-        min='{{ question.min }}' max='{{ question.max }}'>
+        min='{{ question.min }}' max='{{ question.max }}' step='{{ question.step }}'>
     </md-slider>
 
-    <div flex='10' class='slider-value' ng-bind='poll.value[0]'></div>
+    <input flex='10' class='slider-value' ng-model='poll.value[0]'></input>
 </div>

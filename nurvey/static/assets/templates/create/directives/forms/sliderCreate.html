@@ -1,15 +1,30 @@
+<div class='slider-create' layout='row' layout-align='center' layout-wrap>
 
-<md-input-container>
-    <label>Minimum Value</label>
-    <input ng-model="question.min"></input>
-</md-input-container>
+    <div class='slider-label' flex='33'>
+        Min:
+    </div>
+    <div class='lifted-input-container' flex='66'>
+        <div class='lifted-input md-whiteframe-z1'>
+            <input type='number' ng-model='question.min'></input>
+        </div>
+    </div>
 
-<md-input-container>
-    <label>Maximum Value</label>
-    <input ng-model="question.max"></input>
-</md-input-container>
+    <div class='slider-label' flex='33'>
+        Max:
+    </div>
+    <div class='lifted-input-container' flex='66'>
+        <div class='lifted-input md-whiteframe-z1'>
+            <input type='number' ng-model='question.max'></input>
+        </div>
+    </div>
 
-<md-input-container>
-    <label>Step</label>
-    <input ng-model="question.step"></input>
-</md-input-container>
+    <div class='slider-label' flex='33'>
+        Increment:
+    </div>
+    <div class='lifted-input-container' flex='66'>
+        <div class='lifted-input md-whiteframe-z1'>
+            <input type='number' ng-model='question.step'></input>
+        </div>
+    </div>
+
+</div>

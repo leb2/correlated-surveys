@@ -9,6 +9,7 @@
 					</h1>
 					<p class='large-text'>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit
+						Correlate
 					</p>
 				</div>
 			</div>
@@ -25,7 +26,8 @@
 		</div>
 	</div>
 
-	<div class='content features'>
+	<!-- Hide this row for now until content -->
+	<div class='content features hidden'>
 		<div class='container'>
 			<!-- UNIQUE FEATURES HEADER
 			<div class='row'>
@@ -40,7 +42,7 @@
 						<div class='panel-body'>
 							<h1 class='text-center'><span class='glyphicon glyphicon-leaf'></span></h1>
 							<p class='text-center medium-text'>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat tellus at justo egestas, non tempor magna mattis. Praesent mattis tellus eget est egestas.  
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat tellus at justo egestas, non tempor magna mattis. Praesent mattis tellus eget est egestas.
 							</p>
 						</div>
 					</div>
@@ -50,7 +52,7 @@
 						<div class='panel-body'>
 							<h1 class='text-center'><span class='glyphicon glyphicon-stats'></span></h1>
 							<p class='text-center medium-text'>
-							 Fusce ornare consequat tempus. Duis in tempor dolor, nec sollicitudin sapien. Vestibulum eget placerat sem. Nullam eu tempor mauris. Maecenas sed vestibulum lorem. Sed id viverra ipsum. 
+							 Fusce ornare consequat tempus. Duis in tempor dolor, nec sollicitudin sapien. Vestibulum eget placerat sem. Nullam eu tempor mauris. Maecenas sed vestibulum lorem. Sed id viverra ipsum.
 							</p>
 						</div>
 					</div>
@@ -60,7 +62,7 @@
 						<div class='panel-body'>
 							<h1 class='text-center'><span class='glyphicon glyphicon-globe'></span></h1>
 							<p class='text-center medium-text'>
-							Donec feugiat erat in pulvinar consectetur. Phasellus gravida nisi risus, nec tincidunt felis facilisis eu. Donec vel tortor dictum, gravida sem sollicitudin, ullamcorper turpis, vel venenatis orci luctus. 
+							Donec feugiat erat in pulvinar consectetur. Phasellus gravida nisi risus, nec tincidunt felis facilisis eu. Donec vel tortor dictum, gravida sem sollicitudin, ullamcorper turpis, vel venenatis orci luctus.
 							</p>
 						</div>
 					</div>
@@ -83,12 +85,16 @@
 
 							<div class='list-group text-left'>
 								<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in surveys'>
-									<span class='badge' ng-cloak>
-										{{ survey.num_upvotes - survey.num_downvotes }} 
-										<span class='glyphicon glyphicon-leaf'></span>
-									</span>
-									<h4 class='list-group-item-heading' ng-cloak>{{ survey.title }}</h4>
-									<p class='list-group-item-text' ng-cloak>{{ survey.poll_set[0].description }}</p>
+									<div layout-align='start center' layout='row' layout-wrap>
+										<h4 class='list-group-item-heading' ng-cloak flex='90'>{{ survey.title }}</h4>
+										<div flex='10' class='text-center'>
+											<div class='badge' ng-cloak>
+												{{ survey.num_upvotes - survey.num_downvotes }}
+												<span class='glyphicon glyphicon-leaf'></span>
+											</div>
+										</div>
+										<p class='list-group-item-text' ng-cloak flex='90'>{{ survey.poll_set[0].description }}</p>
+									</div>
 								</a>
 							</div>
 

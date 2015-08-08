@@ -4,6 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from datetime import datetime
 
+from collections import OrderedDict
+
 
 
 class Profile(models.Model):
@@ -15,7 +17,7 @@ class Profile(models.Model):
 
 class Point(models.Model):
     user = models.ForeignKey(User)
-    data = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     is_up = models.BooleanField(default=None)
 
     # Survey or Poll that is being voted on
@@ -27,7 +29,7 @@ class Point(models.Model):
 
 class Survey(models.Model):
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=1500, default="")
+    description = models.CharField(max_length=10000, default="")
     pub_date = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User)
     num_upvotes = models.IntegerField(default=0)
@@ -94,10 +96,29 @@ class SliderPoll(models.Model):
     poll = generic.GenericRelation(Poll)
     min = models.IntegerField()
     max = models.IntegerField()
-    step = models.IntegerField(default=1)
+    step = models.DecimalField(max_digits=5, decimal_places=2, default=1)
+
+    @staticmethod
+    def drange(start, stop, step):
+        r = start
+        while r <= stop:
+            yield r
+
+            # note: using decimal step turns r into decimal
+            r += step
+
+    # If there are too many labels to display, step will be increaesd
+    def step_adjusted(self):
+        max_labels = 20
+        num_labels = int((self.max - self.min) / self.step)
+
+        if num_labels > max_labels:
+            return self.step * int(num_labels / max_labels)
+        return self.step
 
     def domain(self):
-        return range(self.min, self.max, self.step)
+        return list(self.drange(self.min, self.max, self.step_adjusted()))
+        return range(self.min, self.max + 1, self.step_adjusted())
 
     def domain_pretty(self):
         return self.domain()
@@ -109,9 +130,12 @@ class SliderPoll(models.Model):
         return values
 
     def results(self, poll):
-        results = {}
+        results = OrderedDict()
         for i in self.domain():
-            results[i] = Vote.objects.filter(poll=poll, value=i).count()
+            votes = Vote.objects.filter(poll=poll)
+            # Float because decimal not get serialized
+            results[float(i)] = votes.filter(value__gte=i).filter(value__lt=i+self.step_adjusted()).count()
+
         return results
 
     def results_pretty(self, poll):

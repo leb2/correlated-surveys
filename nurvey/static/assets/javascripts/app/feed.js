@@ -10,6 +10,8 @@
 
 	app.controller('FeedController', ['$routeParams', '$rootScope', '$scope', '$http', function($routeParams, $rootScope, $scope, $http) {
 
+		$rootScope.location = 'Feed'
+
 		$scope.loadedSurveys = [];
 		$scope.surveyLocation = 0;
 
@@ -18,6 +20,15 @@
 				survey_vote: false
 			}
 		};
+
+
+		$scope.loginNextUser = function() {
+			$http.get('/login_next_user?username=' + $rootScope.user.username)
+				.success(function() {
+						$rootScope.refreshUser();
+						$scope.survey.showResults = false;
+				});
+		}
 
 
 		// Submits the user's survey response
@@ -36,8 +47,6 @@
 				var poll = polls[i]
 					answers[poll.id] = poll.value;
 			}
-			console.log("POST DATA");
-			console.log(answers);
 
 			$http.post('/surveys/' + $scope.survey.id + '/', answers).
 				success(function(data, a, b, c) {
@@ -53,6 +62,8 @@
 			// $scope.survey = $scope.loadedSurveys.shift();
 
 			$scope.survey = $scope.loadedSurveys[$scope.surveyLocation];
+			console.log("This is the survey:");
+			console.log($scope.survey);
 
 
 			// Gets the users current vote

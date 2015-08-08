@@ -1,6 +1,6 @@
-<div>
-
-	<div class='col-md-5'>
+<div layout='column'>
+	<div flex layout='row' layout-margin>
+	<div flex>
 
 
 		<div class='panel panel-primary create'>
@@ -18,35 +18,27 @@
 			</div>
 
 			<div class='panel-body'>
-				<div class='row'>
-					<div class='col-md-12'>
-						<label for='description'>Description (optional)</label>
-						<textarea id='description' class='form-control' rows='2' ng-model='question.description'></textarea>
-					</div>
-				</div> <!-- /row -->
-				<div class='row'>
-					<div class='col-md-12' ng-cloak>
-						<div class='text-center'>
+				<span>Description (optional)</span>
+				<textarea id='description' class='form-control' rows='2' ng-model='question.description'></textarea>
+				<div class='text-center' ng-cloak>
 
-							<div class="btn-group" style="margin-top: 20px">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									{{ selectedTitle }} <span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li ng-repeat='questionType in questionTypes' style="cursor: pointer">
-										<a ng-click='select(questionType)'>{{ questionType.title }}</a>
-									</li>
-								</ul>
-							</div>
-
-						</div>
-						<div class='content' ng-cloak>
-							<!-- Add all of the question creation parameter directives here -->
-							<choice-create questiontype='findQuestionType("choice")' ng-show='findQuestionType("choice").selected'></choice-create>
-							<yes-no-create questiontype='findQuestionType("yesNo")' ng-show='findQuestionType("yesNo").selected'></yes-no-create>
-							<slider-create questiontype='findQuestionType("slider")' ng-show='findQuestionType("slider").selected'></slider-create>
-						</div>
+					<div class="btn-group" style="margin-top: 20px">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							{{ selectedTitle }} <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li ng-repeat='questionType in questionTypes' style="cursor: pointer">
+								<a ng-click='select(questionType)'>{{ questionType.title }}</a>
+							</li>
+						</ul>
 					</div>
+
+				</div>
+				<div class='content' ng-cloak>
+					<!-- Add all of the question creation parameter directives here -->
+					<choice-create questiontype='findQuestionType("choice")' ng-show='findQuestionType("choice").selected'></choice-create>
+					<yes-no-create questiontype='findQuestionType("yesNo")' ng-show='findQuestionType("yesNo").selected'></yes-no-create>
+					<slider-create questiontype='findQuestionType("slider")' ng-show='findQuestionType("slider").selected'></slider-create>
 				</div>
 			</div> <!-- /panel-body -->
 
@@ -57,7 +49,8 @@
 
 
 	<!-- DEMO -->
-	<div class='col-md-7 demo'>
+	<div flex>
+
 
 
 		<div class='panel panel-default demo-panel'>
@@ -84,4 +77,6 @@
 
 
 	</div> <!-- col-md-7 -->
+
+	</div>
 </div> <!-- /row -->

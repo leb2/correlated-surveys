@@ -2,7 +2,7 @@
 
 <div class='row'>
 
-	<form ng-submit='submit()' name='surveyForm' class='col-md-9'>
+	<form ng-submit='submit()' name='surveyForm' class='col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-0'>
 		<div class='interpanel row' ng-repeat='poll in survey.poll_set'>
 
 			<!-- MAIN PANEL -->
@@ -11,7 +11,7 @@
 				<div class='main panel panel-default'>
 
 					<div class='panel-heading text-center'>
-						<strong>{{ poll.title }}</strong>
+						{{ poll.title }}
 					</div>
 
 
@@ -38,33 +38,20 @@
 		</div>
 
 
-		<!-- Correlate within the survey -->
-		<div class='feed-correlate row'>
-			<div class='panel panel-default'>
-				<div class='panel-heading text-center'>Correlate</div>
-				<div class='panel-body'>
-					Sanity
-				</div>
-			</div>
-		</div>
-
-
 		<!-- BOTTOM PANEL -->
 		<div class='row text-center'>
 			<div class='col-md-10 col-md-offset-1'>
 				<div class='buttons panel panel-default'>
 					<div class='panel-body'>
+
 						<!-- SURVEY CREATOR -->
-						<div class='row'>
-							<span ng-bind='survey.owner.username'></span>
-						</div>
+						<span ng-bind='survey.owner.username'></span>
 
 						<!-- BUTTONS -->
-						<div class='row'>
+						<div layout='row'>
 
 							<!-- VOTING -->
-							<div class='col-md-3 text-center'>
-
+							<div flex='33'>
 								<!-- UPVOTE / DOWNVOTE -->
 								<span>
 									<div class='btn-group-vertical' role='group'>
@@ -81,23 +68,19 @@
 								</span>
 							</div>
 
-							<!-- SUBMIT SURVEY RESPONSE -->
-							<div class='col-md-5 text-center'>
+							<!-- BUTTONS -->
+							<div flex='66' layout='column' layout-align='center center'>
 								<div class='btn-group'>
-									<button ng-hide='survey.showResults' type='button' ng-click='survey.showResults=true' class='btn btn-default'>Results</button>
+									<button ng-hide='survey.showResults' type='button' ng-click='survey.showResults=true' class='btn btn-success'>Results</button>
 									<button ng-hide='survey.showResults' ng-disabled='surveyForm.$invalid' type='submit' class='btn btn-primary'>Submit</button>
 
 									<!-- Allow user to go back to survey after viewing results
 									<button ng-show='survey.showResults && !survey.submitted' type='button' ng-click='survey.showResults=false' class='btn btn-default'>Back to Survey</button>
 									-->
+									<button ng-click='loginNextUser()' type='button' class='comment btn btn-success'>
+										COMMENT
+									</button>
 								</div>
-							</div>
-
-							<!-- COMMENT -->
-							<div class='col-md-2 text-center'>
-								<button type='button' class='comment btn btn-default'>
-									COMMENT
-								</button>
 							</div>
 						</div>
 					</div>

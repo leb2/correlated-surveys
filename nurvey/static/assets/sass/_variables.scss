@@ -355,13 +355,13 @@ $navbar-padding-horizontal:        floor(($grid-gutter-width / 2));
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2);
 $navbar-collapse-max-height:       340px;
 
-$navbar-default-color:             $gray-light;
-$navbar-default-bg:                #F1F1F1; // #fff;
+$navbar-default-color:             white; //$gray-light;
+$navbar-default-bg:                #0097a7;// #009688; //#428644; // #607d8b;// #F1F1F1; // #fff;
 $navbar-default-border:            rgba(0, 0, 0, 0);
 
 // Navbar links
-$navbar-default-link-color:                $gray;
-$navbar-default-link-hover-color:          $gray-dark;
+$navbar-default-link-color:                #EEE; //$gray;
+$navbar-default-link-hover-color:          white; //$gray;
 $navbar-default-link-hover-bg:             rgba(0, 0, 0, 0);
 $navbar-default-link-active-color:         $gray-dark;
 $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%);
@@ -750,7 +750,7 @@ $thumbnail-caption-padding:   9px;
 //
 //##
 
-$well-bg:                     #F9F9F9; //#f9f9f9;
+$well-bg:                     #EEE; //#f9f9f9;
 $well-border:                 rgba(0, 0, 0, 0);
 
 

@@ -11,6 +11,9 @@
 
 $footer-color: #333;
 $footer-height: 250px;
+$max-width: 800px;
+$background-color: #EEE;
+$panel-background-color: #FAFAFA;
 
 $raleway-stack: 'Raleway', 'Open Sans', 'Helvetica', 'Arial', sans-serif;
 $open-sans-stack: 'Open Sans', 'Roboto', 'Helvetica', 'Arial', sans-serif;
@@ -61,8 +64,38 @@ h1, h2 {
 	margin-top: 28px;
 }
 
+.max-width {
+	// Important to override angular material flex
+	max-width: $max-width !important;
+}
+.no-min-width {
+	min-width: 0px;
+}
+
+.panel-body {
+	background: $panel-background-color;
+	padding: 28px;
+}
+
+// For particularly long survey titles
+.list-group-item-heading {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+// Toggle description visibility on hover
+.list-group-item p {
+	display: none;
+	color: #666;
+}
+.list-group-item:hover p {
+	display: initial;
+}
 
 
+body {
+	color: #666 !important;
+}
 
 
 /* -------------------------------- LANDING -------------------------------- */
@@ -124,18 +157,15 @@ h1, h2 {
 
 	.content.top-surveys {
 
-		.list-group-item-heading {
-			padding-right: 50px;
-			word-wrap: break-word;
-			padding-bottom: 12px;
+		.panel {
+			max-width: $max-width;
+			display: inline-block;
 		}
-		// Toggle description visibility on hover
-		.list-group-item p {
-			display: none;
-			color: #666;
-		}
-		.list-group-item:hover p {
-			display: initial;
+
+
+
+		.list-group-item {
+			padding-left: 30px;
 		}
 	}
 
@@ -158,24 +188,35 @@ nav.navbar {
 		top: -5px;
 	}
 
-	.navbar-right {
 
-		a {
-			.text {
-				padding-right: 8px;
-			}
-			.glyphicon {
-				font-size: 20px;
-				position: relative;
-				top: 4px;
-			}
+	.location-container {
+		margin-left: 12px;
+
+		.location {
+			margin-left: 6px;
+			font-size: 25px;
+			position: relative;
+			top: 4px;
+		}
+	}
+
+	.nav {
+		text-transform: uppercase;
+
+		.text {
+			padding-right: 8px;
+		}
+		.glyphicon {
+			font-size: 20px;
+			position: relative;
+			top: 4px;
 		}
 	}
 }
 
 html, body {
 	height: 100%;
-	background: #F9F9F9;
+	background: $background-color !important; // #F9F9F9;
 }
 
 
@@ -212,24 +253,62 @@ html, body {
 #explore {
 
 	.panel-body {
-		padding: 30px 50px 30px 50px;
+		padding: 0px;
 
-		form .row {
-			margin-bottom: 18px;
-			margin-top: 18px;
+		.graph-row-bg {
+			background: #333;
+			padding: 50px 80px 15px 75px;
+
+			.graph-row {
+				position: relative;
+
+				.x-axis-label, .y-axis-label {
+					position: absolute;
+					text-transform: uppercase;
+				}
+				.y-axis-label {
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					width: 60px;
+					left: -50px;
+				}
+				.x-axis-label {
+					width: 100%;
+					text-align: center;
+					bottom: -36px;
+					text-transform: uppercase;
+					padding-left: 50px;
+				}
+
+				.explore-graph-container {
+					height: 300px;
+					margin-bottom: 45px;
+					padding-left: 18px;
+				}
+			}
+
 		}
 
+		.form-row {
+			padding: 30px 90px 30px 90px;
 
-		.row.graph-row {
-			margin-top: 50px;
-			height: 300px;
+			md-autocomplete {
+				margin: 6px;
+				// background: #FDFDFD;
+				background: #FFF;
+			}
+
+			.filters {
+				margin-top: 40px;
+			}
+
+			.add-filter-btn {
+				margin-top: 25px;
+			}
 		}
 	}
-
-	.panel-body form .row.filters {
-		margin-top: 100px;
-	}
-
 }
 
 
@@ -239,7 +318,6 @@ html, body {
 #feed {
 
 	.interpanel.row {
-		margin-bottom: 40px;
 	}
 
 	.main.panel {
@@ -256,12 +334,6 @@ html, body {
 			}
 		}
 	}
-
-
-	.feed-correlate.row {
-
-	}
-
 
 	.side.panel {
 		.panel-heading {
@@ -295,11 +367,12 @@ html, body {
 	}
 
 	.buttons.panel {
+		margin-top: 20px;
 
 		.points.well {
 			font-size: 18px;
-			padding: 7px;
-			padding-left: 9px;
+			padding: 12px;
+			padding-left: 14px;
 			margin: 8px;
 
 			position: relative;
@@ -308,11 +381,6 @@ html, body {
 			@include border-radius(4px);
 		}
 
-		.submit.btn, .comment.btn {
-			position: relative;
-			// Magic number for vertical align :(
-			top: 18px;
-		}
 	}
 
 }
@@ -323,23 +391,58 @@ html, body {
 
 /* -------------------------------- MODAL -------------------------------- */
 
-.login-modal {
-	margin-top: 150px;
+
+
+
+/* -------------------------------- ACCOUNT -------------------------------- */
+
+#account {
+
+	.account-heading {
+		padding-left: 12px;
+	}
 }
 
 .modal-backdrop {
 	z-index: -10;
 }
 
-.modal-body {
 
-	.row {
-		margin-top: 15px;
+#login-modal {
+
+	.modal-body {
 
 		label {
-			width: 100%;
+			font-weight: normal;
+			color: #444;
+			font-size: 15px;
+		}
+
+		md-input-container {
+			padding-left: 6px;
+			padding-bottom: 0px;
+
+			label {
+				position: relative;
+				top: 4px;
+				color: #888;
+			}
+
+			input, label {
+				padding-left: 5px;
+			}
+
+			input {
+				border-bottom: 1px solid #DDD;
+			}
+		}
+
+		.buttons-row {
+			margin-top: 50px;
 		}
 	}
+
+
 }
 
 
@@ -357,6 +460,19 @@ $placeholder-color: #DFDFDF;
 
 
 .create {
+
+	/* Specific Creates */
+	.slider-create {
+		margin-top: 35px;
+		padding: 25px;
+
+
+		.slider-label {
+
+		}
+	}
+
+
 	.panel-heading {
 		.input-group {
 			input {
@@ -408,15 +524,25 @@ $placeholder-color: #DFDFDF;
 
 	.slider-value {
 		text-align: center;
+		border: none;
+		min-width: 0px;
 		line-height: 24px;
 		padding: 12px;
 		margin-left: 12px;
-		background: #F9F9F9;
+		background: #DDD;
 		font-size: 16px;
 		font-weight: thin;
 	}
 }
 
+.choice-question {
+	padding-left: 56px;
+	padding-right: 30px;
+
+	md-radio-button {
+		margin: 7px 18px 7px 0px;
+	}
+}
 
 
 
@@ -492,11 +618,30 @@ md-radio-group.md-default-theme:focus {
 		top: -7px;
 		left: 20px;
 		line-height: 15px;
-		background: white;
+		background: $panel-background-color;
 		padding: 0 12px 0 12px;
 		font-size: 15px;
 	}
 }
 .border-title.extra-padding {
 	padding: 40px;
+}
+
+.lifted-input-container {
+	padding: 6px;
+
+	.lifted-input {
+		border-radius: 2px;
+		height: 100%;
+		background: white;
+
+		input {
+			text-align: center;
+			height: 100%;
+			width: 100%;
+			padding: 0px 12px 0px 12px;
+			// background: #FDFDFD;
+			background: transparent;
+		}
+	}
 }
