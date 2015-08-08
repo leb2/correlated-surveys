@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 import requests
 import requests.auth
+from nurvey.models import Profile
 
 # TODO: Make separate namespace for reddit usernames with a prefix or something
 class RedditBackend:
