@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from datetime import datetime
-
+from django.template import defaultfilters
 from collections import OrderedDict
 
 
@@ -26,7 +26,6 @@ class Point(models.Model):
     voted_object = generic.GenericForeignKey('voted_type', 'voted_id')
 
 
-
 class Survey(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=10000, default="")
@@ -34,7 +33,12 @@ class Survey(models.Model):
     owner = models.ForeignKey(User)
     num_upvotes = models.IntegerField(default=0)
     num_downvotes = models.IntegerField(default=0)
+    num_responses = models.IntegerField(default=0)
     point_set = generic.GenericRelation(Point, content_type_field='voted_type', object_id_field='voted_id')
+
+    @property
+    def time_ago(self):
+        return defaultfilters.timesince(self.pub_date)
 
     @property
     def points(self):

@@ -62,6 +62,8 @@
 			// $scope.survey = $scope.loadedSurveys.shift();
 
 			$scope.survey = $scope.loadedSurveys[$scope.surveyLocation];
+			$scope.survey.showResults = $scope.survey.submitted = $scope.survey.has_voted;
+
 			console.log("This is the survey:");
 			console.log($scope.survey);
 
@@ -173,7 +175,9 @@
 
 					// Initialize the survey with extra data - eventually switch to resolve?
 					survey.voteData = {survey_vote: false};
-					survey.showResults = survey.submitted = false;
+
+					// TODO: Is this line needed?
+					$scope.survey.showResults = $scope.survey.submitted = false;
 
 					$scope.loadedSurveys = $scope.loadedSurveys.concat(data);
 

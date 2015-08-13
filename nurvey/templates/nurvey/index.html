@@ -26,7 +26,7 @@
 		<div id='navbar-main' class='navbar-collapse collapse'>
 			<ul class='nav navbar-nav navbar-left'>
 				<li class='location-container' ng-show='location.length'>
-					<a>
+					<a class='location-link'>
 						<span class='glyphicon glyphicon-chevron-right'></span>
 						<span class='location' ng-bind='location'></span>
 					</a>
@@ -34,34 +34,20 @@
 			</ul>
 			<ul class='nav navbar-nav navbar-right'>
 				<li>
-					<a href='#/explore'>
-						<span class='text'>EXPLORE</span>
-						<!-- <span class='glyphicon glyphicon-globe'></span> -->
-					</a>
+					<md-button href='#/explore'>EXPLORE</md-button>
 				</li>
 				<li>
-					<a href='#/feed'>
-						<span class='text'>VIEW</span>
-						<!-- <span class='glyphicon glyphicon-eye-open'></span> -->
-					</a>
+					<md-button href='#/feed'>FEED</md-button>
 				</li>
 				<li>
-					<a href='#/create'>
-						<span class='text'>CREATE</span>
-						<!-- <span class='glyphicon glyphicon-plus'></span> -->
-					</a>
+					<md-button href='#/create'>CREATE</md-button>
 				</li>
-				<li ng-switch='user.username.length > 0' ng-cloak>
-					<a href='#/account' ng-switch-when='true'>
-						<span class='text'>{{ user.username | uppercase }}</span>
-						<!-- <span class='glyphicon glyphicon-user'></span> -->
-					</a>
-					<a href ng-switch-default data-toggle='modal' data-target='#login-modal'>
-						<span class='text'>LOGIN</span>
-						<!-- <span class='glyphicon glyphicon-user'></span> -->
-					</a>
+				<li ng-show='user.username.length > 0' ng-cloak>
+					<md-button ng-cloak href='#/account'>{{ user.username | uppercase }}</md-button>
 				</li>
-
+				<li ng-hide='user.username.length > 0' ng-cloak>
+					<md-button href ng-cloak data-target='#login-modal' data-toggle='modal'>Login</md-button>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -80,8 +66,8 @@
 			</div>
 			<div class='modal-body'>
 				<div style='width: 100%' class='container'>
-					<md-tabs md-dynamic-height>
-						<md-tab label='Login' md-on-select='login.shouldLogin(true)'>
+					<md-tabs md-dynamic-height md-stretch-tabs='always'>
+						<md-tab label='Login' md-on-select='login.shouldLogin(true)' style='max-width: none'>
 							<md-content class='md-padding'>
 
 								<form name='loginForm' ng-submit='login.login(loginForm.$valid)' novalidate>
@@ -91,7 +77,7 @@
 									<div class='row'>
 										<md-input-container>
 											<label>
-												Username *
+												Username
 											</label>
 											<input ng-model='credentials.username' ng-required='true' required name='username'
 												ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
@@ -102,16 +88,16 @@
 									<div class='row'>
 										<md-input-container>
 											<label>
-												Password *
+												Password
 											</label>
 											<input ng-model='credentials.password' ng-required='true' required name='password'
 												type='password'></input>
 										</md-input-container>
 									</div>
 									<div class='row buttons-row'>
-										<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										<button type="submit" ng-disabled='loginForm.$invalid' class="btn btn-primary">Login</button>
+										<button type="button" class="btn btn-default reddit" ng-click='login.loginReddit()'>Login With Reddit</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>
 							</md-content>
@@ -127,7 +113,7 @@
 									<div class='row'>
 										<md-input-container>
 											<label>
-												Username *
+												Username
 											</label>
 											<input ng-model='credentials.username' required name='username'
 												ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
@@ -140,7 +126,7 @@
 									<div class='row'>
 										<md-input-container>
 											<label>
-												Password *
+												Password
 											</label>
 											<input ng-model='credentials.password' ng-required='true' required name='password'
 												type='password'></input>
@@ -150,7 +136,7 @@
 									<div class='row'>
 										<md-input-container>
 											<label>
-												Confirm Password *
+												Confirm Password
 											</label>
 											<input ng-model='confirmPassword' ng-model-options="{ updateOn: 'blur' }" name='confirmPassword'
 												type='password' match-password></input>
@@ -160,7 +146,7 @@
 									<div class='row'>
 										<md-input-container>
 											<label>
-												Email *
+												Email
 											</label>
 											<input required ng-model='credentials.email' ng-model-options="{ updateOn: 'blur' }" name='email' type='email'></input>
 											<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">This field is required</span>
@@ -168,9 +154,9 @@
 										</md-input-container>
 									</div>
 									<div class='row buttons-row'>
-										<button type="button" class="btn btn-default" ng-click='login.loginReddit()'>Login With Reddit</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										<button type="submit" ng-disabled='registerForm.$invalid' class="btn btn-primary">Register</button>
+										<button type="button" class="btn btn-default reddit" ng-click='login.loginReddit()'>Login With Reddit</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</form>
 							</md-content>
@@ -178,9 +164,9 @@
 					</tabset>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<!-- The buttons used to be here... -->
-			</div>
+			<!-- Buttons used to be here -->
+			<!-- <div class="modal-footer"></div> -->
+
 		</div>
 	</div>
 </div>

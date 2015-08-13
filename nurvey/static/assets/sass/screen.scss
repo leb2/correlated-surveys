@@ -104,26 +104,55 @@ body {
 
 	.splash {
 		box-shadow: inset 0 0 720px rgba(0, 0, 0, 0.3);
-
-
-		.row {
-			margin-top: 10px;
-			position: relative;
-			top: 120px;
-			color: #DDD;
-			h1 {
-				color: white;
-				font-size: 60px;
-				font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
-				font-weight: bold;
-				text-transform: uppercase;
-			}
-			p {
-				color: white;
-			}
-		}
 		height: 550px;
 		background: #439CBF;
+
+		.splash-inner {
+			max-width: 900px;
+
+			.splash-text {
+				margin-right: 24px;
+
+				h1 {
+					color: white;
+					font-size: 60px;
+					font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
+					font-weight: bold;
+					text-transform: uppercase;
+				}
+				p {
+					color: white;
+				}
+			}
+
+
+			.splash-buttons {
+
+				.call-primary {
+					padding: 12px 20px 12px 20px;
+					font-size: 18px;
+				}
+				.call {
+					margin: 5px 0 5px;
+				}
+				.call-secondary-link {
+					color: #EEE;
+					transition: color 0.2s;
+					font-size: 15px;
+
+					.call-secondary {
+						padding-left: 12px;
+					}
+				}
+				.call-secondary-link:hover {
+					text-decoration: none;
+					color: white;
+				}
+			}
+
+		}
+
+
 	}
 
 	.content:nth-child(odd) {
@@ -160,17 +189,34 @@ body {
 		.panel {
 			max-width: $max-width;
 			display: inline-block;
+
 		}
-
-
 
 		.list-group-item {
-			padding-left: 30px;
+
+
+			h4 {
+				color: #555;
+				padding-left: 15px;
+			}
+
+			hr {
+				margin: 12px 0 0 0;
+			}
+			.sub-texts {
+				padding-left: 18px;
+				color: #999;
+
+				.username {
+					color: #666;
+				}
+
+				.inline-divider {
+					margin: 0 6px 0 6px;
+				}
+			}
 		}
 	}
-
-
-
 }
 
 
@@ -192,6 +238,10 @@ nav.navbar {
 	.location-container {
 		margin-left: 12px;
 
+		.location-link {
+			padding-bottom: 0px;
+		}
+
 		.location {
 			margin-left: 6px;
 			font-size: 25px;
@@ -203,14 +253,25 @@ nav.navbar {
 	.nav {
 		text-transform: uppercase;
 
+		.md-button {
+			margin: 0px;
+			border-radius: 0px;
+		}
+
+		li > div {
+			height: 100%;
+		}
+
 		.text {
 			padding-right: 8px;
 		}
+		/*
 		.glyphicon {
 			font-size: 20px;
 			position: relative;
 			top: 4px;
 		}
+		*/
 	}
 }
 
@@ -258,6 +319,20 @@ html, body {
 		.graph-row-bg {
 			background: #333;
 			padding: 50px 80px 15px 75px;
+			color: #AAA;
+
+			.keys {
+				margin-bottom: 22px;
+				color: #999;
+
+				.color-block {
+					height: 3px;
+					width: 32px;
+					display: inline-block;
+					opacity: 80%;
+					margin: 0 10px 3px;
+				}
+			}
 
 			.graph-row {
 				position: relative;
@@ -294,6 +369,11 @@ html, body {
 		.form-row {
 			padding: 30px 90px 30px 90px;
 
+			.help-text-row div {
+				text-align: left;
+				padding-left: 10px;
+			}
+
 			md-autocomplete {
 				margin: 6px;
 				// background: #FDFDFD;
@@ -317,7 +397,17 @@ html, body {
 
 #feed {
 
-	.interpanel.row {
+
+	.loading-icon-container {
+		height: 0px;
+		position: relative;
+		width: 100%;
+
+		.loading-icon {
+			width: 100%;
+			position: absolute;
+			height: 200px;
+		}
 	}
 
 	.main.panel {
@@ -369,6 +459,16 @@ html, body {
 	.buttons.panel {
 		margin-top: 20px;
 
+		.survey-owner {
+			color: #777;
+			margin-bottom: 12px;
+
+			.username {
+				color: #333;
+
+			}
+		}
+
 		.points.well {
 			font-size: 18px;
 			padding: 12px;
@@ -410,7 +510,23 @@ html, body {
 
 #login-modal {
 
+
+
+	.modal-header {
+		background: $panel-background-color;
+		padding-left: 32px;
+	}
+
 	.modal-body {
+		background: $panel-background-color;
+
+		md-content {
+			background: transparent;
+		}
+
+		md-tab {
+			max-width: 1px;
+		}
 
 		label {
 			font-weight: normal;
@@ -439,6 +555,12 @@ html, body {
 
 		.buttons-row {
 			margin-top: 50px;
+			text-align: right;
+
+			.reddit {
+				background: #ff5700;
+				color: #EFEFEF;
+			}
 		}
 	}
 

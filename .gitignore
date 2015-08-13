@@ -2,3 +2,6 @@
 *.swp
 .sass-cache
 migrations
+settings_dev.py
+db.sqlite*
+.DS_Store

@@ -20,11 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '%3-)67-x@8=_j9r8@h4sj2t$ck04i-puu3lalv0li@t1_o4!b)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = False
 TEMPLATE_DEBUG = True
+ALLOWED_HOSTS = [ '.faugo.com' ]
 
-ALLOWED_HOSTS = []
+
 
 USE_TZ = False
 
@@ -58,7 +58,7 @@ AUTHENTICATION_BACKENDS = (
 )
 CLIENT_ID = 'JgVqt9xSpAk4yg'
 CLIENT_SECRET = 'ifu_gFOQrandEGZKf_NWpbAOjRM'
-REDIRECT_URI = 'http://localhost:8000/callback/'
+REDIRECT_URI = 'http://surveyapp.faugo.com/callback/'
 
 
 ROOT_URLCONF = 'nurvey.urls'
@@ -94,3 +94,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/webapps/'
+
+try:
+    from settings_dev import *
+except ImportError: pass

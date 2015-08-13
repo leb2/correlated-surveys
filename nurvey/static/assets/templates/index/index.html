@@ -1,27 +1,24 @@
 <div id='landing'>
 
-	<div class='splash'>
-		<div class='container'>
-			<div class='row'>
-				<div class='col-md-8 col-md-offset-2 text-center'>
-					<h1>
-						LOREM IPSUM
-					</h1>
-					<p class='large-text'>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit
-						Correlate
-					</p>
-				</div>
+	<div class='splash' layout='row' layout-align='center center'>
+		<div class='splash-inner' layout='row' layout-align='center center' flex layout-margin>
+			<div flex class='splash-text text-right'>
+				<h1>
+					CORRELATED SURVEYS
+				</h1>
+				<p class='large-text'>
+					Discover relationships between demographics with
+					data from user-generated polls.
+				</p>
 			</div>
-			<div class='row text-center'>
+			<div flex='30' class='splash-buttons'>
 				<a href='#/create'>
-					<button type='button' class='btn btn-default'>Create a Survey!</button>
+					<button type='button' class='btn btn-success call-primary call'>Create a Survey!</button>
 				</a>
-			</div>
-			<div class='row text-center'>
-				<a href='#/feed'>
-					<button type='button' class='btn btn-primary'>Or View existing surveys</button>
+				<a href='#/feed' class='call-secondary-link'>
+					<div class='call-secondary call'>Or view existing surveys</div>
 				</a>
+
 			</div>
 		</div>
 	</div>
@@ -86,7 +83,18 @@
 							<div class='list-group text-left'>
 								<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in surveys'>
 									<div layout-align='start center' layout='row' layout-wrap>
-										<h4 class='list-group-item-heading' ng-cloak flex='90'>{{ survey.title }}</h4>
+										<div flex='90'>
+											<h4 class='list-group-item-heading' ng-cloak>{{ survey.title }}</h4>
+											<hr/>
+											<div class='sub-texts'>
+												Posted {{ survey.time_ago }} ago by
+												<span class='username'>{{ survey.owner.username }}</span>
+												<span class='inline-divider'>&#x2014;</span>
+												{{ survey.num_responses }} Responses
+											</div>
+										</div>
+
+
 										<div flex='10' class='text-center'>
 											<div class='badge' ng-cloak>
 												{{ survey.num_upvotes - survey.num_downvotes }}

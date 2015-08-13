@@ -85,6 +85,11 @@
 			});
 		};
 
+		$scope.showModal = function() {
+			$('#login-modal').show();
+			console.log("This shoudl be getting callsdk");
+		};
+
 		$rootScope.refreshUser();
 	}]);
 

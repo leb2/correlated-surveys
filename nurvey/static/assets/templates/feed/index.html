@@ -3,7 +3,16 @@
 <div class='row'>
 
 	<form ng-submit='submit()' name='surveyForm' class='col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-0'>
+
+
+		<div class='loading-icon-container' ng-hide='survey.poll_set'>
+			<div class='loading-icon' layout='row' layout-align='center center'>
+				<md-progress-circular md-mode="indeterminate"></md-progress-circular flex>
+			</div>
+		</div>
+
 		<div class='interpanel row' ng-repeat='poll in survey.poll_set'>
+
 
 			<!-- MAIN PANEL -->
 			<div class='demo'>
@@ -41,23 +50,25 @@
 		<!-- BOTTOM PANEL -->
 		<div class='row text-center'>
 			<div class='col-md-10 col-md-offset-1'>
-				<div class='buttons panel panel-default'>
+				<div class='buttons panel panel-default' ng-show='survey.poll_set'>
 					<div class='panel-body'>
 
 						<!-- SURVEY CREATOR -->
-						<span ng-bind='survey.owner.username'></span>
+						<div class='survey-owner'>
+							Posted {{ survey.time_ago }} ago by <span ng-bind='survey.owner.username' class='username'></span>
+						</div>
 
 						<!-- BUTTONS -->
 						<div layout='row'>
 
 							<!-- VOTING -->
-							<div flex='33'>
+							<div flex>
 								<!-- UPVOTE / DOWNVOTE -->
 								<span>
 									<div class='btn-group-vertical' role='group'>
 										<button type='button' ng-class='{"btn-success": survey.voteData.survey_vote}' class='btn' ng-click='givePoint(true)'>▲</button>
 										<button type='button' ng-class='{"btn-danger": !survey.voteData.survey_vote && survey.voteData.survey_vote != null}'
-											class='btn' ng-click='givePoint(false)'>▼</button>
+											class='btn' ng-click='givePoint(false); loginNextUser()'>▼</button>
 									</div>
 								</span>
 
@@ -69,18 +80,18 @@
 							</div>
 
 							<!-- BUTTONS -->
-							<div flex='66' layout='column' layout-align='center center'>
-								<div class='btn-group'>
-									<button ng-hide='survey.showResults' type='button' ng-click='survey.showResults=true' class='btn btn-success'>Results</button>
-									<button ng-hide='survey.showResults' ng-disabled='surveyForm.$invalid' type='submit' class='btn btn-primary'>Submit</button>
+							<div flex='50' ng-hide='survey.showResults' layout='row' layout-align='center center' layout-margin>
+								<button flex ng-disabled='surveyForm.$invalid' type='submit' class='btn btn-primary'>Submit</button>
+								<button flex type='button' ng-click='survey.showResults=true' class='btn btn-default'>Results</button>
 
-									<!-- Allow user to go back to survey after viewing results
-									<button ng-show='survey.showResults && !survey.submitted' type='button' ng-click='survey.showResults=false' class='btn btn-default'>Back to Survey</button>
-									-->
-									<button ng-click='loginNextUser()' type='button' class='comment btn btn-success'>
-										COMMENT
-									</button>
-								</div>
+								<!-- Allow user to go back to survey after viewing results
+								<button ng-show='survey.showResults && !survey.submitted' type='button' ng-click='survey.showResults=false' class='btn btn-default'>Back to Survey</button>
+								-->
+								<!--
+								<button ng-click='loginNextUser()' type='button' class='comment btn btn-success'>
+									COMMENT
+								</button>
+								-->
 							</div>
 						</div>
 					</div>

@@ -25,6 +25,10 @@ def landing(request):
     return render(request, 'nurvey/index.html')
 
 
+import cgi
+def request(request):
+    return HttpResponse('<pre>' + cgi.escape(str(request)) + '</pre>')
+
 
 # ---------------- REST API ---------------- #
 
@@ -35,6 +39,7 @@ def correlate(request):
         filters = json.loads(request.GET['filters'])
         polls = [Poll.objects.get(pk=id) for id in ids]
         valuesets = []
+        dataset_labels = []
         chart_type = 'bar'
         debug = ""
 
@@ -53,7 +58,10 @@ def correlate(request):
             return [poll for poll in polls if poll.poll_type.model == type]
 
         if len(polls) is 1:
-            domain = polls[0].domain_pretty()
+            if polls[0].poll_type.model == 'sliderpoll':
+                domain = [float(decimal) for decimal in polls[0].domain()]
+            else:
+                domain = polls[0].domain_pretty()
             valuesets = [polls[0].values()]
             x_axis_label = polls[0].title
             y_axis_label = 'Number of votes'
@@ -78,6 +86,7 @@ def correlate(request):
                     valueset.append(count)
 
                 valuesets.append(valueset)
+                dataset_labels.append(values_choice.text)
 
         # Results in a single-line line graph
         # TODO: Handle choicepoll by adding multiple lines
@@ -85,7 +94,7 @@ def correlate(request):
             chart_type = 'line'
             sliderpolls = polls_with_type('sliderpoll')
             domain_poll, values_poll = sliderpolls[0], sliderpolls[1]
-            domain = domain_poll.domain()
+            domain = [float(decimal) for decimal in domain_poll.domain()]
 
             x_axis_label = domain_poll.title
             y_axis_label = values_poll.title + " (average)"
@@ -113,10 +122,10 @@ def correlate(request):
             chart_type = 'line'
             domain_poll = polls_with_type('sliderpoll')[0]
             values_poll = polls_with_type('choicepoll')[0]
-            domain = domain_poll.domain()
+            domain = [float(decimal) for decimal in domain_poll.domain()]
 
             x_axis_label = domain_poll.title
-            y_axis_label = values_poll.title
+            y_axis_label = "Number of Votes" #values_poll.title
 
             for values_choice in values_poll.domain():
                 valueset = []
@@ -127,12 +136,14 @@ def correlate(request):
                     valueset.append(count)
 
                 valuesets.append(valueset)
+                dataset_labels.append(values_choice.text)
 
 
         data = {
             'type': chart_type,
             'labels': domain,
             'datasets': [{'values': valueset} for valueset in valuesets],
+            'dataset_labels': dataset_labels,
             'x_axis': x_axis_label,
             'y_axis': y_axis_label,
             'debug': debug
@@ -247,9 +258,9 @@ def survey_results(request, id):
         data = json.loads(request.body)
         for poll_id, answer in data.iteritems():
             poll = Poll.objects.get(pk=poll_id)
-            # TODO: Use count() instead of len()
+
             # Uncomment rest of line to disable multiple voting
-            if False:# len(Vote.objects.filter(poll=poll, user=request.user)):
+            if Vote.objects.filter(poll=poll, user=request.user).count():
                return HttpResponse('Already Voted')
 
             # Answer will be an array because multiple choice can have multiple values
@@ -322,8 +333,7 @@ def surveys(request):
         id = request.GET.dict().get('id')
 
         if id is not None:
-            surveys = Survey.objects.get(pk=id)
-            many = False
+            surveys = Survey.objects.filter(pk=id)
         else:
             amount = request.GET.dict().get('amount', 10)
             before_survey_id = request.GET.dict().get('beforeSurveyId')
@@ -332,15 +342,21 @@ def surveys(request):
             else:
                 before_date = datetime.datetime.now()
 
-
-            many = True
             # USE BELOW LINE TO EXCLUDE SURVEYS ALREADY VOTED ON
             # surveys = Survey.objects.exclude(poll__vote__user=request.user).order_by('-pub_date')[:amount]
             surveys = Survey.objects.all().order_by('-pub_date').filter(pub_date__lt=before_date)[:amount]
 
-        serializer = SurveySerializer(surveys, many=many)
+        serializer = SurveySerializer(surveys, many=True)
         data = serializer.data
-        return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+
+        # Add data about whether the user has voted on each survey
+        for i in range(len(data)):
+            survey = Survey.objects.get(pk=data[i]['id'])
+            poll_from_survey = survey.poll_set.all()[0]
+            has_voted = Vote.objects.filter(poll=poll_from_survey, user=request.user).count()
+            data[i]['has_voted'] = has_voted
+
+        return HttpResponse(JSONRenderer().render(data), content_type='application/json')
 
 
 def user_recent_surveys(request):
@@ -361,7 +377,7 @@ def users(request):
         username = request.GET.dict().get('user')
         user = User.objects.get(username=username) if username is not None else request.user
         if not user.is_authenticated():
-            return HttpResponse("")
+            return HttpResponse("User not authenticated", status=400)
 
         serializer = UserSerializer(user)
         data = serializer.data
@@ -369,7 +385,6 @@ def users(request):
         return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
 
-# ---------------- LOGIN MECHANIC ---------------- #
 
 
 
@@ -388,8 +403,7 @@ def login_next_user(request):
     return HttpResponse("user " + new_username + " is not valid")
 
 
-
-
+# ---------------- LOGIN MECHANIC ---------------- #
 
 
 

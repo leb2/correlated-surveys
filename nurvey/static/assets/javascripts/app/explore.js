@@ -8,6 +8,7 @@
 
 		// Only two correlatable polls for now
 		$scope.pollsToCorrelate = [{}, {}];
+		$scope.placeholders = ['Age (Demo)', 'Height (Demo)'];
 
 		$scope.correlateData = function() {
 
@@ -69,7 +70,7 @@
 
 
 		// TODO: Move to separate files with other color constants
-		var colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
+		var colors = $scope.colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
 		var highlights = ['#DE3F42', '#4FBAB8', '#E6B465', '#61DE6C'];
 
 

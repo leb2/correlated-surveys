@@ -20,8 +20,7 @@ class RedditBackend:
         # Creates a new user if reddit user is signing in for the first time
         except User.DoesNotExist:
 
-            # Password may be checked from default backend, make sure to move to settings
-            user = User(username=username, password="TODO: Hide in settings")
+            user = User.objects.create_user(username)
             user.save()
             profile = Profile(user=user)
             profile.save()

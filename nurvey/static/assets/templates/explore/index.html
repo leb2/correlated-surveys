@@ -4,6 +4,12 @@
 
 			<form>
 				<div class='graph-row-bg'>
+					<div class='keys' layout='row' ng-show='chartData.dataset_labels.length'>
+						<div class='key' flex='33' ng-repeat='label in chartData.dataset_labels'>
+							<div class='color-block' style='background: {{ colors[$index % colors.length] }}'></div>
+							<span>{{ label }}</span>
+						</div>
+					</div>
 					<div class='graph-row'>
 						<div class='x-axis-label' ng-bind='chartData.x_axis'></div>
 						<div class='y-axis-label' ng-bind='chartData.y_axis'></div>
@@ -21,7 +27,7 @@
 							md-items='poll in findPolls(searchText)'
 							md-delay='150'
 							md-item-text='poll.title'
-							placeholder='Poll Title'
+							placeholder='{{ placeholders[$index]}}'
 							md-selected-item-change='correlateData()'
 							md-selected-item='pollsToCorrelate[$index]'
 							md-autofocus='true'
@@ -44,6 +50,12 @@
 					<div class='filters'>
 						<div class='border-title extra-padding'>
 							<div class='inline-title'>FILTERS</div>
+
+							<div layout='row' layout-align='start' class='help-text-row'>
+								<div flex='50'>From Poll:</div>
+								<div flex='50' ng-show='filters[0].poll'>Values:</div>
+
+							</div>
 
 							<div ng-repeat='filter in filters' layout='row'>
 								<!-- Poll Field -->

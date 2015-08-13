@@ -56,7 +56,7 @@ class SurveySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Survey
-        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'hotness', 'owner')
+        fields = ('id', 'title', 'description', 'time_ago', 'pub_date', 'num_downvotes', 'num_upvotes', 'num_responses', 'hotness', 'owner')
 
 class PollSerializer(serializers.ModelSerializer):
     poll_object = SpecificPollField(read_only=True)
@@ -79,4 +79,4 @@ class SurveySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Survey
-        fields = ('id', 'title', 'description', 'pub_date', 'num_downvotes', 'num_upvotes', 'poll_set', 'hotness', 'owner')
+        fields = ('id', 'title', 'description', 'time_ago', 'pub_date', 'num_downvotes', 'num_upvotes', 'num_responses', 'poll_set', 'hotness', 'owner')
