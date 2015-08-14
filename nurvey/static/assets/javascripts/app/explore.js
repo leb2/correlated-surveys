@@ -115,7 +115,7 @@
 			var options = {
 				responsive: true,
 				maintainAspectRatio: false
-			}
+			};
 
 			if (data.type == 'line') {
 				chart.Line(graphData, options);

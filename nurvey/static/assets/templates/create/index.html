@@ -7,7 +7,7 @@
 
 
 		<!-- SURVEY TITLE -->
-		<div class='row' style='padding: 35px' ng-show='questions.length > 1'>
+		<div style='padding: 35px' ng-show='questions.length > 1'>
 			<div class='input-group'>
 				<span class='input-group-addon'>Survey Title</span>
 				<input type='text' class='form-control' placeholder='Untitled Survey' ng-model='survey.survey.title'>
@@ -17,17 +17,15 @@
 
 
 		<!-- QUESTION + DEMO -->
-		<div class='animate-repeat' ng-repeat='question in survey.questions'>
-			<div class='row'>
-				<question-create question='question' questions='survey.questions'>
-				</question-create>
-			</div>
+		<div ng-repeat='question in survey.questions'>
+			<question-create question='question' questions='survey.questions'>
+			</question-create>
 			<hr/>
 		</div>
 
 
 		<!-- BUTTONS -->
-		<div class='row' style='margin-top: 50px'>
+		<div style='margin-top: 50px'>
 			<div class='col-md-12 text-center'>
 				<div class="btn-group">
 					<button type='button' class='btn btn-primary' ng-click='survey.addQuestion()'>

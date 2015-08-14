@@ -8,16 +8,14 @@
 </div>
 
 <!-- Input Choices -->
-<label>Choices</label>
-<div ng-repeat='choice in question.choices' style='margin-top: 15px'>
-<div class='input-group'>
-	<input type='text' class='form-control' ng-model='choice.text' placeholder='Choice {{ $index + 1 }}'></input>
-	<div class='input-group-btn'>
-		<button tabindex='-1' type='button' class='btn btn-danger' ng-click='removeChoice(choice)' ng-disabled='question.choices.length <= 2'>
-			<span class='glyphicon glyphicon-remove'></span>
-		</button>
+<!-- <div class='thin-label'>Choices</div> -->
+<div ng-repeat='choice in question.choices' style='margin-top: 15px' layout='row'>
+	<div class='lifted-input md-whiteframe-z1' flex>
+		<input class='text-left' type='text' ng-model='choice.text' placeholder='Choice {{ $index + 1 }}'></input>
 	</div>
-</div>
+	<button tabindex='-1' type='button' class='btn btn-danger right-btn' ng-click='removeChoice(choice)' ng-disabled='question.choices.length <= 2'>
+		<span class='glyphicon glyphicon-remove'></span>
+	</button>
 </div>
 
 <!-- Add Choice Button -->

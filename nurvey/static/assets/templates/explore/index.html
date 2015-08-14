@@ -1,5 +1,5 @@
-<div id='explore' class='app-view' layout='row' layout-align='center'>
-	<div class='panel panel-default max-width no-min-width' flex='65' flex-sm='90'>
+<div id='explore' class='app-view padded' layout='row' layout-align='center'>
+	<div class='panel panel-default max-width no-min-width' flex-sm='100' flex-gt-sm='90'>
 		<div class='panel-body text-center'>
 
 			<form>
@@ -12,7 +12,9 @@
 					</div>
 					<div class='graph-row'>
 						<div class='x-axis-label' ng-bind='chartData.x_axis'></div>
-						<div class='y-axis-label' ng-bind='chartData.y_axis'></div>
+						<div class='y-axis-label'>
+							<div class='y-axis-inner' ng-bind='chartData.x_axis'></div>
+						</div>
 						<div class='explore-graph-container'>
 							<canvas id='explore-graph'></canvas>
 						</div>
@@ -20,106 +22,127 @@
 				</div>
 
 				<div class='form-row'>
-					<div layout='row' ng-repeat='pollToCorrelate in pollsToCorrelate track by $index'>
-						<md-autocomplete
-							flex
-							md-search-text='searchText'
-							md-items='poll in findPolls(searchText)'
-							md-delay='150'
-							md-item-text='poll.title'
-							placeholder='{{ placeholders[$index]}}'
-							md-selected-item-change='correlateData()'
-							md-selected-item='pollsToCorrelate[$index]'
-							md-autofocus='true'
-							md-autoselect='true'>
-							<md-item-template>
-								<span md-highlight-flags='ig' md-highlight-text="searchText">{{ poll.title }}</span>
-								<span>{{ poll.poll_type }}</span>
-								<span>{{ poll.survey.num_upvotes - poll.survey.num_downvotes }}</span>
-							</md-item-template>
-							<md-not-found>
-								No matches found.
-							</md-not-found>
-						</md-autocomplete>
+					<div class='form-row-inner'>
 
-						<!-- Use for when there can be more than 2 correlated polls'
-						<button ng-disabled='pollsToCorrelate.length >= 2' ng-click='addPoll()' type='button' class='btn btn-primary'>Add Poll</button>
-						-->
-					</div>
+						<!-- Polls to Correlate -->
+						<div layout='row' ng-repeat='pollToCorrelate in pollsToCorrelate track by $index' class='padded'>
+							<md-autocomplete
+								flex
+								md-search-text='searchText'
+								md-items='poll in findPolls(searchText)'
+								md-delay='150'
+								md-item-text='poll.title'
+								placeholder='{{ placeholders[$index]}}'
+								md-selected-item-change='correlateData()'
+								md-selected-item='pollsToCorrelate[$index]'
+								md-autofocus='true'
+								md-autoselect='true'>
+								<md-item-template>
+									<span md-highlight-flags='ig' md-highlight-text="searchText">{{ poll.title }}</span>
+									<span>{{ poll.poll_type }}</span>
+									<span>{{ poll.survey.num_upvotes - poll.survey.num_downvotes }}</span>
+								</md-item-template>
+								<md-not-found>
+									No matches found.
+								</md-not-found>
+							</md-autocomplete>
 
-					<div class='filters'>
-						<div class='border-title extra-padding'>
-							<div class='inline-title'>FILTERS</div>
+							<!-- Use for when there can be more than 2 correlated polls'
+							<button ng-disabled='pollsToCorrelate.length >= 2' ng-click='addPoll()' type='button' class='btn btn-primary'>Add Poll</button>
+							-->
+						</div>
 
-							<div layout='row' layout-align='start' class='help-text-row'>
-								<div flex='50'>From Poll:</div>
-								<div flex='50' ng-show='filters[0].poll'>Values:</div>
+						<div class='filters'>
 
-							</div>
+							<div class='border-title extra-padding'>
+								<div class='inline-title'>FILTERS</div>
+								<div class='filter-title'>FILTERS</div>
 
-							<div ng-repeat='filter in filters' layout='row'>
-								<!-- Poll Field -->
-								<md-autocomplete
-									flex
-									md-search-text='searchText'
-									md-items='poll in findPolls(searchText)'
-									md-delay='150'
-									md-item-text='poll.title'
-									placeholder='Filter'
-									md-selected-item-change='correlateData()'
-									md-selected-item='filters[$index].poll'
-									md-autoselect='true'>
-									<md-item-template>
-										<span md-highlight-flags='ig' md-highlight-text='searchText'>{{ poll.title }}</span>
-									</md-item-template>
-								</md-autocomplete>
-
-								<!-- Sliderpoll values -->
-								<div layout='row' flex='50' ng-show='filter.poll.poll_type=="slider poll"'>
-									<div flex='50' class='lifted-input-container'>
-										<div class='lifted-input md-whiteframe-z1'>
-											<input
-												type='number'
-												ng-model='filters[$index].min'
-												min='{{ filter.poll.poll_object.min }}'
-												max='{{ filter.poll.poll_object.max }}'
-												placeholder='{{ filter.poll.poll_object.min }}'
-												ng-blur='correlateData()'>
-											</input>
-										</div>
-									</div>
-									<div flex='50' class='lifted-input-container'>
-										<div class='lifted-input md-whiteframe-z1'>
-											<input
-												type='number'
-												ng-model='filters[$index].max'
-												min='{{ filter.poll.poll_object.min }}'
-												max='{{ filter.poll.poll_object.max }}'
-												placeholder='{{ filter.poll.poll_object.max }}'
-												ng-blur='correlateData()'>
-											</input>
-										</div>
-									</div>
+								<div layout='row' layout-align='start' class='help-text-row' hide-sm>
+									<div flex='50'>From Poll:</div>
+									<div flex='50' ng-show='filters[0].poll'>Values:</div>
 								</div>
 
-								<!-- Choicepoll values -->
-								<!-- TODO: Enable more than one choice -->
-								<md-autocomplete
-									flex='50'
-									ng-show='filter.poll.poll_type=="choice poll"'
-									md-items='choice in filter.poll.poll_object.choice_set'
-									md-item-text='choice.text'
-									md-min-length="0"
-									md-selected-item-change='correlateData()'
-									md-selected-item='filters[$index].choice'
-									md-search-text='choiceSearchText'>
-									<span md-highlight-flags='ig' md-highlight-text='choiceSearchText'>{{ choice.text }}</span>
-								</md-autocomplete>
+
+								<!-- Filters -->
+								<div ng-repeat='filter in filters' class='filter-form' layout='row' layout-wrap>
+
+									<hr flex='100' class='mobile-divider' hide-gt-sm></hr>
+
+									<div flex='100' class='help-text-row small' hide-gt-sm>
+										From Poll:
+									</div>
+
+									<!-- Poll Field -->
+									<div flex flex-sm='100' class='padded'>
+										<md-autocomplete
+											md-search-text='searchText'
+											md-items='poll in findPolls(searchText)'
+											md-delay='150'
+											md-item-text='poll.title'
+											placeholder='Filter'
+											md-selected-item-change='correlateData()'
+											md-selected-item='filters[$index].poll'
+											md-autoselect='true'>
+											<md-item-template>
+												<span md-highlight-flags='ig' md-highlight-text='searchText'>{{ poll.title }}</span>
+											</md-item-template>
+										</md-autocomplete>
+									</div>
+
+									<div flex='100' class='help-text-row small' hide-gt-sm ng-show='filters[$index].poll'>
+										Values:
+									</div>
+
+									<!-- Sliderpoll values -->
+									<div flex layout='row' class='padded' ng-show='filter.poll.poll_type=="slider poll"'>
+										<div flex class='lifted-input-container'>
+											<div class='lifted-input md-whiteframe-z1'>
+												<input
+													type='number'
+													ng-model='filters[$index].min'
+													min='{{ filter.poll.poll_object.min }}'
+													max='{{ filter.poll.poll_object.max }}'
+													placeholder='{{ filter.poll.poll_object.min }}'
+													ng-blur='correlateData()'>
+												</input>
+											</div>
+										</div>
+										<div class='dash flex-center'>&#x2014;</div>
+										<div flex class='lifted-input-container'>
+											<div class='lifted-input md-whiteframe-z1'>
+												<input
+													type='number'
+													ng-model='filters[$index].max'
+													min='{{ filter.poll.poll_object.min }}'
+													max='{{ filter.poll.poll_object.max }}'
+													placeholder='{{ filter.poll.poll_object.max }}'
+													ng-blur='correlateData()'>
+												</input>
+											</div>
+										</div>
+									</div>
+
+									<!-- Choicepoll values -->
+									<!-- TODO: Enable more than one choice -->
+									<div flex class='padded' ng-show='filter.poll.poll_type=="choice poll"'>
+										<md-autocomplete
+											md-items='choice in filter.poll.poll_object.choice_set'
+											md-item-text='choice.text'
+											md-min-length="0"
+											md-selected-item-change='correlateData()'
+											md-selected-item='filters[$index].choice'
+											md-search-text='choiceSearchText'>
+											<span md-highlight-flags='ig' md-highlight-text='choiceSearchText'>{{ choice.text }}</span>
+										</md-autocomplete>
+									</div>
+								</div>
 							</div>
+							<button type='button' ng-click='addFilter()' class='add-filter-btn btn btn-success'>
+								Add Filter
+							</button>
 						</div>
-						<button type='button' ng-click='addFilter()' class='add-filter-btn btn btn-success'>
-							Add Filter
-						</button>
+
 					</div>
 				</div> <!-- .form-row -->
 			</form>

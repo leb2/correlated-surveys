@@ -1,8 +1,8 @@
 <div class='app-view' id='account' layout='row' layout-align='center'>
 	<div class='panel panel-default text-center max-width no-min-width' flex='90' flex-sm='95'>
-		<div class='panel-body' layout='row'>
+		<div class='panel-body' layout='row' layout-wrap>
 
-			<div flex='60'>
+			<div flex='60' flex-sm='100'>
 				<h4 class='text-left account-heading'>
 					<span ng-show='recentSurveys.length == 0'>No</span>
 					Recent Surveys
@@ -10,20 +10,19 @@
 				<div class='list-group text-left'>
 					<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in recentSurveys'>
 						<div layout-align='start center' layout='row' layout-wrap>
-							<div class='list-group-item-heading' ng-cloak flex='90'>{{ survey.title }}</div>
-							<div flex='10' class='text-center'>
+							<div class='list-group-item-heading' flex ng-cloak>{{ survey.title }}</div>
+							<div class='text-center'>
 								<div class='badge' ng-cloak>
 									{{ survey.num_upvotes - survey.num_downvotes }}
 									<span class='glyphicon glyphicon-leaf'></span>
 								</div>
 							</div>
-							<p class='list-group-item-text' ng-cloak flex='90'>{{ survey.poll_set[0].description }}</p>
 						</div>
 					</a>
 					<a ng-repeat='a in emptyFillSurveys track by $index' class='list-group-item'></a>
 				</div>
 			</div>
-			<div flex>
+			<div flex flex-sm='100'>
 				<h4 class='text-left account-heading'>
 					Statistics: <span class='hidden' ng-bind='user.profile.points'></span>
 				</h4>

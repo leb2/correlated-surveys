@@ -1,8 +1,8 @@
 <div id='landing'>
 
 	<div class='splash' layout='row' layout-align='center center'>
-		<div class='splash-inner' layout='row' layout-align='center center' flex layout-margin>
-			<div flex class='splash-text text-right'>
+		<div class='splash-inner' layout='row' layout-sm='column' layout-align='center center' flex layout-margin>
+			<div flex class='splash-text'>
 				<h1>
 					CORRELATED SURVEYS
 				</h1>
@@ -11,7 +11,7 @@
 					data from user-generated polls.
 				</p>
 			</div>
-			<div flex='30' class='splash-buttons'>
+			<div flex='30' flex-sm='100' class='splash-buttons'>
 				<a href='#/create'>
 					<button type='button' class='btn btn-success call-primary call'>Create a Survey!</button>
 				</a>
@@ -83,7 +83,7 @@
 							<div class='list-group text-left'>
 								<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in surveys'>
 									<div layout-align='start center' layout='row' layout-wrap>
-										<div flex='90'>
+										<div flex class='survey-info'>
 											<h4 class='list-group-item-heading' ng-cloak>{{ survey.title }}</h4>
 											<hr/>
 											<div class='sub-texts'>
@@ -95,13 +95,13 @@
 										</div>
 
 
-										<div flex='10' class='text-center'>
+										<div class='text-center points-container'>
 											<div class='badge' ng-cloak>
 												{{ survey.num_upvotes - survey.num_downvotes }}
 												<span class='glyphicon glyphicon-leaf'></span>
 											</div>
 										</div>
-										<p class='list-group-item-text' ng-cloak flex='90'>{{ survey.poll_set[0].description }}</p>
+										<p class='list-group-item-text hidden' ng-cloak flex='90'>{{ survey.poll_set[0].description }}</p>
 									</div>
 								</a>
 							</div>

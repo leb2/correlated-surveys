@@ -62,6 +62,8 @@
 			// $scope.survey = $scope.loadedSurveys.shift();
 
 			$scope.survey = $scope.loadedSurveys[$scope.surveyLocation];
+
+			// Uncomment to prevent accidental revoting
 			$scope.survey.showResults = $scope.survey.submitted = $scope.survey.has_voted;
 
 			console.log("This is the survey:");
@@ -227,11 +229,16 @@
 		var canvas = $element.find('canvas')[0];
 		var chart = new Chart(canvas.getContext('2d'));
 
+		var options = {
+			responsive: true,
+			maintainAspectRatio: false
+		};
+
 		if ($scope.poll.poll_type === 'slider poll') {
-			chart.Line(data);
+			chart.Line(data, options);
 		} else if ($scope.poll.poll_type == 'choice poll') {
 			if (results.domain.length >= 4 ) {
-				chart.Bar(data);
+				chart.Bar(data, options);
 			} else {
 
 				var colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
@@ -253,8 +260,8 @@
 		}
 	}]);
 
-	Chart.defaults.global.responsive = true;
-	Chart.defaults.global.maintainAspectRatio = false;
+	// Chart.defaults.global.responsive = true;
+	// Chart.defaults.global.maintainAspectRatio = false;
 
 
 

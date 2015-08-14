@@ -18,6 +18,8 @@ $panel-background-color: #FAFAFA;
 $raleway-stack: 'Raleway', 'Open Sans', 'Helvetica', 'Arial', sans-serif;
 $open-sans-stack: 'Open Sans', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 
+$break-small: 600px;
+
 
 
 
@@ -65,6 +67,8 @@ h1, h2 {
 }
 
 .max-width {
+	width: 95%;
+
 	// Important to override angular material flex
 	max-width: $max-width !important;
 }
@@ -92,10 +96,36 @@ h1, h2 {
 	display: initial;
 }
 
+.padded {
+	padding: 8px;
+}
 
 body {
 	color: #666 !important;
 }
+@media (max-width: $break-small) {
+	.panel-body {
+		padding: 10px;
+	}
+}
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+textarea {
+	resize: vertical;
+}
+
+.uppercase-label {
+	text-transform: uppercase;
+	font-size: 1.15em;
+}
+.right-btn {
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
 
 
 /* -------------------------------- LANDING -------------------------------- */
@@ -112,25 +142,48 @@ body {
 
 			.splash-text {
 				margin-right: 24px;
+				font-size: 60px;
+
+				text-align: right;
+				@media (max-width: 600px) {
+					text-align: center;
+				}
 
 				h1 {
 					color: white;
-					font-size: 60px;
 					font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
 					font-weight: bold;
 					text-transform: uppercase;
+
+
+					@media (max-width: 700px) {
+						font-size: 0.75em;
+					}
+					@media (max-width: 350px) {
+						font-size: 0.65em;
+					}
 				}
 				p {
 					color: white;
+					font-size: 0.38em;
+
+					@media(max-width: 700px) {
+						font-size: 0.25em;
+					}
 				}
 			}
 
 
 			.splash-buttons {
+				font-size: 18px;
 
 				.call-primary {
 					padding: 12px 20px 12px 20px;
-					font-size: 18px;
+					font-size: 1em;
+
+					@media (max-width: 700px) {
+						font-size: 0.8em;
+					}
 				}
 				.call {
 					margin: 5px 0 5px;
@@ -138,7 +191,12 @@ body {
 				.call-secondary-link {
 					color: #EEE;
 					transition: color 0.2s;
-					font-size: 15px;
+					font-size: 0.9em;
+
+					@media (max-width: 700px) {
+						font-size: 0.7em;
+					}
+
 
 					.call-secondary {
 						padding-left: 12px;
@@ -155,6 +213,8 @@ body {
 
 	}
 
+
+	// Recent Surveys
 	.content:nth-child(odd) {
 		background: #F0F0F0;
 		z-index: 1;
@@ -187,37 +247,85 @@ body {
 	.content.top-surveys {
 
 		.panel {
+			width: 100%;
 			max-width: $max-width;
 			display: inline-block;
+
 
 		}
 
 		.list-group-item {
 
+			.points-container {
+				width: 80px;
+				text-align: center;
 
-			h4 {
-				color: #555;
-				padding-left: 15px;
-			}
-
-			hr {
-				margin: 12px 0 0 0;
-			}
-			.sub-texts {
-				padding-left: 18px;
-				color: #999;
-
-				.username {
-					color: #666;
+				@media (max-width: $break-small) {
+					width: 40px;
 				}
 
-				.inline-divider {
-					margin: 0 6px 0 6px;
+
+				.badge {
+					font-size: 16px;
+					padding: 6px 12px 7px;
+
+					@media (max-width: $break-small) {
+						padding: 3px 6px 4px;
+						font-size: 14px;
+					}
 				}
 			}
+
+			.survey-info {
+				padding-right: 10px;
+				min-width: 0px;
+
+				h4 {
+					color: #555;
+					padding-left: 15px;
+
+					@media (max-width: $break-small) {
+						padding-left: 5px;
+						font-size: 18px;
+					}
+				}
+
+				hr {
+					margin: 12px 0 0 0;
+
+					@media (max-width: $break-small) {
+						margin-top: 0px;
+					}
+				}
+
+				.sub-texts {
+					padding-left: 18px;
+					color: #999;
+
+					@media (max-width: $break-small) {
+						padding-left: 6px;
+						font-size: 0.8em;
+					}
+
+					.username {
+						color: #666;
+					}
+
+					.inline-divider {
+						margin: 0 6px 0 6px;
+					}
+				}
+			}
+
 		}
 	}
 }
+
+
+
+
+
+
 
 
 
@@ -228,6 +336,10 @@ body {
 nav.navbar {
 	margin-bottom: 0px;
 
+	.icon-bar {
+		background: white !important;
+	}
+
 	.navbar-brand {
 		font-size: 40px;
 		position: relative;
@@ -237,6 +349,10 @@ nav.navbar {
 
 	.location-container {
 		margin-left: 12px;
+
+		@media (max-width: 700px) {
+			display: none;
+		}
 
 		.location-link {
 			padding-bottom: 0px;
@@ -321,6 +437,13 @@ html, body {
 			padding: 50px 80px 15px 75px;
 			color: #AAA;
 
+			@media (max-width: 480px) {
+				padding: 20px 35px 15px 35px;
+			}
+			@media (max-width: 380px) {
+				padding: 5px 20px 5px 20px;
+			}
+
 			.keys {
 				margin-bottom: 22px;
 				color: #999;
@@ -348,6 +471,25 @@ html, body {
 					justify-content: center;
 					width: 60px;
 					left: -50px;
+					word-wrap: break-word;
+
+					.y-axis-inner {
+						@include transform-origin(50%, 50%);
+
+						@media (max-width: 480px) {
+							@include rotate(-90deg);
+							width: 250px;
+							position: relative;
+							left: -85px;
+							overflow: hidden;
+							text-overflow: ellipses;
+							white-space: nowrap;
+						}
+						@media (max-width: 380px) {
+							left: -75px;
+						}
+
+					}
 				}
 				.x-axis-label {
 					width: 100%;
@@ -361,32 +503,85 @@ html, body {
 					height: 300px;
 					margin-bottom: 45px;
 					padding-left: 18px;
+
 				}
 			}
 
 		}
 
 		.form-row {
-			padding: 30px 90px 30px 90px;
+			padding: 30px 0 30px 0;
+			text-align: center;
 
-			.help-text-row div {
-				text-align: left;
-				padding-left: 10px;
+			.form-row-inner {
+				display: inline-block;
+				max-width: 500px;
+				width: 90%;
+
+
+				.help-text-row {
+					text-align: left;
+					padding-left: 10px;
+				}
+				.help-text-row.small {
+					margin-top: 6px;
+				}
+
+				hr.mobile-divider {
+					border-color: #DDD;
+					margin-top: 30px;
+					margin-bottom: 20px;
+				}
+
+				md-autocomplete {
+					// margin: 6px;
+					// background: #FDFDFD;
+					background: #FFF;
+
+					input {
+						min-width: 0px;
+					}
+				}
+
+				.filters {
+					margin-top: 40px;
+
+					.filter-title {
+						text-transform: uppercase;
+						font-size: 18px;
+						display: none;
+
+						@media (max-width: 510px) {
+							display: initial;
+						}
+					}
+					.filter-form:nth-child(4) hr {
+						margin-top: 5px;
+					}
+
+					.dash {
+						// Double padding from .padded
+						width: 20px;
+						height: 100%;
+
+						@media (max-width: $break-small) {
+							// width: 8px;
+						}
+					}
+
+					.padded {
+						@media (max-width: $break-small) {
+							padding: 4px;
+						}
+					}
+
+				}
+
+				.add-filter-btn {
+					margin-top: 25px;
+				}
 			}
 
-			md-autocomplete {
-				margin: 6px;
-				// background: #FDFDFD;
-				background: #FFF;
-			}
-
-			.filters {
-				margin-top: 40px;
-			}
-
-			.add-filter-btn {
-				margin-top: 25px;
-			}
 		}
 	}
 }
@@ -397,6 +592,11 @@ html, body {
 
 #feed {
 
+	@media (max-width: 370px) {
+		.padded {
+			padding: 0px;
+		}
+	}
 
 	.loading-icon-container {
 		height: 0px;
@@ -407,6 +607,12 @@ html, body {
 			width: 100%;
 			position: absolute;
 			height: 200px;
+			z-index: 100;
+
+			md-progress-circular {
+				overflow: visible;
+
+			}
 		}
 	}
 
@@ -417,6 +623,9 @@ html, body {
 			padding-top: 30px;
 			padding: 30px 50px 30px 50px;
 
+			@media (max-width: 330px) {
+				padding: 5px !important;
+			}
 
 			.results {
 				padding-top: 15px;
@@ -425,21 +634,47 @@ html, body {
 		}
 	}
 
+	.next-buttons-mobile {
+		display: none;
+		text-align: center;
+		margin: 30px;
+	}
+
+	.btn-group.full-length {
+		max-width: 300px;
+		width: 80%;
+
+		button {
+			width: 50%;
+		}
+	}
+
+	@media (max-width: 700px){
+
+		.next-buttons-mobile {
+			display: block;
+		}
+
+		.sidebar-layout-container {
+			display: none;
+		}
+	}
+
 	.side.panel {
 		.panel-heading {
 			.btn-group {
 				width: 80%;
-
-				button {
-					width: 50%;
-				}
 			}
 		}
 		.panel-body {
 
+			padding: 10px;
+
 			.list-group {
 				max-height: 300px;
 				overflow: scroll;
+				word-wrap: break-word;
+				margin-bottom: 0px;
 
 				// Makes the top and bottom borders stay when scrolling
 				@include border-radius(3px);
@@ -469,16 +704,22 @@ html, body {
 			}
 		}
 
-		.points.well {
-			font-size: 18px;
-			padding: 12px;
-			padding-left: 14px;
-			margin: 8px;
 
-			position: relative;
-			top: 4px;
+		.voting-container {
+			padding-left: 12px;
 
-			@include border-radius(4px);
+			.points.well {
+				font-size: 18px;
+				padding: 12px;
+				padding-left: 14px;
+				margin: 8px;
+
+				position: relative;
+				top: 4px;
+
+				@include border-radius(4px);
+			}
+
 		}
 
 	}
@@ -583,16 +824,13 @@ $placeholder-color: #DFDFDF;
 
 .create {
 
+
 	/* Specific Creates */
 	.slider-create {
 		margin-top: 35px;
 		padding: 25px;
-
-
-		.slider-label {
-
-		}
 	}
+
 
 
 	.panel-heading {
@@ -628,11 +866,26 @@ $placeholder-color: #DFDFDF;
 			}
 		}
 	}
+
+
 }
 
+.demo-panel {
+	md-checkbox {
+		margin: 15px;
+	}
+}
+
+
+// For feed as well as demo
 .demo {
 	.panel-body {
 		padding: 25px !important;
+
+		@media (max-width: 400px) {
+			padding: 10px !important;
+		}
+
 		.well {
 			padding: 5px 24px 5px 24px;
 			margin-bottom: 28px;
@@ -647,7 +900,8 @@ $placeholder-color: #DFDFDF;
 	.slider-value {
 		text-align: center;
 		border: none;
-		min-width: 0px;
+		min-width: 50px;
+		max-width: 20%;
 		line-height: 24px;
 		padding: 12px;
 		margin-left: 12px;
@@ -734,7 +988,14 @@ md-radio-group.md-default-theme:focus {
 	padding: 15px;
 	position: relative;
 
+	@media (max-width: 510px) {
+		border: none;
+		padding: 0px;
+	}
+
+
 	.inline-title {
+
 		display: inline;
 		position: absolute;
 		top: -7px;
@@ -743,27 +1004,37 @@ md-radio-group.md-default-theme:focus {
 		background: $panel-background-color;
 		padding: 0 12px 0 12px;
 		font-size: 15px;
+
+		@media (max-width: 510px) {
+			display: none;
+		}
+
 	}
 }
 .border-title.extra-padding {
-	padding: 40px;
+	padding: 32px;
+
+	@media (max-width: 510px) {
+		padding: 0px;
+	}
 }
 
-.lifted-input-container {
-	padding: 6px;
 
-	.lifted-input {
-		border-radius: 2px;
+
+
+
+.lifted-input {
+	border-radius: 2px;
+	height: 100%;
+	height: 40px; // Same as md-autocomplete
+	background: white;
+
+	input {
+		text-align: center;
 		height: 100%;
-		background: white;
-
-		input {
-			text-align: center;
-			height: 100%;
-			width: 100%;
-			padding: 0px 12px 0px 12px;
-			// background: #FDFDFD;
-			background: transparent;
-		}
+		width: 100%;
+		padding: 0px 12px 0px 12px;
+		// background: #FDFDFD;
+		background: transparent;
 	}
 }

@@ -292,6 +292,8 @@ def surveys(request):
             description = questions[0].get('description', '')
         else:
             title = survey['title']
+            if not title:
+                return HttpResponse('No Title', status=400)
             description = survey.get('description', '')
 
         if len(title) > Survey._meta.get_field('title').max_length:
