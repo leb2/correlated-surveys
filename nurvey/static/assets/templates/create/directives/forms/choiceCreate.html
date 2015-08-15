@@ -1,26 +1,30 @@
-<!-- Toggle Allow Multiple Selection -->
-<div class='checkbox' style='margin-top: 25px'>
-<label>
-	<fieldset class='standard'>
-		<md-checkbox ng-model='question.isCheckbox'>Allow Multiple Selection</md-checkbox>
-	</fieldset>
-</label>
-</div>
 
-<!-- Input Choices -->
-<!-- <div class='thin-label'>Choices</div> -->
-<div ng-repeat='choice in question.choices' style='margin-top: 15px' layout='row'>
-	<div class='lifted-input md-whiteframe-z1' flex>
-		<input class='text-left' type='text' ng-model='choice.text' placeholder='Choice {{ $index + 1 }}'></input>
+<div class='choice-create'>
+
+	<!-- Toggle Allow Multiple Selection -->
+	<div class='checkbox' style='margin-top: 25px'>
+		<label>
+			<fieldset class='standard'>
+				<md-checkbox ng-model='question.isCheckbox'>Allow Multiple Selection</md-checkbox>
+			</fieldset>
+		</label>
 	</div>
-	<button tabindex='-1' type='button' class='btn btn-danger right-btn' ng-click='removeChoice(choice)' ng-disabled='question.choices.length <= 2'>
-		<span class='glyphicon glyphicon-remove'></span>
-	</button>
-</div>
 
-<!-- Add Choice Button -->
-<div class='text-center' style='margin-top: 15px'>
-	<button type='button' class='btn btn-sm btn-success' ng-click='addChoice()'>
-		Add Choice&nbsp <span class='glyphicon glyphicon-plus'></span>
-	</button>
+	<!-- Input Choices -->
+	<!-- <div class='thin-label'>Choices</div> -->
+	<div ng-repeat='choice in question.choices' style='margin-top: 15px' layout='row'>
+		<!-- <div class='lifted-input md-whiteframe-z1' flex> -->
+		<input flex type='text' ng-model='choice.text' placeholder='Choice {{ $index + 1 }}'></input>
+		<button tabindex='-1' type='button' class='btn btn-danger right-btn' ng-click='removeChoice(choice)' ng-disabled='question.choices.length <= 2'>
+			<span class='glyphicon glyphicon-remove'></span>
+		</button>
+	</div>
+
+	<!-- Add Choice Button -->
+	<div class='text-center' style='margin-top: 15px'>
+		<button type='button' class='btn btn-sm btn-success' ng-click='addChoice()'>
+			Add Choice&nbsp <span class='glyphicon glyphicon-plus'></span>
+		</button>
+	</div>
+
 </div>

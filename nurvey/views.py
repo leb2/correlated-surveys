@@ -256,6 +256,11 @@ def points(request):
 def survey_results(request, id):
     if request.method == 'POST':
         data = json.loads(request.body)
+
+        survey = Poll.objects.get(pk=data.keys()[0]).survey
+        survey.num_responses += 1
+        survey.save()
+
         for poll_id, answer in data.iteritems():
             poll = Poll.objects.get(pk=poll_id)
 

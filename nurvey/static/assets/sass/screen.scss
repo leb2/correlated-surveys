@@ -99,6 +99,9 @@ h1, h2 {
 .padded {
 	padding: 8px;
 }
+.padded-extra {
+	padding: 16px;
+}
 
 body {
 	color: #666 !important;
@@ -629,7 +632,7 @@ html, body {
 
 			.results {
 				padding-top: 15px;
-				min-height: 250px;
+				height: 250px;
 			}
 		}
 	}
@@ -824,11 +827,16 @@ $placeholder-color: #DFDFDF;
 
 .create {
 
-
 	/* Specific Creates */
 	.slider-create {
 		margin-top: 35px;
 		padding: 25px;
+	}
+
+	.choice-create {
+
+		.lifted-input {
+		}
 	}
 
 
@@ -871,6 +879,8 @@ $placeholder-color: #DFDFDF;
 }
 
 .demo-panel {
+
+	// To match md-radio-button
 	md-checkbox {
 		margin: 15px;
 	}
@@ -1022,19 +1032,19 @@ md-radio-group.md-default-theme:focus {
 
 
 
+input {
+	text-align: left;
+	height: 40px !important;
+	width: 100%;
+	padding: 0px 12px 0px 12px !important;
+	// background: #FDFDFD;
+	background: white;
+}
 
 .lifted-input {
 	border-radius: 2px;
-	height: 100%;
-	height: 40px; // Same as md-autocomplete
-	background: white;
 
 	input {
-		text-align: center;
-		height: 100%;
-		width: 100%;
-		padding: 0px 12px 0px 12px;
-		// background: #FDFDFD;
-		background: transparent;
+		box-shadow: none;
 	}
 }

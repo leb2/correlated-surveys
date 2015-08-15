@@ -1,80 +1,78 @@
 <div id='feed' class='app-view' layout='row' layout-align='center'>
 
-<div class='padded' layout='row' layout-align='center'>
-<div class='max-width' flex layout='row' layout-align='center'>
 
 
-	<div flex class='padded'>
+	<div flex layout='row' class='padded max-width' layout-align='center'>
+		<div flex class='padded'>
 
-		<form ng-submit='submit()' name='surveyForm'> <!-- class='col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-0' -->
+			<form ng-submit='submit()' name='surveyForm'> <!-- class='col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-0' -->
 
 
-			<div class='loading-icon-container' ng-hide='survey.poll_set'>
-				<div class='loading-icon' layout='row' layout-align='center center'>
-					<md-progress-circular md-mode="indeterminate"></md-progress-circular flex>
+				<div class='loading-icon-container' ng-hide='survey.poll_set'>
+					<div class='loading-icon' layout='row' layout-align='center center'>
+						<md-progress-circular md-mode="indeterminate"></md-progress-circular flex>
+					</div>
 				</div>
-			</div>
 
-			<!-- Previous & Next Buttons -->
-			<!-- Need 2?
-			<div class='next-buttons-mobile'>
-				<div class='btn-group md-whiteframe-z1 full-length' role='group'>
-					<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='md-whiteframe-z1 btn btn-default'>
-						<span class='glyphicon glyphicon-chevron-left'></span>
-					</button>
-					<button ng-click='next()' type='button' class='btn btn-success'>
-						<span class='glyphicon glyphicon-chevron-right'></span>
-					</button>
+				<!-- Previous & Next Buttons -->
+				<!-- Need 2?
+				<div class='next-buttons-mobile'>
+					<div class='btn-group md-whiteframe-z1 full-length' role='group'>
+						<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='md-whiteframe-z1 btn btn-default'>
+							<span class='glyphicon glyphicon-chevron-left'></span>
+						</button>
+						<button ng-click='next()' type='button' class='btn btn-success'>
+							<span class='glyphicon glyphicon-chevron-right'></span>
+						</button>
+					</div>
 				</div>
-			</div>
-			-->
+				-->
 
 
-			<!-- All poll panels -->
-			<div class='interpanel' ng-repeat='poll in survey.poll_set'>
+				<!-- All poll panels -->
+				<div class='interpanel' ng-repeat='poll in survey.poll_set'>
 
-				<!-- MAIN PANEL -->
-				<div class='demo'>
-					<div class='main panel panel-default'>
+					<!-- MAIN PANEL -->
+					<div class='demo'>
+						<div class='main panel panel-default'>
 
-						<div class='panel-heading text-center'>
-							{{ poll.title }}
-						</div>
+							<div class='panel-heading text-center'>
+								{{ poll.title }}
+							</div>
 
 
-						<div class='panel-body'>
-							<div class='well well-sm' ng-show='poll.description.length > 0' ng-bind='poll.description'></div>
-							<specific-poll ng-hide='survey.showResults' poll='poll' questiontype='polltype_mapping[poll.poll_type]'></specific-poll>
+							<div class='panel-body'>
+								<div class='well well-sm' ng-show='poll.description.length > 0' ng-bind='poll.description'></div>
+								<specific-poll ng-hide='survey.showResults' poll='poll' questiontype='polltype_mapping[poll.poll_type]'></specific-poll>
 
-							<!-- RESULTS -->
-							<div class='padded'>
-								<div ng-show='survey.showResults' class='results text-center' ng-controller='ResultsController as results'>
-									<canvas></canvas>
+								<!-- RESULTS -->
+								<div class='padded'>
+									<div ng-show='survey.showResults' class='results text-center' ng-controller='ResultsController as results'>
+										<canvas></canvas>
+									</div>
 								</div>
 							</div>
-						</div>
 
-					</div> <!-- /panel -->
+						</div> <!-- /panel -->
+					</div>
+
 				</div>
 
-			</div>
-
-			<!-- Previous & Next Buttons -->
-			<div class='next-buttons-mobile'>
-				<div class='btn-group md-whiteframe-z1 full-length' role='group'>
-					<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='md-whiteframe-z1 btn btn-default'>
-						<span class='glyphicon glyphicon-chevron-left'></span>
-					</button>
-					<button ng-click='next()' type='button' class='btn btn-success'>
-						<span class='glyphicon glyphicon-chevron-right'></span>
-					</button>
+				<!-- Previous & Next Buttons -->
+				<div class='next-buttons-mobile'>
+					<div class='btn-group md-whiteframe-z1 full-length' role='group'>
+						<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='md-whiteframe-z1 btn btn-default'>
+							<span class='glyphicon glyphicon-chevron-left'></span>
+						</button>
+						<button ng-click='next()' type='button' class='btn btn-success'>
+							<span class='glyphicon glyphicon-chevron-right'></span>
+						</button>
+					</div>
 				</div>
-			</div>
 
 
-			<!-- BOTTOM PANEL -->
-			<div class='text-center'>
-				<div class='col-md-10 col-md-offset-1'>
+				<!-- BOTTOM PANEL -->
+				<div class='padded-extra text-center'>
 					<div class='buttons panel panel-default' ng-show='survey.poll_set'>
 						<div class='panel-body'>
 
@@ -123,37 +121,35 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</form>
-	</div>
-	<!-- SIDE MENU -->
-	<div flex='33' class='padded sidebar-layout-container' ng-show='survey.poll_set'>
-		<div class='fixed-container'>
-			<div class='side panel panel-primary'>
-				<div class='panel-heading text-center'>
-					<div class='btn-group full-length' role='group'>
-						<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='btn btn-default'>
-							<span class='glyphicon glyphicon-chevron-left'></span>
-						</button>
-						<button ng-click='next()' type='button' class='btn btn-success'>
-							<span class='glyphicon glyphicon-chevron-right'></span>
-						</button>
+			</form>
+		</div>
+		<!-- SIDE MENU -->
+		<div flex='33' class='padded sidebar-layout-container'>
+			<div class='fixed-container'>
+				<div class='side panel panel-primary'>
+					<div class='panel-heading text-center'>
+						<div class='btn-group full-length' role='group'>
+							<button ng-disabled='surveyLocation <= 0' ng-click='previous()' type='button' class='btn btn-default'>
+								<span class='glyphicon glyphicon-chevron-left'></span>
+							</button>
+							<button ng-disabled='surveyLocation + 1 >= loadedSurveys.length' ng-click='next()' type='button' class='btn btn-success'>
+								<span class='glyphicon glyphicon-chevron-right'></span>
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class='panel-body'>
-					<div class='list-group'>
-						<a ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}'
-							ng-repeat='loadedSurvey in loadedSurveys' class='list-group-item'>
-							{{ loadedSurvey.poll_set[0].title }}
-							<span ng-hide='loadedSurvey.poll_set[0].title.length'>Untitled</span>
-						</a>
+					<div class='panel-body'>
+						<div class='list-group'>
+							<a ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}'
+								ng-repeat='loadedSurvey in loadedSurveys' class='list-group-item'>
+								{{ loadedSurvey.poll_set[0].title }}
+								<span ng-hide='loadedSurvey.poll_set[0].title.length'>Untitled</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</div>
 
+	</div>
 
 </div> <!-- /container -->

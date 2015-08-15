@@ -8,18 +8,20 @@
 
 	// TODO: Changing url routing info depending on current survey for bookmarking etc.
 
-	app.controller('FeedController', ['$routeParams', '$rootScope', '$scope', '$http', function($routeParams, $rootScope, $scope, $http) {
+	app.controller('FeedController',
+		['$location', '$routeParams', '$rootScope', '$scope', '$http',
+		function($location, $routeParams, $rootScope, $scope, $http) {
 
 		$rootScope.location = 'Feed'
 
 		$scope.loadedSurveys = [];
 		$scope.surveyLocation = 0;
 
-		$scope.survey = {
-			voteData: {
-				survey_vote: false
-			}
-		};
+		// $scope.survey = {
+		// 	voteData: {
+		// 		survey_vote: false
+		// 	}
+		// };
 
 
 		$scope.loginNextUser = function() {
@@ -44,14 +46,14 @@
 			var polls = $scope.survey.poll_set;
 
 			for (var i in polls) {
-				var poll = polls[i]
-					answers[poll.id] = poll.value;
+				var poll = polls[i];
+				answers[poll.id] = poll.value;
 			}
 
 			$http.post('/surveys/' + $scope.survey.id + '/', answers).
 				success(function(data, a, b, c) {
 					$scope.survey.showResults = true;
-					$scope.survey.submitted = true;
+					$scope.survey.has_voted = true;
 				});
 		};
 
@@ -59,28 +61,34 @@
 
 		// Sets the scope's survey to the target survey from $scope.surveyLocation
 		$scope.displaySurvey = function() {
-			// $scope.survey = $scope.loadedSurveys.shift();
 
 			$scope.survey = $scope.loadedSurveys[$scope.surveyLocation];
 
-			// Uncomment to prevent accidental revoting
-			$scope.survey.showResults = $scope.survey.submitted = $scope.survey.has_voted;
+			// Encodes survey id into url
+			$location.search('survey', $scope.survey.id);
 
+			// Loads graph if user has already voted
+			$scope.survey.showResults = $scope.survey.has_voted;
+
+			// Do not remove this line - it is very useful
 			console.log("This is the survey:");
 			console.log($scope.survey);
 
+			$scope.survey.base_num_upvotes = $scope.survey.num_upvotes;
+			$scope.survey.base_num_downvotes = $scope.survey.num_downvotes;
 
 			// Gets the users current vote
+			// TODO: Add to serialization in backend
 			$http.get('/points/?id=' + $scope.survey.id).
 				success(function(data, status, config, headers) {
 					$scope.survey.voteData = data;
 
-					// Undoing previous vote — Checking against null
-					if ($scope.survey.voteData.survey_vote == true) {
-						$scope.survey.num_upvotes -= 1;
-					} else if ($scope.survey.voteData.survey_vote == false) {
-						$scope.survey.num_downvotes -= 1;
+					if (data.survey_vote == true) {
+						$scope.survey.base_num_upvotes -= 1;
+					} else if (data.survey_vote == false) {
+						$scope.survey.base_num_downvotes -= 1;
 					}
+
 				});
 		};
 
@@ -111,9 +119,10 @@
 		};
 
 
-		// Returns the number of upvotes of the scope's survey
+		// Returns the number of upvotes of the scope's survey to display
 		$scope.voteAmount = function() {
-			var score = $scope.survey.num_upvotes - $scope.survey.num_downvotes;
+			var score = $scope.survey.base_num_upvotes - $scope.survey.base_num_downvotes;
+
 
 			function voteToInt(vote) {
 				if (vote == null) {
@@ -123,7 +132,7 @@
 				}
 			}
 
-			// In case voteData is not defined for some odd reason
+			// In case voteData is not defined. TODO: Use promises
 			try {
 				return score + voteToInt($scope.survey.voteData.survey_vote);
 			} catch (e) {
@@ -176,10 +185,10 @@
 					var survey = data;
 
 					// Initialize the survey with extra data - eventually switch to resolve?
-					survey.voteData = {survey_vote: false};
+					// survey.voteData = {survey_vote: false};
 
 					// TODO: Is this line needed?
-					$scope.survey.showResults = $scope.survey.submitted = false;
+					// $scope.survey.showResults = $scope.survey.submitted = false;
 
 					$scope.loadedSurveys = $scope.loadedSurveys.concat(data);
 
@@ -194,6 +203,10 @@
 		// If looking at a particular survey
 		if ($routeParams.id != undefined) {
 			$scope.fetchSurveys(true, id=$routeParams.id);
+
+		// Two different methods of encoding survey id in url
+		} else if ($location.search().survey != undefined) {
+			$scope.fetchSurveys(true, id=$location.search().survey);
 		} else {
 			$scope.fetchSurveys(true);
 		}

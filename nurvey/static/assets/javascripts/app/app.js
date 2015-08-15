@@ -22,7 +22,8 @@
 		.when('/feed', {
 			templateUrl: '/static/assets/templates/feed/index.html',
 			controller: 'FeedController',
-			controllerAs: 'feed'
+			controllerAs: 'feed',
+			reloadOnSearch: false
 		})
 		.when('/feed/:id', {
 			templateUrl: '/static/assets/templates/feed/index.html',
