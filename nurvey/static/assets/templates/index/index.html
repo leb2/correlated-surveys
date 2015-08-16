@@ -81,7 +81,7 @@
 						<div class='panel-body'>
 
 							<div class='list-group text-left'>
-								<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in surveys'>
+								<a ng-href='#/feed?survey={{ survey.id }}' class='list-group-item' ng-repeat='survey in surveys'>
 									<div layout-align='start center' layout='row' layout-wrap>
 										<div flex class='survey-info'>
 											<h4 class='list-group-item-heading' ng-cloak>{{ survey.title }}</h4>

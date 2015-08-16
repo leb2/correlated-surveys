@@ -8,7 +8,7 @@
 					Recent Surveys
 				</h4>
 				<div class='list-group text-left'>
-					<a ng-href='#/feed/{{ survey.id }}' class='list-group-item' ng-repeat='survey in recentSurveys'>
+					<a ng-href='#/feed?survey={{ survey.id }}' class='list-group-item' ng-repeat='survey in recentSurveys'>
 						<div layout-align='start center' layout='row' layout-wrap>
 							<div class='list-group-item-heading' flex ng-cloak>{{ survey.title }}</div>
 							<div class='text-center'>

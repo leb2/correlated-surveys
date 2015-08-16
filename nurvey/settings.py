@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '%3-)67-x@8=_j9r8@h4sj2t$ck04i-puu3lalv0li@t1_o4!b)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = [ '.faugo.com' ]
 

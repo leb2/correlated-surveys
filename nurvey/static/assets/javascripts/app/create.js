@@ -50,7 +50,7 @@
 			$http.post('/surveys/', this.survey).
 				success(function(data, status, headers, config) {
 					id = data;
-					$location.path('/feed/' + id);
+					$location.path('/feed?survey=' + id);
 					$scope.error = false;
 				}).
 				error(function(data) {
