@@ -544,6 +544,7 @@ html, body {
 					input {
 						min-width: 0px;
 					}
+
 				}
 
 				.filters {
@@ -586,6 +587,24 @@ html, body {
 			}
 
 		}
+	}
+}
+
+.md-autocomplete-suggestions li {
+	color: #888;
+
+	.highlight {
+		color: #222;
+	}
+
+	.sub-text {
+		color: #999;
+		font-size: 0.85em;
+		margin-left: 12px;
+	}
+	.points {
+		padding-right: 12px;
+		font-size: 0.95em;
 	}
 }
 
@@ -856,7 +875,8 @@ $placeholder-color: #DFDFDF;
 
 			// Underline color on focus
 			input:focus {
-				box-shadow: 0px -2px 0px desaturate(#88EEFF, 40%) inset;
+				// box-shadow: 0px -2px 0px desaturate(#88EEFF, 40%) inset;
+				box-shadow: 0px -2px 0px #FFF inset;
 			}
 
 			// Close button
@@ -879,6 +899,11 @@ $placeholder-color: #DFDFDF;
 }
 
 .demo-panel {
+
+	.panel-heading {
+		min-height: 60px; // To match the create panel
+		font-size: 1.1em;
+	}
 
 	// To match md-radio-button
 	md-checkbox {

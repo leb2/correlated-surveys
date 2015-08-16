@@ -13,7 +13,7 @@
 					<div class='graph-row'>
 						<div class='x-axis-label' ng-bind='chartData.x_axis'></div>
 						<div class='y-axis-label'>
-							<div class='y-axis-inner' ng-bind='chartData.x_axis'></div>
+							<div class='y-axis-inner' ng-bind='chartData.y_axis'></div>
 						</div>
 						<div class='explore-graph-container'>
 							<canvas id='explore-graph'></canvas>
@@ -38,9 +38,13 @@
 								md-autofocus='true'
 								md-autoselect='true'>
 								<md-item-template>
-									<span md-highlight-flags='ig' md-highlight-text="searchText">{{ poll.title }}</span>
-									<span>{{ poll.poll_type }}</span>
-									<span>{{ poll.survey.num_upvotes - poll.survey.num_downvotes }}</span>
+									<div layout='row'>
+										<div flex>
+											<span md-highlight-flags='ig' md-highlight-text="searchText">{{ poll.title }}</span>
+											<span class='sub-text'>&#x2014; {{ poll.poll_type | uppercase }} &#x2014;</span>
+										</div>
+										<div class='points'>{{ poll.survey.num_upvotes - poll.survey.num_downvotes }} Points</div>
+									</div>
 								</md-item-template>
 								<md-not-found>
 									No matches found.

@@ -268,7 +268,9 @@
 					});
 				}
 
-				var legend = chart.Pie(pieData).generateLegend();
+				var legend = chart.Pie(pieData, options).generateLegend();
+				console.log("There is apie chart legend?");
+				console.log(legend);
 			}
 		}
 	}]);

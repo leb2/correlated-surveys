@@ -108,13 +108,28 @@ def correlate(request):
 
                 for filter in filters:
                     poll = Poll.objects.get(pk=filter['pollId'])
+                    # Only keep the votes where the voter has also voted on a specific value on the filter
                     to_value_votes = to_value_votes.filter(user__vote__poll=poll, user__vote__value=filter['value'])
 
                 # Keep only the votes in which the voter also voted on the first (domain) poll with a specific value on the values poll
-                valid_votes = to_value_votes.filter(user__vote__poll=domain_poll, user__vote__value=x_val)
+
+                # valid_votes = to_value_votes.filter(user__vote__poll=domain_poll, user__vote__value=x_val)
+                valid_votes = to_value_votes.filter(user__vote__poll=domain_poll, user__vote__value__gte=x_val)
+                valid_votes = valid_votes.filter(user__vote__poll=domain_poll, user__vote__value__lt=x_val+float(domain_poll.poll_object.step_adjusted()))
                 average = valid_votes.aggregate(Avg('value'))
 
                 valueset.append(average['value__avg'])
+
+            # Remove Trailing None's from valueset and domain
+            while valueset and valueset[-1] is None:
+                valueset.pop()
+                domain.pop()
+
+            # Remove Leading None's from valueset and domain
+            while valueset and valueset[0] is None:
+                valueset.pop(0)
+                domain.pop(0)
+
 
         # TODO: Refactor to be DRYer - repeats first case mostly
         # Should results in a line graph with multiple lines
@@ -129,6 +144,7 @@ def correlate(request):
 
             for values_choice in values_poll.domain():
                 valueset = []
+
 
                 for x_val in domain:
                     count = filtered_users.filter(vote__poll=domain_poll, vote__value=x_val)
@@ -310,15 +326,27 @@ def surveys(request):
         for question in questions:
             params = question['parameters']
 
+            title = question['title']
+
             if len(title) > Poll._meta.get_field('title').max_length:
+                survey_entry.delete()
                 return HttpResponse('Poll title too long', status=400)
+            elif len(title) == 0:
+                survey_entry.delete()
+                return HttpResponse('Poll missing title', status=400)
+
             poll = Poll(survey=survey_entry, title=question['title'], description=question.get('description', ''))
 
             if question['type'] == 'slider':
 
                 # To prevent step = 0
                 step = params['step'] if params['step'] != 0 else 1
-                slider_poll = SliderPoll(min=params['min'], max=params['max'], step=step)
+
+                # To prevent max being small than min
+                min_value = min(params['min'], params['max'])
+                max_value = max(params['min'], params['max'])
+
+                slider_poll = SliderPoll(min=min_value, max=max_value, step=step)
                 slider_poll.save()
                 poll.poll_object = slider_poll
 
@@ -327,8 +355,16 @@ def surveys(request):
                 choice_poll.save()
                 poll.poll_object = choice_poll
 
+                choice_texts = [choice['text'] for choice in params['choices']]
+                # Make sure no duplicate choices
+                if len(choice_texts) != len(set(choice_texts)):
+                    survey_entry.delete()
+                    return HttpResponse('Duplicate choices detected', status=400)
+
                 if len(params['choices']) < 2:
+                    survey_entry.delete()
                     return HttpResponse('Not enough choices', status=400)
+
                 for choice in params['choices']:
                     Choice(text=choice['text'], poll=choice_poll).save()
 
@@ -356,12 +392,14 @@ def surveys(request):
         serializer = SurveySerializer(surveys, many=True)
         data = serializer.data
 
-        # Add data about whether the user has voted on each survey
-        for i in range(len(data)):
-            survey = Survey.objects.get(pk=data[i]['id'])
-            poll_from_survey = survey.poll_set.all()[0]
-            has_voted = Vote.objects.filter(poll=poll_from_survey, user=request.user).count()
-            data[i]['has_voted'] = has_voted
+        if request.user.is_authenticated():
+
+            # Add data about whether the user has voted on each survey
+            for i in range(len(data)):
+                survey = Survey.objects.get(pk=data[i]['id'])
+                poll_from_survey = survey.poll_set.all()[0]
+                has_voted = Vote.objects.filter(poll=poll_from_survey, user=request.user).count()
+                data[i]['has_voted'] = has_voted
 
         return HttpResponse(JSONRenderer().render(data), content_type='application/json')
 
@@ -493,6 +531,7 @@ def get_access_token(request, code=None):
 
 def logout_user(request):
     logout(request)
+    return landing(request)
     return HttpResponse('logout successful')
 
 # Use to tell if a username is unique

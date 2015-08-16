@@ -54,9 +54,9 @@
 
 			<div class='panel panel-default demo-panel'>
 
-				<div class='panel-heading text-center'>
-					<strong>{{ question.title }}</strong>
-					<strong ng-show='!question.title'>DEMO</strong>
+				<div class='panel-heading text-center flex-center'>
+					{{ question.title }}
+					<div ng-show='!question.title'>DEMO</div>
 				</div>
 				<div class='panel-body' ng-cloak>
 					<!--<label ng-show='question.description.length > 0'>Description</label>-->

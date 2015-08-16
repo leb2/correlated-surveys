@@ -9902,117 +9902,137 @@ html, body {
 #explore .panel-body .form-row .form-row-inner md-autocomplete input {
   min-width: 0px;
 }
-/* line 549, ../sass/screen.scss */
+/* line 550, ../sass/screen.scss */
 #explore .panel-body .form-row .form-row-inner .filters {
   margin-top: 40px;
 }
-/* line 552, ../sass/screen.scss */
+/* line 553, ../sass/screen.scss */
 #explore .panel-body .form-row .form-row-inner .filters .filter-title {
   text-transform: uppercase;
   font-size: 18px;
   display: none;
 }
 @media (max-width: 510px) {
-  /* line 552, ../sass/screen.scss */
+  /* line 553, ../sass/screen.scss */
   #explore .panel-body .form-row .form-row-inner .filters .filter-title {
     display: initial;
   }
 }
-/* line 561, ../sass/screen.scss */
+/* line 562, ../sass/screen.scss */
 #explore .panel-body .form-row .form-row-inner .filters .filter-form:nth-child(4) hr {
   margin-top: 5px;
 }
-/* line 565, ../sass/screen.scss */
+/* line 566, ../sass/screen.scss */
 #explore .panel-body .form-row .form-row-inner .filters .dash {
   width: 20px;
   height: 100%;
 }
 @media (max-width: 600px) {
-  /* line 575, ../sass/screen.scss */
+  /* line 576, ../sass/screen.scss */
   #explore .panel-body .form-row .form-row-inner .filters .padded {
     padding: 4px;
   }
 }
-/* line 583, ../sass/screen.scss */
+/* line 584, ../sass/screen.scss */
 #explore .panel-body .form-row .form-row-inner .add-filter-btn {
   margin-top: 25px;
 }
 
+/* line 593, ../sass/screen.scss */
+.md-autocomplete-suggestions li {
+  color: #888;
+}
+/* line 596, ../sass/screen.scss */
+.md-autocomplete-suggestions li .highlight {
+  color: #222;
+}
+/* line 600, ../sass/screen.scss */
+.md-autocomplete-suggestions li .sub-text {
+  color: #999;
+  font-size: 0.85em;
+  margin-left: 12px;
+}
+/* line 605, ../sass/screen.scss */
+.md-autocomplete-suggestions li .points {
+  padding-right: 12px;
+  font-size: 0.95em;
+}
+
 /* -------------------------------- FEED -------------------------------- */
 @media (max-width: 370px) {
-  /* line 599, ../sass/screen.scss */
+  /* line 618, ../sass/screen.scss */
   #feed .padded {
     padding: 0px;
   }
 }
-/* line 604, ../sass/screen.scss */
+/* line 623, ../sass/screen.scss */
 #feed .loading-icon-container {
   height: 0px;
   position: relative;
   width: 100%;
 }
-/* line 609, ../sass/screen.scss */
+/* line 628, ../sass/screen.scss */
 #feed .loading-icon-container .loading-icon {
   width: 100%;
   position: absolute;
   height: 200px;
   z-index: 100;
 }
-/* line 615, ../sass/screen.scss */
+/* line 634, ../sass/screen.scss */
 #feed .loading-icon-container .loading-icon md-progress-circular {
   overflow: visible;
 }
-/* line 624, ../sass/screen.scss */
+/* line 643, ../sass/screen.scss */
 #feed .main.panel .panel-body {
   padding: 50px;
   padding-top: 30px;
   padding: 30px 50px 30px 50px;
 }
 @media (max-width: 330px) {
-  /* line 624, ../sass/screen.scss */
+  /* line 643, ../sass/screen.scss */
   #feed .main.panel .panel-body {
     padding: 5px !important;
   }
 }
-/* line 633, ../sass/screen.scss */
+/* line 652, ../sass/screen.scss */
 #feed .main.panel .panel-body .results {
   padding-top: 15px;
   height: 250px;
 }
-/* line 640, ../sass/screen.scss */
+/* line 659, ../sass/screen.scss */
 #feed .next-buttons-mobile {
   display: none;
   text-align: center;
   margin: 30px;
 }
-/* line 646, ../sass/screen.scss */
+/* line 665, ../sass/screen.scss */
 #feed .btn-group.full-length {
   max-width: 300px;
   width: 80%;
 }
-/* line 650, ../sass/screen.scss */
+/* line 669, ../sass/screen.scss */
 #feed .btn-group.full-length button {
   width: 50%;
 }
 @media (max-width: 700px) {
-  /* line 657, ../sass/screen.scss */
+  /* line 676, ../sass/screen.scss */
   #feed .next-buttons-mobile {
     display: block;
   }
-  /* line 661, ../sass/screen.scss */
+  /* line 680, ../sass/screen.scss */
   #feed .sidebar-layout-container {
     display: none;
   }
 }
-/* line 668, ../sass/screen.scss */
+/* line 687, ../sass/screen.scss */
 #feed .side.panel .panel-heading .btn-group {
   width: 80%;
 }
-/* line 672, ../sass/screen.scss */
+/* line 691, ../sass/screen.scss */
 #feed .side.panel .panel-body {
   padding: 10px;
 }
-/* line 676, ../sass/screen.scss */
+/* line 695, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group {
   max-height: 300px;
   overflow: scroll;
@@ -10024,32 +10044,32 @@ html, body {
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
 }
-/* line 687, ../sass/screen.scss */
+/* line 706, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group a.list-group-item:first-child {
   border-top: 0px;
 }
-/* line 690, ../sass/screen.scss */
+/* line 709, ../sass/screen.scss */
 #feed .side.panel .panel-body .list-group a.list-group-item:last-child {
   border-bottom: 0px;
 }
-/* line 697, ../sass/screen.scss */
+/* line 716, ../sass/screen.scss */
 #feed .buttons.panel {
   margin-top: 20px;
 }
-/* line 700, ../sass/screen.scss */
+/* line 719, ../sass/screen.scss */
 #feed .buttons.panel .survey-owner {
   color: #777;
   margin-bottom: 12px;
 }
-/* line 704, ../sass/screen.scss */
+/* line 723, ../sass/screen.scss */
 #feed .buttons.panel .survey-owner .username {
   color: #333;
 }
-/* line 711, ../sass/screen.scss */
+/* line 730, ../sass/screen.scss */
 #feed .buttons.panel .voting-container {
   padding-left: 12px;
 }
-/* line 714, ../sass/screen.scss */
+/* line 733, ../sass/screen.scss */
 #feed .buttons.panel .voting-container .points.well {
   font-size: 18px;
   padding: 12px;
@@ -10064,120 +10084,120 @@ html, body {
 
 /* -------------------------------- MODAL -------------------------------- */
 /* -------------------------------- ACCOUNT -------------------------------- */
-/* line 745, ../sass/screen.scss */
+/* line 764, ../sass/screen.scss */
 #account .account-heading {
   padding-left: 12px;
 }
 
-/* line 750, ../sass/screen.scss */
+/* line 769, ../sass/screen.scss */
 .modal-backdrop {
   z-index: -10;
 }
 
-/* line 759, ../sass/screen.scss */
+/* line 778, ../sass/screen.scss */
 #login-modal .modal-header {
   background: #FAFAFA;
   padding-left: 32px;
 }
-/* line 764, ../sass/screen.scss */
+/* line 783, ../sass/screen.scss */
 #login-modal .modal-body {
   background: #FAFAFA;
 }
-/* line 767, ../sass/screen.scss */
+/* line 786, ../sass/screen.scss */
 #login-modal .modal-body md-content {
   background: transparent;
 }
-/* line 771, ../sass/screen.scss */
+/* line 790, ../sass/screen.scss */
 #login-modal .modal-body md-tab {
   max-width: 1px;
 }
-/* line 775, ../sass/screen.scss */
+/* line 794, ../sass/screen.scss */
 #login-modal .modal-body label {
   font-weight: normal;
   color: #444;
   font-size: 15px;
 }
-/* line 781, ../sass/screen.scss */
+/* line 800, ../sass/screen.scss */
 #login-modal .modal-body md-input-container {
   padding-left: 6px;
   padding-bottom: 0px;
 }
-/* line 785, ../sass/screen.scss */
+/* line 804, ../sass/screen.scss */
 #login-modal .modal-body md-input-container label {
   position: relative;
   top: 4px;
   color: #888;
 }
-/* line 791, ../sass/screen.scss */
+/* line 810, ../sass/screen.scss */
 #login-modal .modal-body md-input-container input, #login-modal .modal-body md-input-container label {
   padding-left: 5px;
 }
-/* line 795, ../sass/screen.scss */
+/* line 814, ../sass/screen.scss */
 #login-modal .modal-body md-input-container input {
   border-bottom: 1px solid #DDD;
 }
-/* line 800, ../sass/screen.scss */
+/* line 819, ../sass/screen.scss */
 #login-modal .modal-body .buttons-row {
   margin-top: 50px;
   text-align: right;
 }
-/* line 804, ../sass/screen.scss */
+/* line 823, ../sass/screen.scss */
 #login-modal .modal-body .buttons-row .reddit {
   background: #ff5700;
   color: #EFEFEF;
 }
 
 /* -------------------------------- CREATE -------------------------------- */
-/* line 821, ../sass/screen.scss */
+/* line 840, ../sass/screen.scss */
 #content {
   margin-bottom: 250px;
 }
 
-/* line 828, ../sass/screen.scss */
+/* line 847, ../sass/screen.scss */
 .create {
   /* Specific Creates */
 }
-/* line 831, ../sass/screen.scss */
+/* line 850, ../sass/screen.scss */
 .create .slider-create {
   margin-top: 35px;
   padding: 25px;
 }
-/* line 846, ../sass/screen.scss */
+/* line 865, ../sass/screen.scss */
 .create .panel-heading .input-group input {
   color: white;
   font-weight: thin;
 }
-/* line 852, ../sass/screen.scss */
+/* line 871, ../sass/screen.scss */
 .create .panel-heading .input-group input::-webkit-input-placeholder {
   color: #DFDFDF;
 }
-/* line 853, ../sass/screen.scss */
+/* line 872, ../sass/screen.scss */
 .create .panel-heading .input-group input:-ms-input-placeholder {
   color: #DFDFDF;
 }
-/* line 854, ../sass/screen.scss */
+/* line 873, ../sass/screen.scss */
 .create .panel-heading .input-group input::-moz-placeholder {
   color: #DFDFDF;
 }
-/* line 855, ../sass/screen.scss */
+/* line 874, ../sass/screen.scss */
 .create .panel-heading .input-group input:-moz-placeholder {
   color: #DFDFDF;
 }
-/* line 858, ../sass/screen.scss */
+/* line 877, ../sass/screen.scss */
 .create .panel-heading .input-group input:focus {
-  box-shadow: 0px -2px 0px #a0dde7 inset;
+  box-shadow: 0px -2px 0px #FFF inset;
 }
-/* line 863, ../sass/screen.scss */
+/* line 883, ../sass/screen.scss */
 .create .panel-heading .input-group .btn {
   border-radius: 15px;
   padding: 0px 5px 0px 5px;
   margin-left: 15px;
 }
-/* line 868, ../sass/screen.scss */
+/* line 888, ../sass/screen.scss */
 .create .panel-heading .input-group .btn:disabled {
   background: red;
 }
-/* line 871, ../sass/screen.scss */
+/* line 891, ../sass/screen.scss */
 .create .panel-heading .input-group .btn:hover {
   box-shadow: 0 4px 4px 4px 0.1 black;
   -moz-box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
@@ -10185,33 +10205,38 @@ html, body {
   box-shadow: 0, 3px, 4px, 0px, rgba(0, 0, 0, 0.1);
 }
 
-/* line 884, ../sass/screen.scss */
+/* line 903, ../sass/screen.scss */
+.demo-panel .panel-heading {
+  min-height: 60px;
+  font-size: 1.1em;
+}
+/* line 909, ../sass/screen.scss */
 .demo-panel md-checkbox {
   margin: 15px;
 }
 
-/* line 892, ../sass/screen.scss */
+/* line 917, ../sass/screen.scss */
 .demo .panel-body {
   padding: 25px !important;
 }
 @media (max-width: 400px) {
-  /* line 892, ../sass/screen.scss */
+  /* line 917, ../sass/screen.scss */
   .demo .panel-body {
     padding: 10px !important;
   }
 }
-/* line 899, ../sass/screen.scss */
+/* line 924, ../sass/screen.scss */
 .demo .panel-body .well {
   padding: 5px 24px 5px 24px;
   margin-bottom: 28px;
 }
 
 /* --- Specifics --- */
-/* line 907, ../sass/screen.scss */
+/* line 932, ../sass/screen.scss */
 .slider-question {
   margin: 8px;
 }
-/* line 910, ../sass/screen.scss */
+/* line 935, ../sass/screen.scss */
 .slider-question .slider-value {
   text-align: center;
   border: none;
@@ -10225,17 +10250,17 @@ html, body {
   font-weight: thin;
 }
 
-/* line 924, ../sass/screen.scss */
+/* line 949, ../sass/screen.scss */
 .choice-question {
   padding-left: 56px;
   padding-right: 30px;
 }
-/* line 928, ../sass/screen.scss */
+/* line 953, ../sass/screen.scss */
 .choice-question md-radio-button {
   margin: 7px 18px 7px 0px;
 }
 
-/* line 940, ../sass/screen.scss */
+/* line 965, ../sass/screen.scss */
 .example-animate-container {
   background: white;
   border: 1px solid black;
@@ -10244,28 +10269,28 @@ html, body {
   padding: 0 10px;
 }
 
-/* line 949, ../sass/screen.scss */
+/* line 974, ../sass/screen.scss */
 .animate-repeat {
   line-height: 40px;
   list-style: none;
   box-sizing: border-box;
 }
 
-/* line 957, ../sass/screen.scss */
+/* line 982, ../sass/screen.scss */
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
   -webkit-transition: all linear 0.3s;
   transition: all linear 0.3s;
 }
 
-/* line 965, ../sass/screen.scss */
+/* line 990, ../sass/screen.scss */
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
   opacity: 0;
   max-height: 0;
 }
 
-/* line 972, ../sass/screen.scss */
+/* line 997, ../sass/screen.scss */
 .animate-repeat.ng-leave,
 .animate-repeat.ng-move.ng-move-active,
 .animate-repeat.ng-enter.ng-enter-active {
@@ -10274,31 +10299,31 @@ html, body {
 }
 
 /* --- Angular Material --- */
-/* line 984, ../sass/screen.scss */
+/* line 1009, ../sass/screen.scss */
 md-checkbox .md-label {
   border: transparent !important;
 }
 
-/* line 987, ../sass/screen.scss */
+/* line 1012, ../sass/screen.scss */
 md-radio-group.md-default-theme:focus {
   border-color: transparent !important;
 }
 
 /* --- Custom Stuff --- */
-/* line 996, ../sass/screen.scss */
+/* line 1021, ../sass/screen.scss */
 .border-title {
   border: 1px solid #CCC;
   padding: 15px;
   position: relative;
 }
 @media (max-width: 510px) {
-  /* line 996, ../sass/screen.scss */
+  /* line 1021, ../sass/screen.scss */
   .border-title {
     border: none;
     padding: 0px;
   }
 }
-/* line 1007, ../sass/screen.scss */
+/* line 1032, ../sass/screen.scss */
 .border-title .inline-title {
   display: inline;
   position: absolute;
@@ -10310,24 +10335,24 @@ md-radio-group.md-default-theme:focus {
   font-size: 15px;
 }
 @media (max-width: 510px) {
-  /* line 1007, ../sass/screen.scss */
+  /* line 1032, ../sass/screen.scss */
   .border-title .inline-title {
     display: none;
   }
 }
 
-/* line 1024, ../sass/screen.scss */
+/* line 1049, ../sass/screen.scss */
 .border-title.extra-padding {
   padding: 32px;
 }
 @media (max-width: 510px) {
-  /* line 1024, ../sass/screen.scss */
+  /* line 1049, ../sass/screen.scss */
   .border-title.extra-padding {
     padding: 0px;
   }
 }
 
-/* line 1035, ../sass/screen.scss */
+/* line 1060, ../sass/screen.scss */
 input {
   text-align: left;
   height: 40px !important;
@@ -10336,11 +10361,11 @@ input {
   background: white;
 }
 
-/* line 1044, ../sass/screen.scss */
+/* line 1069, ../sass/screen.scss */
 .lifted-input {
   border-radius: 2px;
 }
-/* line 1047, ../sass/screen.scss */
+/* line 1072, ../sass/screen.scss */
 .lifted-input input {
   box-shadow: none;
 }
