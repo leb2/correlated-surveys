@@ -17,11 +17,28 @@
 		$scope.loadedSurveys = [];
 		$scope.surveyLocation = 0;
 
-		// $scope.survey = {
-		// 	voteData: {
-		// 		survey_vote: false
-		// 	}
-		// };
+		$scope.survey = {};
+
+		$scope.deleteSurvey = function(poll) {
+			console.log("Deleteing Survey instead");
+			$http.get('/delete-survey', {params: {'id': poll.survey.id}})
+				.success(function() {
+					$scope.loadedSurveys.splice($scope.surveyLocation,1);
+					$scope.displaySurvey();
+				});
+		};
+
+		$scope.deletePoll = function(poll) {
+			if ($scope.survey.poll_set.length == 1) {
+				$scope.deleteSurvey(poll);
+				return;
+			}
+			$http.get('/delete-poll', {params: {'id': poll.id}})
+				.success(function() {
+					$scope.survey.poll_set.splice($scope.survey.poll_set,1);
+				});
+		}
+
 
 
 		$scope.loginNextUser = function() {
@@ -30,7 +47,7 @@
 						$rootScope.refreshUser();
 						$scope.survey.showResults = false;
 				});
-		}
+		};
 
 
 		// Submits the user's survey response
@@ -146,11 +163,6 @@
 
 
 		// Load more surveys if approaching end of loaded survey list
-		var fetchIfNearEnd = function() {
-			if ($scope.loadedSurveys.length - $scope.surveyLocation <= 5) {
-				$scope.fetchSurveys(false);
-			}
-		};
 
 		$scope.next = function() {
 			$scope.surveyLocation += 1;
@@ -174,11 +186,12 @@
 		};
 
 		// Make ajax request to surver for a survey
-		$scope.fetchSurveys = function(first, id) {
+		function fetchSurveys(first, id) {
 			var idParam = id ? "&id=" + id : "";
 
 			// Tell server where you left off
 			var beforeSurveyParam = first ? "" : "&beforeSurveyId=" + $scope.loadedSurveys[$scope.loadedSurveys.length - 1].id;
+
 			$http.get('/surveys/?amount=10' + beforeSurveyParam + idParam).
 				success(function(data) {
 
@@ -187,28 +200,27 @@
 					// Initialize the survey with extra data - eventually switch to resolve?
 					// survey.voteData = {survey_vote: false};
 
-					// TODO: Is this line needed?
-					// $scope.survey.showResults = $scope.survey.submitted = false;
 
 					$scope.loadedSurveys = $scope.loadedSurveys.concat(data);
 
 					if (first) { $scope.displaySurvey(); }
 
 					// If an id is specified, make call again without id
-					if (id) { $scope.fetchSurveys(false); }
+					if (id) { fetchSurveys(false); }
 				});
 		};
 
-		// Load initial survey
-		// If looking at a particular survey
-		if ($routeParams.id != undefined) {
-			$scope.fetchSurveys(true, id=$routeParams.id);
+		function fetchIfNearEnd() {
+			if ($scope.loadedSurveys.length - $scope.surveyLocation <= 5) {
+				fetchSurveys(false);
+			}
+		};
 
-		// Two different methods of encoding survey id in url
-		} else if ($location.search().survey != undefined) {
-			$scope.fetchSurveys(true, id=$location.search().survey);
+		// If Looking at a particular survey by id
+		if ($location.search().survey != undefined) {
+			fetchSurveys(true, id=$location.search().survey);
 		} else {
-			$scope.fetchSurveys(true);
+			fetchSurveys(true);
 		}
 	}]);
 
@@ -223,6 +235,8 @@
 	app.controller('ResultsController', ['$scope', '$element', function($scope, $element) {
 
 		var results = $scope.poll.results_pretty;
+
+		$scope.noResults = results.range.every(function(element) { return element === 0 })
 
 		var data = {
 			labels: results.domain,
@@ -249,28 +263,32 @@
 
 		if ($scope.poll.poll_type === 'slider poll') {
 			chart.Line(data, options);
-		} else if ($scope.poll.poll_type == 'choice poll') {
-			if (results.domain.length >= 4 ) {
-				chart.Bar(data, options);
-			} else {
 
-				var colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
-				var highlights = ['#DE3F42', '#4FBAB8', '#E6B465', '#61DE6C']
+		} else if ($scope.poll.poll_type == 'choice poll') {
+
+			if (results.domain.length >= 6 ) {
+				chart.Bar(data, options);
+
+			} else {
+				$scope.isPie = true;
+				$scope.labels = results.domain;
+
+				$scope.colors = ['#F7464A', '#5AD3D1', '#FFC870', '#6DF778'];
+				var highlights = ['#DE3F42', '#4FBAB8', '#E6B465', '#61DE6C'];
 
 				var pieData = [];
 
 				for (var i=0; i<results.domain.length; i++) {
 					pieData.push({
-						color: colors[i],
+						color: $scope.colors[i],
 						highlight: highlights[i],
 						value: results.range[i],
 						label: results.domain[i],
 					});
 				}
 
+				// Should switch to builtin legend
 				var legend = chart.Pie(pieData, options).generateLegend();
-				console.log("There is apie chart legend?");
-				console.log(legend);
 			}
 		}
 	}]);

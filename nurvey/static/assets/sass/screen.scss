@@ -80,6 +80,10 @@ h1, h2 {
 	background: $panel-background-color;
 	padding: 28px;
 }
+md-card {
+	background: $panel-background-color;
+}
+
 
 // For particularly long survey titles
 .list-group-item-heading {
@@ -127,6 +131,13 @@ textarea {
 .right-btn {
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
+}
+
+.muted {
+	color: #999 !important;
+}
+.md-card {
+	color: #333 !important;
 }
 
 
@@ -430,6 +441,20 @@ html, body {
 
 /* -------------------------------- EXPLORE -------------------------------- */
 
+// Legend for graph
+.keys {
+	margin-bottom: 22px;
+	color: #999;
+
+	.color-block {
+		height: 3px;
+		width: 32px;
+		display: inline-block;
+		opacity: 80%;
+		margin: 0 10px 3px;
+	}
+}
+
 #explore {
 
 	.panel-body {
@@ -440,24 +465,15 @@ html, body {
 			padding: 50px 80px 15px 75px;
 			color: #AAA;
 
+			.keys {
+				color: #999;
+			}
+
 			@media (max-width: 480px) {
 				padding: 20px 35px 15px 35px;
 			}
 			@media (max-width: 380px) {
 				padding: 5px 20px 5px 20px;
-			}
-
-			.keys {
-				margin-bottom: 22px;
-				color: #999;
-
-				.color-block {
-					height: 3px;
-					width: 32px;
-					display: inline-block;
-					opacity: 80%;
-					margin: 0 10px 3px;
-				}
 			}
 
 			.graph-row {
@@ -640,6 +656,30 @@ html, body {
 
 	.main.panel {
 
+		.panel-heading {
+			position: relative;
+			padding-right: 35px;
+
+			.additional-operations {
+				float: right;
+				position: absolute;
+				right: 20px;
+				top: 0px;
+				bottom: 0px;
+
+				.dropdown-toggle {
+					height: 50%;
+					width: 16px;
+					color: white;
+					transition: color 0.2s;
+					cursor: pointer;
+				}
+				.dropdown-toggle:hover {
+					color: #999;
+				}
+			}
+		}
+
 		.panel-body {
 			padding: 50px;
 			padding-top: 30px;
@@ -650,7 +690,6 @@ html, body {
 			}
 
 			.results {
-				padding-top: 15px;
 				height: 250px;
 			}
 		}
@@ -761,8 +800,36 @@ html, body {
 
 #account {
 
-	.account-heading {
-		padding-left: 12px;
+	.no-recent-surveys {
+		height: 100%;
+		width: 100%;
+		@extend .flex-center;
+	}
+
+	.recent-surveys {
+
+		.md-list-item-text {
+			padding-bottom: 10px;
+
+			.survey-title {
+				color: #444;
+				line-height: 1.4em;
+			}
+			.survey-info {
+				@extend .muted;
+				font-size: 0.9em;
+				margin-top: 5px;
+			}
+
+			.survey-points {
+				min-width: 70px;
+			}
+		}
+	}
+
+	md-card.basic-info {
+		// 2 Times regular margin for even between panel
+		margin-top: 16px;
 	}
 }
 

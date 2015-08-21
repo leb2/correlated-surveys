@@ -5,3 +5,7 @@ migrations
 settings_dev.py
 db.sqlite*
 .DS_Store
+
+
+nurvey_modules
+bower_components

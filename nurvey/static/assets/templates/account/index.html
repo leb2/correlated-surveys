@@ -1,35 +1,92 @@
 <div class='app-view' id='account' layout='row' layout-align='center'>
+	<!--
 	<div class='panel panel-default text-center max-width no-min-width' flex='90' flex-sm='95'>
 		<div class='panel-body' layout='row' layout-wrap>
 
+-->
+	<div class='max-width padding-md'>
+		<div layout='row'>
 			<div flex='60' flex-sm='100'>
-				<h4 class='text-left account-heading'>
-					<span ng-show='recentSurveys.length == 0'>No</span>
-					Recent Surveys
-				</h4>
-				<div class='list-group text-left'>
-					<a ng-href='#/feed?survey={{ survey.id }}' class='list-group-item' ng-repeat='survey in recentSurveys'>
-						<div layout-align='start center' layout='row' layout-wrap>
-							<div class='list-group-item-heading' flex ng-cloak>{{ survey.title }}</div>
-							<div class='text-center'>
-								<div class='badge' ng-cloak>
-									{{ survey.num_upvotes - survey.num_downvotes }}
-									<span class='glyphicon glyphicon-leaf'></span>
-								</div>
-							</div>
+				<md-card>
+					<md-toolbar>
+						<div class='md-toolbar-tools'>Recent Surveys</div>
+					</md-toolbar>
+					<div class='padded'>
+						<div class='text-left no-recent-surveys' ng-show='recentSurveys.length == 0'>
+							No Recent Surveys
 						</div>
-					</a>
-					<a ng-repeat='a in emptyFillSurveys track by $index' class='list-group-item'></a>
-				</div>
+						<md-list class='recent-surveys'>
+							<md-divider></md-divider>
+							<div ng-repeat='survey in recentSurveys'>
+								<md-list-item class='md-3-line'>
+									<md-button>
+									<div class='md-list-item-text' layout='row'>
+										<div>
+											<a href='#/feed?survey={{ survey.id }}'>
+												<h3 class='survey-title'>{{ survey.title }}</h3>
+											</a>
+											<h4 class='survey-info'>Posted {{ survey.time_ago }} ago &#x2014; {{ survey.num_responses }} responses</h4>
+										</div>
+										<div flex></div>
+										<div class='padded survey-points'>{{ survey.num_upvotes - survey.num_downvotes }} Points</div>
+									</div>
+								</md-list-item>
+								<md-divider></md-divider>
+							</div>
+						</md-list>
+					</div>
+				</md-card>
 			</div>
 			<div flex flex-sm='100'>
-				<h4 class='text-left account-heading'>
-					Statistics: <span class='hidden' ng-bind='user.profile.points'></span>
-				</h4>
-				<button ng-click='account.logout()' class='btn btn-danger' style='margin-top: 50px'>
-					LOG OUT
-				</button>
+				<md-card>
+					<md-toolbar>
+						<div class='md-toolbar-tools'>Statistics</div>
+					</md-toolbar>
+					<div class='padded-extra'>
+						<div layout='row'>
+							<div>Points:</div><div flex></div><div>{{ user.profile.points }}</div>
+						</div>
+						<div layout='row'>
+							<div>Surveys Answered:</div><div flex></div><div>{{ user.profile.points }}</div>
+						</div>
+						<div layout='row'>
+							<div>Surveys Created:</div><div flex></div><div>{{ user.profile.points }}</div>
+						</div>
+						<div layout='row'>
+							<div>Survey Responses:</div><div flex></div><div>{{ user.profile.points }}</div>
+						</div>
+					</div>
+				</md-card>
+				<md-card class='basic-info'>
+					<md-toolbar>
+						<div class='md-toolbar-tools'>Basic Info</div>
+					</md-toolbar>
+					<div class='padded-extra'>
+						<div layout='row'>
+							<a href>
+								<div>Background</div>
+							</a>
+							<div flex></div>
+
+							<div class='glyphicon glyphicon-ok flex-center'></div>
+						</div>
+						<div layout='row'>
+							<a href>
+								<div>Location</div>
+							</a>
+							<div flex></div>
+							<div class='glyphicon glyphicon-unchecked flex-center'></div>
+						</div>
+					</div>
+				</md-card>
 			</div>
 		</div>
+		<div class='flex-center'>
+			<button ng-click='account.logout()' class='btn btn-danger' style='margin-top: 50px'>
+				LOG OUT
+			</button>
+		</div>
 	</div>
+
+
 </div>

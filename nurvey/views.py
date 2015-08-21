@@ -173,6 +173,8 @@ def correlate(request):
 # GET:
 #   term: returns list of polls that contain the term in title
 #   id: returns the poll by given id
+
+@csrf_exempt
 def polls(request):
 
     if request.method == 'GET':
@@ -182,13 +184,25 @@ def polls(request):
             serializer = PollSerializer(related_polls, many=True)
             return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
 
-
-
         id = request.GET.dict().get('id')
         polls = Poll.objects.filter(pk=id) if id is not None else Poll.objects.order_by('-pk')[0:1]
 
         serialized = serializers.serialize('json', polls)
         return HttpResponse(serialized, content_type='application/json')
+
+def delete_poll(request):
+    id = request.GET.dict().get('id')
+    if id is not None:
+        poll = Poll.objects.get(pk=id)
+
+        # Delete the entire survey if only one poll left
+        if poll.survey.poll_set.count() == 1:
+            poll.survey.delete()
+        else:
+            poll.delete()
+    else:
+        return HttpResponse("No id specified", status=400)
+    return HttpResponse("Delete successful")
 
 
 
@@ -402,6 +416,17 @@ def surveys(request):
                 data[i]['has_voted'] = has_voted
 
         return HttpResponse(JSONRenderer().render(data), content_type='application/json')
+
+
+def delete_survey(request):
+    id = request.GET.dict().get('id')
+    if id is not None:
+        survey = Survey.objects.get(pk=id)
+        survey.delete()
+    else:
+        return HttpResponse("No id specified", status=400)
+    return HttpResponse("Delete successful")
+
 
 
 def user_recent_surveys(request):

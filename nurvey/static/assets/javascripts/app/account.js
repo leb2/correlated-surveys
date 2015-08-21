@@ -14,7 +14,6 @@
 			$http.get('/user-recent-surveys?user_id=' + user.id).
 				success(function(recentSurveys) {
 					$scope.recentSurveys = recentSurveys;
-					$scope.emptyFillSurveys = new Array(numberOfSurveys - recentSurveys.length)
 				});
 		});
 

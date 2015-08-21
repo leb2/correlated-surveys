@@ -77,7 +77,7 @@
 
 <!-- LOGIN MODAL -->
 <div id='login-modal' class='modal fade' tabindex='-1' role='dialog' ng-controller='LoginController as login'>
-	<div class='modal-dialog'>
+	<div class='modal-dialog modal-sm'>
 		<div class='modal-content'>
 			<div class='modal-header'>
 				<h4>LOG IN</h4>
@@ -85,7 +85,7 @@
 			<div class='modal-body'>
 				<div style='width: 100%' class='container'>
 					<md-tabs md-dynamic-height md-stretch-tabs='always'>
-						<md-tab label='Login' md-on-select='login.shouldLogin(true)' style='max-width: none'>
+						<md-tab label='Login' md-on-select='login.shouldLogin(true)'>
 							<md-content class='md-padding'>
 
 								<form name='loginForm' ng-submit='login.login(loginForm.$valid)' novalidate>
@@ -179,7 +179,7 @@
 								</form>
 							</md-content>
 						</md-tab>
-					</tabset>
+					</md-tabs>
 				</div>
 			</div>
 			<!-- Buttons used to be here -->

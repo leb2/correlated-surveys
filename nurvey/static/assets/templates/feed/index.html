@@ -38,6 +38,20 @@
 
 							<div class='panel-heading text-center'>
 								{{ poll.title }}
+
+								<div class='additional-operations flex-center'>
+									<div class="dropdown-toggle flex-center" data-toggle="dropdown">
+										<span class="caret"></span>
+									</div>
+									<ul class="dropdown-menu" role="menu">
+										<li style="cursor:pointer">
+											<a href ng-click='deletePoll(poll)'>Delete Individual Poll</a>
+										</li>
+										<li style="cursor:pointer">
+											<a href ng-click='deleteSurvey(poll)'>Delete Entire Survey</a>
+										</li>
+									</ul>
+								</div>
 							</div>
 
 
@@ -46,9 +60,20 @@
 								<specific-poll ng-hide='survey.showResults' poll='poll' questiontype='polltype_mapping[poll.poll_type]'></specific-poll>
 
 								<!-- RESULTS -->
-								<div class='padded'>
-									<div ng-show='survey.showResults' class='results text-center' ng-controller='ResultsController as results'>
-										<canvas></canvas>
+								<div class='padded' ng-show='survey.showResults'>
+									<div layout='column' class='text-center' ng-controller='ResultsController as results'>
+
+										<div class='keys' layout='row' ng-show='isPie'>
+											<div class='key' flex='33' ng-repeat='label in labels'>
+												<div class='color-block' style='background: {{ colors[$index % colors.length] }}'></div>
+												<span>{{ label }}</span>
+											</div>
+										</div>
+
+										<div class='results'>
+											<canvas ng-hide='noResults'></canvas>
+										</div>
+										<div class='flex-center' ng-show='noResults'>No Results! (You are the first voter)</div>
 									</div>
 								</div>
 							</div>

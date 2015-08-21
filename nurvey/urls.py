@@ -18,7 +18,9 @@ urlpatterns = patterns('',
 
     # REST API
     url(r'^surveys/(?P<id>\d+)/$', views.survey_results, name='survey_results'),
+    url(r'^delete-survey/$', views.delete_survey, name='delete_surveys'),
     url(r'^surveys/$', views.surveys, name='surveys'),
+    url(r'^delete-poll/', views.delete_poll, name='delete_polls'),
     url(r'^polls/', views.polls, name='polls'),
     url(r'^points/', views.points, name='points'),
     url(r'^users/', views.users, name='users'),
