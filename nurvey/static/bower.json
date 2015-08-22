@@ -14,13 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "~0.13.1",
     "angular-material": "master",
     "angular-route": "~1.4.3",
-    "bootstrap-checkbox-x": "~1.2.0",
-    "bootstrap-material-design": "~0.1.5",
-    "Chart.js": "~1.0.2",
-    "chartjs": "1.0",
-    "hammerjs": "~2.0.2"
+    "Chart.js": "~1.0.2"
   }
 }

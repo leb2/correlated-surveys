@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('nurveyApp', ['ngRoute', 'ui.bootstrap', 'ngMessages', 'ngMaterial', 'exploreApp', 'feedApp', 'accountApp', 'CreateApp']);
+	var app = angular.module('nurveyApp', ['ngRoute', 'ngMessages', 'ngMaterial', 'exploreApp', 'feedApp', 'accountApp', 'CreateApp']);
 
 
 
