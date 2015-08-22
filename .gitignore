@@ -7,5 +7,5 @@ db.sqlite*
 .DS_Store
 
 
-nurvey_modules
+node_modules
 bower_components
