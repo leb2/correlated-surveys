@@ -1,0 +1,169 @@
+
+
+/* -------------------------------- CREATE -------------------------------- */
+
+
+#content {
+	margin-bottom: 250px;
+}
+
+$placeholder-color: #DFDFDF;
+
+
+.create {
+
+	/* Specific Creates */
+	.slider-create {
+		margin-top: 35px;
+		padding: 25px;
+	}
+
+	.choice-create {
+
+		.lifted-input {
+		}
+	}
+
+
+
+	.panel-heading {
+		.input-group {
+			input {
+				color: white;
+				font-weight: thin;
+			}
+
+			// Placeholder text color
+			input::-webkit-input-placeholder { color: $placeholder-color; }
+			input:-ms-input-placeholder { color: $placeholder-color; }
+			input::-moz-placeholder {color: $placeholder-color; }
+			input:-moz-placeholder {color: $placeholder-color; }
+
+			// Underline color on focus
+			input:focus {
+				// box-shadow: 0px -2px 0px desaturate(#88EEFF, 40%) inset;
+				box-shadow: 0px -2px 0px #FFF inset;
+			}
+
+			// Close button
+			.btn {
+				border-radius: 15px;
+				padding: 0px 5px 0px 5px;
+				margin-left: 15px;
+			}
+			.btn:disabled {
+				background: red;
+			}
+			.btn:hover {
+				box-shadow: 0 4px 4px 4px 0.1 black;
+				@include box-shadow(0, 3px, 4px, 0px, rgba(black, 0.1));
+			}
+		}
+	}
+
+
+}
+
+.demo-panel {
+
+	.panel-heading {
+		min-height: 60px; // To match the create panel
+		font-size: 1.1em;
+	}
+
+	// To match md-radio-button
+	md-checkbox {
+		margin: 15px;
+	}
+}
+
+
+// For feed as well as demo
+.demo {
+	.panel-body {
+		padding: 25px !important;
+
+		@media (max-width: 400px) {
+			padding: 10px !important;
+		}
+
+		.well {
+			padding: 5px 24px 5px 24px;
+			margin-bottom: 28px;
+		}
+	}
+}
+
+/* --- Specifics --- */
+.slider-question {
+	margin: 8px;
+
+	.slider-value {
+		text-align: center;
+		border: none;
+		min-width: 50px;
+		max-width: 20%;
+		line-height: 24px;
+		padding: 12px;
+		margin-left: 12px;
+		background: #DDD;
+		font-size: 16px;
+		font-weight: thin;
+	}
+}
+
+.choice-question {
+	padding-left: 56px;
+	padding-right: 30px;
+
+	md-radio-button {
+		margin: 7px 18px 7px 0px;
+	}
+}
+
+
+
+
+
+// Animate adding question panels
+
+
+.example-animate-container {
+	background:white;
+	border:1px solid black;
+	list-style:none;
+	margin:0;
+	padding:0 10px;
+
+}
+
+.animate-repeat {
+	line-height:40px;
+	list-style:none;
+	box-sizing:border-box;
+}
+
+// Uncomment to fade on panel close (buggy)
+// .animate-repeat.ng-leave,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+	-webkit-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+
+}
+
+// .animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+	opacity:0;
+	max-height:0;
+
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+	opacity:1;
+	max-height:40px;
+
+}

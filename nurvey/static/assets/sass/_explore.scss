@@ -1,0 +1,185 @@
+
+/* -------------------------------- EXPLORE -------------------------------- */
+
+// Legend for graph
+.keys {
+	margin-bottom: 22px;
+	color: #999;
+
+	.color-block {
+		height: 3px;
+		width: 32px;
+		display: inline-block;
+		opacity: 80%;
+		margin: 0 10px 3px;
+	}
+}
+
+#explore {
+
+	.panel-body {
+		padding: 0px;
+
+		.graph-row-bg {
+			background: #333;
+			padding: 50px 80px 15px 75px;
+			color: #AAA;
+
+			.keys {
+				color: #999;
+			}
+
+			@media (max-width: 480px) {
+				padding: 20px 35px 15px 35px;
+			}
+			@media (max-width: 380px) {
+				padding: 5px 20px 5px 20px;
+			}
+
+			.graph-row {
+				position: relative;
+
+				.x-axis-label, .y-axis-label {
+					position: absolute;
+					text-transform: uppercase;
+				}
+				.y-axis-label {
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					width: 60px;
+					left: -50px;
+					word-wrap: break-word;
+
+					.y-axis-inner {
+						@include transform-origin(50%, 50%);
+
+						@media (max-width: 480px) {
+							@include rotate(-90deg);
+							width: 250px;
+							position: relative;
+							left: -85px;
+							overflow: hidden;
+							text-overflow: ellipses;
+							white-space: nowrap;
+						}
+						@media (max-width: 380px) {
+							left: -75px;
+						}
+
+					}
+				}
+				.x-axis-label {
+					width: 100%;
+					text-align: center;
+					bottom: -36px;
+					text-transform: uppercase;
+					padding-left: 50px;
+				}
+
+				.explore-graph-container {
+					height: 300px;
+					margin-bottom: 45px;
+					padding-left: 18px;
+
+				}
+			}
+
+		}
+
+		.form-row {
+			padding: 30px 0 30px 0;
+			text-align: center;
+
+			.form-row-inner {
+				display: inline-block;
+				max-width: 500px;
+				width: 90%;
+
+
+				.help-text-row {
+					text-align: left;
+					padding-left: 10px;
+				}
+				.help-text-row.small {
+					margin-top: 6px;
+				}
+
+				hr.mobile-divider {
+					border-color: #DDD;
+					margin-top: 30px;
+					margin-bottom: 20px;
+				}
+
+				md-autocomplete {
+					// margin: 6px;
+					// background: #FDFDFD;
+					background: #FFF;
+
+					input {
+						min-width: 0px;
+					}
+
+				}
+
+				.filters {
+					margin-top: 40px;
+
+					.filter-title {
+						text-transform: uppercase;
+						font-size: 18px;
+						display: none;
+
+						@media (max-width: 510px) {
+							display: initial;
+						}
+					}
+					.filter-form:nth-child(4) hr {
+						margin-top: 5px;
+					}
+
+					.dash {
+						// Double padding from .padded
+						width: 20px;
+						height: 100%;
+
+						@media (max-width: $break-small) {
+							// width: 8px;
+						}
+					}
+
+					.padded {
+						@media (max-width: $break-small) {
+							padding: 4px;
+						}
+					}
+
+				}
+
+				.add-filter-btn {
+					margin-top: 25px;
+				}
+			}
+
+		}
+	}
+}
+
+.md-autocomplete-suggestions li {
+	color: #888;
+
+	.highlight {
+		color: #222;
+	}
+
+	.sub-text {
+		color: #999;
+		font-size: 0.85em;
+		margin-left: 12px;
+	}
+	.points {
+		padding-right: 12px;
+		font-size: 0.95em;
+	}
+}

@@ -1,0 +1,99 @@
+
+#account {
+
+	.no-recent-surveys {
+		height: 100%;
+		width: 100%;
+		@extend .flex-center;
+	}
+
+	.recent-surveys {
+
+		.md-list-item-text {
+			padding-bottom: 10px;
+
+			.survey-title {
+				color: #444;
+				line-height: 1.4em;
+			}
+			.survey-info {
+				@extend .muted;
+				font-size: 0.9em;
+				margin-top: 5px;
+			}
+
+			.survey-points {
+				min-width: 70px;
+			}
+		}
+	}
+
+	md-card.basic-info {
+		// 2 Times regular margin for even between panel
+		margin-top: 16px;
+	}
+}
+
+.modal-backdrop {
+	z-index: -10;
+}
+
+
+#login-modal {
+
+
+
+	.modal-header {
+		background: $panel-background-color;
+		padding-left: 32px;
+	}
+
+	.modal-body {
+		background: $panel-background-color;
+
+		md-content {
+			background: transparent;
+		}
+
+		md-tab {
+			max-width: 1px;
+		}
+
+		label {
+			font-weight: normal;
+			color: #444;
+			font-size: 15px;
+		}
+
+		md-input-container {
+			padding-left: 6px;
+			padding-bottom: 0px;
+
+			label {
+				position: relative;
+				top: 4px;
+				color: #888;
+			}
+
+			input, label {
+				padding-left: 5px;
+			}
+
+			input {
+				border-bottom: 1px solid #DDD;
+			}
+		}
+
+		.buttons-row {
+			margin-top: 50px;
+			text-align: right;
+
+			.reddit {
+				background: #ff5700;
+				color: #EFEFEF;
+			}
+		}
+	}
+
+
+}

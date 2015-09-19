@@ -1,0 +1,190 @@
+#landing {
+
+	.splash {
+		box-shadow: inset 0 0 720px rgba(0, 0, 0, 0.3);
+		height: 550px;
+		background: #439CBF;
+
+		.splash-inner {
+			max-width: 900px;
+
+			.splash-text {
+				margin-right: 24px;
+				font-size: 60px;
+
+				text-align: right;
+				@media (max-width: 600px) {
+					text-align: center;
+				}
+
+				h1 {
+					color: white;
+					font-family: 'Raleway', 'Helvetica', 'Arial', sans-serif;
+					font-weight: bold;
+					text-transform: uppercase;
+
+
+					@media (max-width: 700px) {
+						font-size: 0.75em;
+					}
+					@media (max-width: 350px) {
+						font-size: 0.65em;
+					}
+				}
+				p {
+					color: white;
+					font-size: 0.38em;
+
+					@media(max-width: 700px) {
+						font-size: 0.25em;
+					}
+				}
+			}
+
+
+			.splash-buttons {
+				font-size: 18px;
+
+				.call-primary {
+					padding: 12px 20px 12px 20px;
+					font-size: 1em;
+
+					@media (max-width: 700px) {
+						font-size: 0.8em;
+					}
+				}
+				.call {
+					margin: 5px 0 5px;
+				}
+				.call-secondary-link {
+					color: #EEE;
+					transition: color 0.2s;
+					font-size: 0.9em;
+
+					@media (max-width: 700px) {
+						font-size: 0.7em;
+					}
+
+
+					.call-secondary {
+						padding-left: 12px;
+					}
+				}
+				.call-secondary-link:hover {
+					text-decoration: none;
+					color: white;
+				}
+			}
+
+		}
+
+
+	}
+
+
+	// Recent Surveys
+	.content:nth-child(odd) {
+		background: #F0F0F0;
+		z-index: 1;
+	}
+	.content:nth-child(even) {
+		z-index: 2;
+		@include box-shadow(rgba(black, 0.3) 0px 0px 10px);
+	}
+
+	.content {
+		padding-top: 80px;
+		padding-bottom: 80px;
+
+		.panel {
+			margin-top: 20px;
+
+			.panel-body {
+				padding: 35px;
+			}
+		}
+	}
+
+
+	.content.features {
+		h1 {
+			color: #444;
+		}
+	}
+
+	.content.top-surveys {
+
+		.panel {
+			width: 100%;
+			max-width: $max-width;
+			display: inline-block;
+
+
+		}
+
+		.list-group-item {
+
+			.points-container {
+				width: 80px;
+				text-align: center;
+
+				@media (max-width: $break-small) {
+					width: 40px;
+				}
+
+
+				.badge {
+					font-size: 16px;
+					padding: 6px 12px 7px;
+
+					@media (max-width: $break-small) {
+						padding: 3px 6px 4px;
+						font-size: 14px;
+					}
+				}
+			}
+
+			.survey-info {
+				padding-right: 10px;
+				min-width: 0px;
+
+				h4 {
+					color: #555;
+					padding-left: 15px;
+
+					@media (max-width: $break-small) {
+						padding-left: 5px;
+						font-size: 18px;
+					}
+				}
+
+				hr {
+					margin: 12px 0 0 0;
+
+					@media (max-width: $break-small) {
+						margin-top: 0px;
+					}
+				}
+
+				.sub-texts {
+					padding-left: 18px;
+					color: #999;
+
+					@media (max-width: $break-small) {
+						padding-left: 6px;
+						font-size: 0.8em;
+					}
+
+					.username {
+						color: #666;
+					}
+
+					.inline-divider {
+						margin: 0 6px 0 6px;
+					}
+				}
+			}
+
+		}
+	}
+}

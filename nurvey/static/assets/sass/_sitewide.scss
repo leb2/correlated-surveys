@@ -1,0 +1,188 @@
+
+/* -------------------------------- EVERYTHING -------------------------------- */
+
+.ng-valid {
+	@extend .has-success;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	  display: none !important;
+}
+p.large-text {
+	font-family: 'Open Sans', 'Raleway', 'Helvetica', 'Arial', sans-serif;
+	font-weight: 100;
+	font-size: 26px;
+	line-height: 30px;
+}
+p.medium-text {
+	@extend p.large-text;
+	font-size: 18px;
+}
+
+
+.top-buffer {
+	margin-top: 30px;
+}
+.top-buffer-large {
+	margin-top: 90px;
+}
+
+h1, h2 {
+	font-family: $raleway-stack;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #333;
+}
+
+.app-view {
+	margin-top: 28px;
+}
+
+.max-width {
+	width: 95%;
+
+	// Important to override angular material flex
+	max-width: $max-width !important;
+}
+.no-min-width {
+	min-width: 0px;
+}
+
+.panel-body {
+	background: $panel-background-color;
+	padding: 28px;
+}
+md-card {
+	background: $panel-background-color;
+}
+
+
+// For particularly long survey titles
+.list-group-item-heading {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+// Toggle description visibility on hover
+.list-group-item p {
+	display: none;
+	color: #666;
+}
+.list-group-item:hover p {
+	display: initial;
+}
+
+.padded {
+	padding: 8px;
+}
+.padded-extra {
+	padding: 16px;
+}
+
+body {
+	color: #666 !important;
+}
+@media (max-width: $break-small) {
+	.panel-body {
+		padding: 10px;
+	}
+}
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+textarea {
+	resize: vertical;
+}
+
+.uppercase-label {
+	text-transform: uppercase;
+	font-size: 1.15em;
+}
+.right-btn {
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.muted {
+	color: #999 !important;
+}
+.md-card {
+	color: #333 !important;
+}
+
+
+
+
+
+/* --- Angular Material --- */
+
+// Removes outline on checkboxes and radioboxes
+md-checkbox .md-label {
+	border: transparent !important;
+}
+md-radio-group.md-default-theme:focus {
+	border-color: transparent !important;
+}
+
+
+
+/* --- Custom Stuff --- */
+
+// Creates a border with a space for the title
+.border-title {
+	border: 1px solid #CCC;
+	padding: 15px;
+	position: relative;
+
+	@media (max-width: 510px) {
+		border: none;
+		padding: 0px;
+	}
+
+
+	.inline-title {
+
+		display: inline;
+		position: absolute;
+		top: -7px;
+		left: 20px;
+		line-height: 15px;
+		background: $panel-background-color;
+		padding: 0 12px 0 12px;
+		font-size: 15px;
+
+		@media (max-width: 510px) {
+			display: none;
+		}
+
+	}
+}
+.border-title.extra-padding {
+	padding: 32px;
+
+	@media (max-width: 510px) {
+		padding: 0px;
+	}
+}
+
+
+
+
+input {
+	text-align: left;
+	height: 40px !important;
+	width: 100%;
+	padding: 0px 12px 0px 12px !important;
+	// background: #FDFDFD;
+	background: white;
+}
+
+.lifted-input {
+	border-radius: 2px;
+
+	input {
+		box-shadow: none;
+	}
+}
