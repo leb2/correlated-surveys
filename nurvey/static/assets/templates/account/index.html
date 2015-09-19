@@ -11,7 +11,7 @@
 					<md-toolbar>
 						<div class='md-toolbar-tools'>Recent Surveys</div>
 					</md-toolbar>
-					<div class='padded'>
+					<div class='padded recent-surveys-padded'>
 						<div class='text-left no-recent-surveys' ng-show='recentSurveys.length == 0'>
 							No Recent Surveys
 						</div>
@@ -19,7 +19,7 @@
 							<md-divider></md-divider>
 							<div ng-repeat='survey in recentSurveys'>
 								<md-list-item class='md-3-line'>
-									<md-button>
+									<md-button ng-click='goToSurvey(survey.id)'>
 									<div class='md-list-item-text' layout='row'>
 										<div>
 											<a href='#/feed?survey={{ survey.id }}'>

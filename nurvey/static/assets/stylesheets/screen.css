@@ -7919,7 +7919,7 @@ textarea {
   border-bottom-left-radius: 0px;
 }
 
-.muted, #account .recent-surveys .md-list-item-text .survey-info {
+.muted, #account .recent-surveys-padded .recent-surveys .md-button .md-list-item-text .survey-info {
   color: #999 !important;
 }
 
@@ -8518,28 +8518,44 @@ html, body {
   height: 100%;
   width: 100%;
 }
-#account .recent-surveys .md-list-item-text {
+#account .recent-surveys-padded {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#account .recent-surveys-padded .recent-surveys .md-button {
+  margin: 0px;
+  text-align: left;
+  width: 100%;
+  padding: 0 16px;
+}
+#account .recent-surveys-padded .recent-surveys .md-button a {
+  text-transform: none;
+}
+#account .recent-surveys-padded .recent-surveys .md-button .md-list-item-text {
   padding-bottom: 10px;
 }
-#account .recent-surveys .md-list-item-text .survey-title {
+#account .recent-surveys-padded .recent-surveys .md-button .md-list-item-text .survey-title {
   color: #444;
   line-height: 1.4em;
 }
-#account .recent-surveys .md-list-item-text .survey-info {
-  font-size: 0.9em;
+#account .recent-surveys-padded .recent-surveys .md-button .md-list-item-text .survey-info {
+  font-size: 0.8em;
   margin-top: 5px;
 }
-#account .recent-surveys .md-list-item-text .survey-points {
+#account .recent-surveys-padded .recent-surveys .md-button .md-list-item-text .survey-points {
   min-width: 70px;
 }
 #account md-card.basic-info {
   margin-top: 16px;
 }
 
-.modal-backdrop {
-  z-index: -10;
+.modal-backdrop.in {
+  z-index: 1001;
 }
 
+#login-modal {
+  z-index: 1002;
+}
 #login-modal .modal-header {
   background: #FAFAFA;
   padding-left: 32px;
@@ -8550,8 +8566,11 @@ html, body {
 #login-modal .modal-body md-content {
   background: transparent;
 }
-#login-modal .modal-body md-tab {
+#login-modal .modal-body md-tabs md-tab {
   max-width: 1px;
+}
+#login-modal .modal-body md-tabs md-tab-item {
+  max-width: none !important;
 }
 #login-modal .modal-body label {
   font-weight: normal;

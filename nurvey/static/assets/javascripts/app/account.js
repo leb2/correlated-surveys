@@ -5,6 +5,7 @@
 	app.controller('AccountController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
 		$rootScope.location = 'Account';
+		console.log($rootScope.user);
 
 		$scope.recentSurveys = [];
 		var numberOfSurveys = 10; // Default on backend too
@@ -16,6 +17,10 @@
 					$scope.recentSurveys = recentSurveys;
 				});
 		});
+
+		$scope.goToSurvey = function(id) {
+			window.location = "#/feed?survey=" + id;
+		};
 
 		this.logout = function() {
 			$http.get('/logout/');
@@ -84,6 +89,7 @@
 					window.location = url;
 				});
 		};
+
 	}]);
 
 

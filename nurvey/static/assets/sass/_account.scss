@@ -7,26 +7,43 @@
 		@extend .flex-center;
 	}
 
-	.recent-surveys {
+	.recent-surveys-padded {
+		padding-left: 0px;
+		padding-right: 0px;
 
-		.md-list-item-text {
-			padding-bottom: 10px;
+		.recent-surveys {
 
-			.survey-title {
-				color: #444;
-				line-height: 1.4em;
-			}
-			.survey-info {
-				@extend .muted;
-				font-size: 0.9em;
-				margin-top: 5px;
-			}
+			.md-button {
+				margin: 0px;
+				text-align: left;
+				width: 100%;
+				padding: 0 16px;
 
-			.survey-points {
-				min-width: 70px;
+				a {
+					text-transform: none;
+				}
+
+				.md-list-item-text {
+					padding-bottom: 10px;
+
+					.survey-title {
+						color: #444;
+						line-height: 1.4em;
+					}
+					.survey-info {
+						@extend .muted;
+						font-size: 0.8em;
+						margin-top: 5px;
+					}
+
+					.survey-points {
+						min-width: 70px;
+					}
+				}
 			}
 		}
 	}
+
 
 	md-card.basic-info {
 		// 2 Times regular margin for even between panel
@@ -34,14 +51,16 @@
 	}
 }
 
-.modal-backdrop {
-	z-index: -10;
+.modal-backdrop.in {
+	z-index: 1001;
 }
 
 
+
+
+
 #login-modal {
-
-
+	z-index: 1002;
 
 	.modal-header {
 		background: $panel-background-color;
@@ -55,9 +74,17 @@
 			background: transparent;
 		}
 
-		md-tab {
-			max-width: 1px;
+		md-tabs {
+			md-tab {
+				max-width: 1px;
+			}
+
+			md-tab-item {
+				max-width: none !important;
+			}
+
 		}
+
 
 		label {
 			font-weight: normal;

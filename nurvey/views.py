@@ -383,6 +383,8 @@ def surveys(request):
                     Choice(text=choice['text'], poll=choice_poll).save()
 
             poll.save();
+
+        # TODO: increment user's num_created here
         return HttpResponse(json.dumps(survey_entry.pk), content_type='application/json')
 
     # Retreive question by id if present or by most recent
@@ -411,6 +413,7 @@ def surveys(request):
             # Add data about whether the user has voted on each survey
             for i in range(len(data)):
                 survey = Survey.objects.get(pk=data[i]['id'])
+                polls_debug = survey.poll_set.all()
                 poll_from_survey = survey.poll_set.all()[0]
                 has_voted = Vote.objects.filter(poll=poll_from_survey, user=request.user).count()
                 data[i]['has_voted'] = has_voted

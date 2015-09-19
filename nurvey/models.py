@@ -11,6 +11,9 @@ from collections import OrderedDict
 class Profile(models.Model):
     user = models.OneToOneField(User)
     points = models.IntegerField(default=0)
+    num_answered = models.IntegerField(default=0)
+    num_responses = models.IntegerField(default=0)
+    num_created = models.IntegerField(default=0)
 
 
 # Upvote / Downvote mechanic
