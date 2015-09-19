@@ -267,6 +267,15 @@
 		} else if ($scope.poll.poll_type == 'choice poll') {
 
 			if (results.domain.length >= 6 ) {
+				var MAX_LABEL_LENGTH = 20;
+
+				for (var i=0; i<data.labels.length; i++) {
+					var label = data.labels[i];
+					console.log(label);
+					if (label.length > MAX_LABEL_LENGTH) {
+						data.labels[i] = label.substring(0, MAX_LABEL_LENGTH) + "...";
+					}
+				}
 				chart.Bar(data, options);
 
 			} else {
@@ -300,7 +309,7 @@
 
 
 
-	/* ----------------- SPECIFIC POLL ----------------- */
+	/* ----------------- SPECIFIC POLL (TEMPLATE) ----------------- */
 
 
 
