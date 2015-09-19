@@ -94,6 +94,8 @@
 			$scope.survey.base_num_upvotes = $scope.survey.num_upvotes;
 			$scope.survey.base_num_downvotes = $scope.survey.num_downvotes;
 
+			$scope.survey.isOwned = $rootScope.user.username == $scope.survey.owner.username;
+
 			// Gets the users current vote
 			// TODO: Add to serialization in backend
 			$http.get('/points/?id=' + $scope.survey.id).

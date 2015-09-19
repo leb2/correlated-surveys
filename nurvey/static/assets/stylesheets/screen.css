@@ -8510,6 +8510,9 @@ html, body {
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
+#feed .buttons.panel .voting-container button {
+  background: #EFEFEF;
+}
 
 #account .no-recent-surveys {
   height: 100%;

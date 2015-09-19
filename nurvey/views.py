@@ -420,12 +420,18 @@ def surveys(request):
 
 def delete_survey(request):
     id = request.GET.dict().get('id')
-    if id is not None:
-        survey = Survey.objects.get(pk=id)
-        survey.delete()
-    else:
+    if id is None:
         return HttpResponse("No id specified", status=400)
-    return HttpResponse("Delete successful")
+    survey = Survey.objects.get(pk=id)
+
+    if survey.owner == request.user:
+        survey.delete()
+        return HttpResponse("Delete successful")
+    else:
+        return HttpResponse("Not Onwer", status=400)
+
+
+
 
 
 
