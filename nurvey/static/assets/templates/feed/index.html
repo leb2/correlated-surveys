@@ -163,12 +163,14 @@
 						</div>
 					</div>
 					<div class='panel-body'>
-						<div class='list-group'>
-							<a ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}'
-								ng-repeat='loadedSurvey in loadedSurveys' class='list-group-item'>
-								{{ loadedSurvey.poll_set[0].title }}
-								<span ng-hide='loadedSurvey.poll_set[0].title.length'>Untitled</span>
-							</a>
+						<div class='list-group-container'>
+							<div class='list-group'>
+								<a ng-click='gotoSurvey(loadedSurvey)' href ng-class='{active: survey.id == loadedSurvey.id}'
+									ng-repeat='loadedSurvey in loadedSurveys' class='list-group-item'>
+									{{ loadedSurvey.poll_set[0].title }}
+									<span ng-hide='loadedSurvey.poll_set[0].title.length'>Untitled</span>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
